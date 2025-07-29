@@ -1,0 +1,75 @@
+<div class="signup-container">
+    <div class="signup-card">
+      <h1 class="signup-title">Login to your account</h1>
+      
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="signup-form">
+        <!-- Username Field -->
+        <div class="form-group">
+          <label for="username" class="form-label">Username</label>
+          <input
+            type="text"
+            id="username"
+            formControlName="username"
+            placeholder="Username"
+            class="form-input"
+            [class.error]="username?.invalid && username?.touched"
+          />
+          <div *ngIf="username?.invalid && username?.touched" class="error-message">
+            <span *ngIf="username?.errors?.['required']">Username is required</span>
+            <span *ngIf="username?.errors?.['minlength']">Username must be at least 3 characters</span>
+          </div>
+        </div>
+  
+        <!-- Password Field -->
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <div class="password-input-container">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              id="password"
+              formControlName="password"
+              placeholder="Enter your password"
+              class="form-input password-input"
+              [class.error]="password?.invalid && password?.touched"
+            />
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="togglePasswordVisibility()"
+              [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+            >
+              <svg *ngIf="!showPassword" class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg *ngIf="showPassword" class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            </button>
+          </div>
+          <div *ngIf="password?.invalid && password?.touched" class="error-message">
+            <span *ngIf="password?.errors?.['required']">Password is required</span>
+            <span *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters</span>
+          </div>
+        </div>
+  
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="create-account-btn"
+          [disabled]="isLoading"
+          [class.loading]="isLoading"
+        >
+          <span *ngIf="!isLoading">Log in</span>
+          <span *ngIf="isLoading" class="loading-text">Creating account...</span>
+        </button>
+      </form>
+  
+      <!-- Login Link -->
+      <div class="login-link">
+        <span class="login-text">Don't have an account?</span>
+        <button type="button" class="login-btn" (click)="onLoginClick()">Sign up</button>
+      </div>
+    </div>
+  </div>
