@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.topbar-container {
+    background: white;
+    border-bottom: 1px solid #e1e8ed;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 0 1.5rem;
+}
+
+.topbar-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 0;
+    height: auto;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #6DA2B4;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.logo:hover {
+    color: #476874;
+}
+
+.mobile-menu {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.menu-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 24px;
+    padding: 0 1rem;
+    border: 1px solid #e0e0e0;
+    transition: all 0.2s ease;
+    width: 300px;
+    height: 40px;
+}
+
+.search-box:hover {
+    border-color: #c0c0c0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-box:focus-within {
+    border-color: #1976d2;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.15);
+}
+
+.search-box input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #333;
+    font-size: 0.9rem;
+    flex: 1;
+    padding: 0 0.5rem;
+}
+
+.search-box input::placeholder {
+    color: #999;
+}
+
+.search-box i {
+    color: #666;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    transition: color 0.2s ease;
+}
+
+.search-box i:hover {
+    color: #1976d2;
+}
+
+.right-box {
+    display: flex;
+    align-items: center;
+}
+
+.right-box img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    object-fit: cover;
+    border: 2px solid transparent;
+}
+
+.right-box img:hover {
+    border-color: #1976d2;
+    transform: scale(1.05);
+}
+

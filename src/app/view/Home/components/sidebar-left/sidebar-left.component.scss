@@ -1,0 +1,41 @@
+.container {
+  padding: 10px;
+  margin: 10px;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  color: #222222;  /* เปลี่ยนเป็นสีเข้มอ่านง่าย */
+  font-family: 'Roboto', sans-serif;  
+  font-weight: bold;
+  font-size: 13px;
+  width: 250px;
+}
+
+.content-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: #555555;
+}
+
+.content-list ul li {
+  padding: 8px 0;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.content-list ul li i {
+  margin-right: 10px;
+  margin-left: 15px;
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
+  color: #444;
+}
+
+.content-list ul li:hover {
+  background-color: rgba(0, 0, 0, 0.05); /* สีเทาอ่อน โปร่งแสง */
+  border-radius: 5px;
+}

@@ -1,0 +1,187 @@
+/* === Box Container === */
+.create-post-section,
+.content-condition-wrapper,
+.post-card {
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 10px auto;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* === Top input area === */
+.create-post-section .top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.create-post-section .top input {
+  background: #EFEFEF;
+  border-radius: 24px;
+  padding: 0 1rem;
+  border: none;
+  transition: all 0.2s ease;
+  flex: 1;
+  height: 40px;
+  font-size: 14px;
+  min-width: 0;
+}
+
+.create-post-section .top img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* === Down bar === */
+.create-post-section .down {
+  display: flex;
+  height: 50px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+}
+
+.create-post-section .down i {
+  font-size: 30px;
+  color: rgb(179, 218, 240);
+  cursor: pointer;
+}
+
+.create-post-section .down button {
+  padding: 6px 16px;
+  background-color: rgb(179, 218, 240);
+  border: none;
+  color: white;
+  height: 80%;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.create-post-section .down button:hover {
+  background-color: #145ecb;
+}
+
+/* === Content Condition === */
+.content-condition-wrapper .content-condition {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #fff;
+  padding: 10px;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.content-condition-wrapper .content-condition h3 {
+  margin: 0;
+  cursor: pointer;
+  font-weight: normal;
+  color: #666;
+  padding-bottom: 4px;
+  transition: all 0.3s ease;
+}
+
+.content-condition-wrapper .content-condition h3.active {
+  font-weight: bold;
+  color: #000;
+  border-bottom: 2px solid black;
+}
+
+/* === Post Card === */
+.post-card .poster-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.post-card .poster-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.post-card .poster-user img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.post-card .poster-name h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.post-card .poster-name h5 {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.post-card .more-icon {
+  font-size: 18px;
+  cursor: pointer;
+  color: #666;
+  padding: 6px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.post-card .more-icon:hover {
+  background-color: #f0f0f0;
+}
+
+.post-card .content {
+  margin-top: 0.5rem;
+}
+
+.post-card .post-text {
+  margin: 0 0 1rem 0;
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.5;
+  white-space: pre-line; /* เพื่อให้ขึ้นบรรทัดตาม <br> */
+}
+
+.post-card .post-image {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  object-fit: cover;
+  max-height: 300px;
+}
+
+/* === Post actions === */
+.post-card .post-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #555;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.post-card .post-actions i {
+  margin-right: 0.3rem;
+  cursor: pointer;
+}
+
+.post-card .left-actions,
+.post-card .right-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}

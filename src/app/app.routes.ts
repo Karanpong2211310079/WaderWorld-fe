@@ -6,5 +6,11 @@ export const routes: Routes = [
     {
         path: '',
         loadChildren: () => import('./view/account/account.route').then((m)=> accountRoutes)
+    },
+    {
+        path: 'workspace',
+        loadChildren: () => import('./view/Home/workspace.route').then((m) => workspaceRoutes)
     }
+        
+
 ];
