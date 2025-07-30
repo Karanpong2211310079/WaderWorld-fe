@@ -7,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+  condition = 1
+
+  changeStateIndex(i:number){
+    this.condition = i
+  }
 
 }

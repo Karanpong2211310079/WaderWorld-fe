@@ -2,8 +2,12 @@
     <app-topbar></app-topbar>
 
     <div class="main-container">
-        <app-sidebar-left></app-sidebar-left>
-        <router-outlet></router-outlet>
-        <app-sidebar-right></app-sidebar-right>
+        <app-sidebar-left class="sidebar-left"></app-sidebar-left>
+        
+        <div class="content-wrapper">
+            <router-outlet></router-outlet>
+        </div>
+        
+        <app-sidebar-right class="sidebar-right"></app-sidebar-right>
     </div>
 </div>

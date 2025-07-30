@@ -11,11 +11,114 @@
 </div>
 
 <div class="content-condition-wrapper">
-    <div class="content-condition">
-        <h3 class="active">For you</h3> <h3>Following</h3>
-    </div>
+  <div class="content-condition">
+  @if (condition === 1) {
+    <h3 class="active" (click)="changeStateIndex(1)">For you</h3>
+    <h3 (click)="changeStateIndex(2)">Following</h3>
+  } @else {
+    <h3 (click)="changeStateIndex(1)">For you</h3>
+    <h3 class="active" (click)="changeStateIndex(2)">Following</h3>
+  }
 </div>
 
+</div>
+
+<div class="post-card">
+    <div class="poster-detail">
+        <div class="poster-user">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face" alt="User Avatar">
+            <div class="poster-name">
+                <h3>Phraewphan Wannatawee</h3>
+                <h5>47 minutes ago</h5>
+            </div>
+        </div>
+        <i class="fas fa-ellipsis-h more-icon"></i>
+    </div>
+
+    <div class="content">
+        <h4 class="post-text">
+            สุดสัปดาห์ที่เกาะกูด<br>
+            ทริปเกาะกูด 3 วัน 2 คืน เป็นเกาะสำหรับพักผ่อน ไม่วุ่นวาย คนไม่เยอะ<br>
+            ปักหมุดที่พัก xxxxxxxxxx 2490.- มีอาหารเช้า ที่พักดี พนักงานบริการดี<br>
+            บรรยากาศดีมากกกกก
+        </h4>
+        <img class="post-image" src="https://www.chillpainai.com/src/wewakeup/scoop/images/56b8dded36353e49b2c246608bf3ebc06eb6d8a6.jpg" alt="Post Image">
+
+        <div class="post-actions">
+            <div class="left-actions">
+                <i class="fas fa-heart"></i> <span>Like</span>
+                <i class="fas fa-comment"></i> <span>Comments</span>
+            </div>
+            <div class="right-actions">
+                <i class="fas fa-bookmark"></i> <span>Bookmarks</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="post-card">
+    <div class="poster-detail">
+        <div class="poster-user">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face" alt="User Avatar">
+            <div class="poster-name">
+                <h3>Phraewphan Wannatawee</h3>
+                <h5>47 minutes ago</h5>
+            </div>
+        </div>
+        <i class="fas fa-ellipsis-h more-icon"></i>
+    </div>
+
+    <div class="content">
+        <h4 class="post-text">
+            สุดสัปดาห์ที่เกาะกูด<br>
+            ทริปเกาะกูด 3 วัน 2 คืน เป็นเกาะสำหรับพักผ่อน ไม่วุ่นวาย คนไม่เยอะ<br>
+            ปักหมุดที่พัก xxxxxxxxxx 2490.- มีอาหารเช้า ที่พักดี พนักงานบริการดี<br>
+            บรรยากาศดีมากกกกก
+        </h4>
+        <img class="post-image" src="https://www.chillpainai.com/src/wewakeup/scoop/images/56b8dded36353e49b2c246608bf3ebc06eb6d8a6.jpg" alt="Post Image">
+
+        <div class="post-actions">
+            <div class="left-actions">
+                <i class="fas fa-heart"></i> <span>Like</span>
+                <i class="fas fa-comment"></i> <span>Comments</span>
+            </div>
+            <div class="right-actions">
+                <i class="fas fa-bookmark"></i> <span>Bookmarks</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="post-card">
+    <div class="poster-detail">
+        <div class="poster-user">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face" alt="User Avatar">
+            <div class="poster-name">
+                <h3>Phraewphan Wannatawee</h3>
+                <h5>47 minutes ago</h5>
+            </div>
+        </div>
+        <i class="fas fa-ellipsis-h more-icon"></i>
+    </div>
+
+    <div class="content">
+        <h4 class="post-text">
+            สุดสัปดาห์ที่เกาะกูด<br>
+            ทริปเกาะกูด 3 วัน 2 คืน เป็นเกาะสำหรับพักผ่อน ไม่วุ่นวาย คนไม่เยอะ<br>
+            ปักหมุดที่พัก xxxxxxxxxx 2490.- มีอาหารเช้า ที่พักดี พนักงานบริการดี<br>
+            บรรยากาศดีมากกกกก
+        </h4>
+        <img class="post-image" src="https://www.chillpainai.com/src/wewakeup/scoop/images/56b8dded36353e49b2c246608bf3ebc06eb6d8a6.jpg" alt="Post Image">
+
+        <div class="post-actions">
+            <div class="left-actions">
+                <i class="fas fa-heart"></i> <span>Like</span>
+                <i class="fas fa-comment"></i> <span>Comments</span>
+            </div>
+            <div class="right-actions">
+                <i class="fas fa-bookmark"></i> <span>Bookmarks</span>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="post-card">
     <div class="poster-detail">
         <div class="poster-user">

@@ -1,0 +1,101 @@
+.user-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  max-width: 600px;
+  margin: auto;
+}
+
+.img-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.img-profile img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.user-info {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.user-info > div {
+  flex-grow: 1;
+  min-width: 200px;
+}
+
+.user-info h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.user-info .tag {
+  color: #888;
+  margin: 0.2rem 0;
+}
+
+.user-info h4 {
+  margin: 0.3rem 0;
+  font-weight: normal;
+  color: #555;
+}
+
+.user-info hr {
+  margin: 0.8rem 0;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
+.user-info button {
+  background-color: #F0EFFA;
+  color: black;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  height: 36px;
+  align-self: flex-start;
+}
+
+.user-info button:hover {
+  background-color: #0056b3;
+}
+.container.h2 {
+  text-align: center;
+}
+
+.user-post {
+margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+
+@media screen and (max-width: 480px) {
+  .user-info {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .user-info button {
+    align-self: center;
+    margin-top: 1rem;
+  }
+}

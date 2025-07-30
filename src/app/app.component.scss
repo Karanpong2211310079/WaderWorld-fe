@@ -1,0 +1,19 @@
+.content-wrapper {
+  width: 100%;
+  padding: 12px;
+  overflow-x: auto; /* ถ้า content ยาวเกิน ให้ scroll ได้ */
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+  .content-wrapper {
+    padding: 8px;
+    margin: 0;
+  }
+  
+  /* Force all child components to be responsive */
+  .content-wrapper > * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}

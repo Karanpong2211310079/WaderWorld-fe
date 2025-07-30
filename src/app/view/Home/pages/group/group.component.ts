@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './group.component.scss'
 })
 export class GroupComponent {
+  condition = 1
 
+  changeStateIndex(i:number){
+    this.condition = i
+  }
 }

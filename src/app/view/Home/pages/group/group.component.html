@@ -1,1 +1,50 @@
-<p>group works!</p>
+<div class="create-post-section">
+    <div class="top">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face"
+             alt="User Avatar">
+        <input type="text" placeholder="What’s on your mind?">
+    </div>
+    <div class="down">
+        <i class="fas fa-image"></i>
+        <button>Create</button>
+    </div>
+</div>
+
+<div class="content-condition-wrapper">
+  <div class="content-condition">
+  @if (condition === 1) {
+    <h3 class="active" (click)="changeStateIndex(1)">Your groups</h3>
+    <h3 (click)="changeStateIndex(2)">Following</h3>
+  } @else {
+    <h3 (click)="changeStateIndex(1)">For you</h3>
+    <h3 class="active" (click)="changeStateIndex(2)">Discover</h3>
+  }
+</div>
+
+</div>
+
+<div class="group-card">
+    <img src="https://www.travelandleisure.com/thmb/RQ3JmT8V2y2fhwr7NY0cgUumcCE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/phuket-thailand-karst-formation-phuket0327-92bd3ce9266148dba74cba5e36c711e2.jpg" alt="">
+    <div class="group-detail">
+        <h3>Phuket</h3>
+        <h5>Public 30 members</h5>
+        <button>View group</button>
+    </div>
+</div>
+<div class="group-card">
+    <img src="https://www.travelandleisure.com/thmb/RQ3JmT8V2y2fhwr7NY0cgUumcCE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/phuket-thailand-karst-formation-phuket0327-92bd3ce9266148dba74cba5e36c711e2.jpg" alt="">
+    <div class="group-detail">
+        <h3>Phuket</h3>
+        <h5>Public 30 members</h5>
+        <button>View group</button>
+    </div>
+</div>
+<div class="group-card">
+    <img src="https://www.travelandleisure.com/thmb/RQ3JmT8V2y2fhwr7NY0cgUumcCE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/phuket-thailand-karst-formation-phuket0327-92bd3ce9266148dba74cba5e36c711e2.jpg" alt="">
+    <div class="group-detail">
+        <h3>Phuket</h3>
+        <h5>Public 30 members</h5>
+        <button>View group</button>
+    </div>
+</div>
+

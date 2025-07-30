@@ -1,1 +1,140 @@
-<p>message works!</p>
+<div class="chat-container">
+  <!-- Sidebar -->
+  <div class="sidebar" [class.mobile-open]="isMobileSidebarOpen">
+    <!-- Header -->
+    <div class="sidebar-header">
+      <button class="mobile-back-btn" (click)="closeMobileSidebar()">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <div class="header-top">
+        <h1>Messages</h1>
+        <div class="user-avatar">
+          <span>JD</span>
+        </div>
+      </div>
+      
+      <!-- Search -->
+      <div class="search-container">
+        <i class="fas fa-search search-icon"></i>
+        <input
+          type="text"
+          placeholder="Search conversations..."
+          [(ngModel)]="searchTerm"
+          class="search-input"
+        />
+      </div>
+    </div>
+
+    <!-- Chat List -->
+    <div class="chat-list">
+      <div
+        *ngFor="let chat of filteredChats"
+        (click)="selectChat(chat)"
+        class="chat-item"
+        [class.active]="selectedChat?.id === chat.id"
+      >
+        <div class="chat-avatar-container">
+          <div class="chat-avatar">
+            <span>{{ getInitials(chat.name) }}</span>
+          </div>
+          <div *ngIf="chat.online" class="online-indicator"></div>
+        </div>
+        
+        <div class="chat-info">
+          <div class="chat-header">
+            <h3>{{ chat.name }}</h3>
+            <span class="time">{{ chat.time }}</span>
+          </div>
+          <p class="last-message">{{ chat.lastMessage }}</p>
+        </div>
+        
+        <div *ngIf="chat.unread > 0" class="unread-badge">
+          {{ chat.unread }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Chat Area -->
+  <div class="main-chat">
+    <!-- Chat Header -->
+    <div class="chat-header-bar">
+      <div class="chat-user-info">
+        <button class="mobile-menu-btn" (click)="openMobileSidebar()">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="chat-user-avatar">
+          <span>{{ getInitials(selectedChat?.name || '') }}</span>
+        </div>
+        <div class="chat-user-details">
+          <h2>{{ selectedChat?.name }}</h2>
+          <p class="status">Online</p>
+        </div>
+      </div>
+      
+      <div class="chat-actions">
+        <button class="action-btn">
+          <i class="fas fa-phone"></i>
+        </button>
+        <button class="action-btn">
+          <i class="fas fa-video"></i>
+        </button>
+        <button class="action-btn">
+          <i class="fas fa-ellipsis-v"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Messages Area -->
+    <div class="messages-container" #messagesContainer>
+      <div
+        *ngFor="let message of messages"
+        class="message"
+        [class.sent]="message.sender === 'me'"
+        [class.received]="message.sender === 'other'"
+      >
+        <div class="message-bubble">
+          <p>{{ message.text }}</p>
+          <span class="message-time">{{ message.time }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="input-area">
+      <div class="input-container">
+        <button class="attachment-btn">
+          <i class="fas fa-paperclip"></i>
+        </button>
+        <button class="image-btn">
+          <i class="fas fa-image"></i>
+        </button>
+        
+        <div class="message-input-wrapper">
+          <input
+            type="text"
+            [(ngModel)]="currentMessage"
+            (keydown.enter)="sendMessage()"
+            placeholder="Type a message..."
+            class="message-input"
+          />
+          <button class="emoji-btn">
+            <i class="fas fa-smile"></i>
+          </button>
+        </div>
+        
+        <button
+          (click)="sendMessage()"
+          [disabled]="!currentMessage.trim()"
+          class="send-btn"
+        >
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+      
+      <div class="input-hint">
+        <p>Press Enter to send • Shift + Enter for new line</p>
+      </div>
+    </div>
+  </div>
+</div>
