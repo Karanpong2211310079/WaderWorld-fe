@@ -16,6 +16,8 @@ isMenuOpen = false;
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-
+public navigateProfile(){
+  this.router.navigate(['/workspace/profile'])
+}
 
 }
