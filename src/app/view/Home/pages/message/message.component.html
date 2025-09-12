@@ -1,140 +1,67 @@
-<div class="chat-container">
-  <!-- Sidebar -->
-  <div class="sidebar" [class.mobile-open]="isMobileSidebarOpen">
-    <!-- Header -->
-    <div class="sidebar-header">
-      <button class="mobile-back-btn" (click)="closeMobileSidebar()">
-        <i class="fas fa-arrow-left"></i>
-      </button>
-      <div class="header-top">
-        <h1>Messages</h1>
-        <div class="user-avatar">
-          <span>JD</span>
-        </div>
-      </div>
-      
-      <!-- Search -->
-      <div class="search-container">
-        <i class="fas fa-search search-icon"></i>
-        <input
-          type="text"
-          placeholder="Search conversations..."
-          [(ngModel)]="searchTerm"
-          class="search-input"
-        />
-      </div>
-    </div>
+<div class="d-flex flex-column p-3" style="min-height: 100vh; background-color: #f0f2f5;">
+  <div class="row flex-grow-1 g-3">
 
-    <!-- Chat List -->
-    <div class="chat-list">
-      <div
-        *ngFor="let chat of filteredChats"
-        (click)="selectChat(chat)"
-        class="chat-item"
-        [class.active]="selectedChat?.id === chat.id"
-      >
-        <div class="chat-avatar-container">
-          <div class="chat-avatar">
-            <span>{{ getInitials(chat.name) }}</span>
+    <!-- User Panel -->
+    <div class="col-lg-4 col-md-5 col-sm-12">
+      <div class="d-flex flex-column h-100 bg-white rounded shadow-sm p-3">
+        <input type="text" class="form-control mb-3" placeholder="Search users...">
+
+        <div class="flex-grow-1 overflow-auto">
+          <div class="d-flex flex-row align-items-center mb-3 p-2 rounded" style="cursor:pointer;" >
+            <img 
+              src="https://i.pravatar.cc/150?img=3"
+              alt="avatar" 
+              class="rounded-circle"
+              style="width:50px; height:50px; object-fit:cover;">
+            <div class="ms-3">
+              <h6 class="mb-0">karanpong</h6>
+              <small class="text-muted">บัลลองดอร์ 8 สมัย</small>
+            </div>
           </div>
-          <div *ngIf="chat.online" class="online-indicator"></div>
         </div>
+      </div>
+    </div>
+
+    <!-- Chat Panel -->
+    <div class="col-lg-8 col-md-7 col-sm-12">
+      <div class="d-flex flex-column h-100 bg-white rounded shadow-sm p-3">
         
-        <div class="chat-info">
-          <div class="chat-header">
-            <h3>{{ chat.name }}</h3>
-            <span class="time">{{ chat.time }}</span>
+        <!-- Chat Header -->
+        <div class="d-flex flex-row align-items-center mb-3">
+          <div class="me-2">
+            <i class="bi bi-robot fs-3"></i>
           </div>
-          <p class="last-message">{{ chat.lastMessage }}</p>
+          <div>
+            <h5 class="mb-0">ChatGPT</h5>
+            <small class="text-muted">Model: GPT-3.5</small>
+          </div>
         </div>
-        
-        <div *ngIf="chat.unread > 0" class="unread-badge">
-          {{ chat.unread }}
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Main Chat Area -->
-  <div class="main-chat">
-    <!-- Chat Header -->
-    <div class="chat-header-bar">
-      <div class="chat-user-info">
-        <button class="mobile-menu-btn" (click)="openMobileSidebar()">
-          <i class="fas fa-bars"></i>
-        </button>
-        <div class="chat-user-avatar">
-          <span>{{ getInitials(selectedChat?.name || '') }}</span>
+        <!-- Chat Messages -->
+        <div class="flex-grow-1 bg-light rounded p-2 mb-3 overflow-auto">
+          <div class="mb-2">
+            <span class="badge bg-primary">Hello!</span>
+          </div>
+          <div class="mb-2 text-end">
+            <span class="badge bg-secondary">Hi there!</span>
+          </div>
         </div>
-        <div class="chat-user-details">
-          <h2>{{ selectedChat?.name }}</h2>
-          <p class="status">Online</p>
+
+        <!-- Input -->
+        <div class="d-flex">
+          <div class="input-group">
+            <span class="input-group-text bg-light">
+              <i class="bi bi-emoji-smile"></i>
+            </span>
+            <input type="text" class="form-control" placeholder="Type a message...">
+            <button class="btn btn-primary" type="button">
+              <i class="bi bi-arrow-right-square-fill"></i>
+            </button>
+          </div>
         </div>
-      </div>
-      
-      <div class="chat-actions">
-        <button class="action-btn">
-          <i class="fas fa-phone"></i>
-        </button>
-        <button class="action-btn">
-          <i class="fas fa-video"></i>
-        </button>
-        <button class="action-btn">
-          <i class="fas fa-ellipsis-v"></i>
-        </button>
+
       </div>
     </div>
 
-    <!-- Messages Area -->
-    <div class="messages-container" #messagesContainer>
-      <div
-        *ngFor="let message of messages"
-        class="message"
-        [class.sent]="message.sender === 'me'"
-        [class.received]="message.sender === 'other'"
-      >
-        <div class="message-bubble">
-          <p>{{ message.text }}</p>
-          <span class="message-time">{{ message.time }}</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Input Area -->
-    <div class="input-area">
-      <div class="input-container">
-        <button class="attachment-btn">
-          <i class="fas fa-paperclip"></i>
-        </button>
-        <button class="image-btn">
-          <i class="fas fa-image"></i>
-        </button>
-        
-        <div class="message-input-wrapper">
-          <input
-            type="text"
-            [(ngModel)]="currentMessage"
-            (keydown.enter)="sendMessage()"
-            placeholder="Type a message..."
-            class="message-input"
-          />
-          <button class="emoji-btn">
-            <i class="fas fa-smile"></i>
-          </button>
-        </div>
-        
-        <button
-          (click)="sendMessage()"
-          [disabled]="!currentMessage.trim()"
-          class="send-btn"
-        >
-          <i class="fas fa-paper-plane"></i>
-        </button>
-      </div>
-      
-      <div class="input-hint">
-        <p>Press Enter to send • Shift + Enter for new line</p>
-      </div>
-    </div>
   </div>
 </div>

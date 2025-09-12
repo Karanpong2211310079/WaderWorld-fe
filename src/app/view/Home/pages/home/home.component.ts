@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-
+import { FollowBtnComponent } from "../../../../shared/components/follow-btn/follow-btn.component";
+import { PostComponent } from '../../../../shared/components/post/post.component';
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [FollowBtnComponent,PostComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

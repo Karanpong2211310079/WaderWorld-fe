@@ -1,50 +1,28 @@
-<div class="create-post-section">
-    <div class="top">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face"
-             alt="User Avatar">
-        <input type="text" placeholder="What’s on your mind?">
-    </div>
-    <div class="down">
-        <i class="fas fa-image"></i>
-        <button>Create</button>
-    </div>
-</div>
+<div class="d-flex flex-column p-3 gap-3">
 
-<div class="content-condition-wrapper">
-  <div class="content-condition">
-  @if (condition === 1) {
-    <h3 class="active" (click)="changeStateIndex(1)">Your groups</h3>
-    <h3 (click)="changeStateIndex(2)">Following</h3>
-  } @else {
-    <h3 (click)="changeStateIndex(1)">For you</h3>
-    <h3 class="active" (click)="changeStateIndex(2)">Discover</h3>
-  }
-</div>
+  <!-- Create Post -->
+  <app-create-post></app-create-post>
+
+  <!-- Follow Button -->
+  <app-follow-btn></app-follow-btn>
+
+  <!-- Group Card -->
+  <div class="d-flex flex-row bg-white rounded shadow-sm mb-3 p-3 align-items-center">
+    <img
+      class="rounded"
+      style="width: 100px; height: 100px; object-fit: cover; animation: pulse 1.5s"
+      src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+      alt="img-cover"
+    >
+    <div class="d-flex flex-column  ms-3">
+      <h5 class="mb-1 fw-bold">Group Name</h5>
+      <p class="text-muted mb-2">Public · 30 members</p>
+      <button 
+        type="button" 
+        style="width: 23rem; padding: 0.5rem 1rem;"
+        class="btn btn-sm btn-primary "
+        >View Group</button>
+    </div>
+  </div>
 
 </div>
-
-<div class="group-card">
-    <img src="https://www.travelandleisure.com/thmb/RQ3JmT8V2y2fhwr7NY0cgUumcCE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/phuket-thailand-karst-formation-phuket0327-92bd3ce9266148dba74cba5e36c711e2.jpg" alt="">
-    <div class="group-detail">
-        <h3>Phuket</h3>
-        <h5>Public 30 members</h5>
-        <button>View group</button>
-    </div>
-</div>
-<div class="group-card">
-    <img src="https://www.travelandleisure.com/thmb/RQ3JmT8V2y2fhwr7NY0cgUumcCE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/phuket-thailand-karst-formation-phuket0327-92bd3ce9266148dba74cba5e36c711e2.jpg" alt="">
-    <div class="group-detail">
-        <h3>Phuket</h3>
-        <h5>Public 30 members</h5>
-        <button>View group</button>
-    </div>
-</div>
-<div class="group-card">
-    <img src="https://www.travelandleisure.com/thmb/RQ3JmT8V2y2fhwr7NY0cgUumcCE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/phuket-thailand-karst-formation-phuket0327-92bd3ce9266148dba74cba5e36c711e2.jpg" alt="">
-    <div class="group-detail">
-        <h3>Phuket</h3>
-        <h5>Public 30 members</h5>
-        <button>View group</button>
-    </div>
-</div>
-
