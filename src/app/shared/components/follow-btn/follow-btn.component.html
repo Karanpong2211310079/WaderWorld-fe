@@ -1,8 +1,16 @@
-<div class="row g-0 bg-white rounded shadow-sm mt-3">
-  <div class="col-lg-6 col-md-12 d-flex">
-    <a class="flex-grow-1 btn btn-sm">For you</a>
-  </div>
-  <div class="col-lg-6 col-md-12 d-flex">
-    <a class="flex-grow-1 btn btn-sm">Following</a>
-  </div>
+<div class="follow-btn-container">
+  <button
+    class="btn flex-grow-1"
+    [class.active]="currentChoice === choice1"
+    (click)="selectChoice(choice1)"
+  >
+    {{ choice1 }}
+  </button>
+  <button
+    class="btn flex-grow-1"
+    [class.active]="currentChoice === choice2"
+    (click)="selectChoice(choice2)"
+  >
+    {{ choice2 }}
+  </button>
 </div>

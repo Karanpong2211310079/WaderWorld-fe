@@ -2,11 +2,12 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PayloadUserModel } from '../../../core/model/payload.model';
+import { PayloadUserRegisterModel } from '../../../core/model/payload.model';
 import { Router } from '@angular/router';
 import { RestApiService } from '../../../core/service/rest-api-service/rest-api.service';
 import { takeUntil } from 'rxjs';
 import { Subject } from 'rxjs';
+import { ToastService } from '../../../core/service/toast-service/toast.service';
 
 @Component({
   selector: 'app-register',
@@ -19,19 +20,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   private router = inject(Router);
   private restApi = inject(RestApiService);
+  private toast = inject(ToastService);
 
   showPassword = false;
   isLoading = false;
 
   public form = new FormGroup({
-    username: new FormControl('', [
-      Validators.required,
-      Validators.minLength(8),
-    ]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(8),
-    ]),
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
   });
 
@@ -41,28 +37,39 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {}
 
-  private getUserData(): PayloadUserModel | undefined {
-    if (!this.form.valid) return undefined;
+  private getUserData(): PayloadUserRegisterModel | undefined {
+    if (!this.form.valid) return;
     const formData = this.form.value;
     return {
       username: formData.username,
       password: formData.password,
+      email: formData.email,
     };
   }
 
   public onSubmit() {
     const payload = this.getUserData();
-    console.log(payload);
+    if (!payload) {
+      this.toast.error('กรุณากรอกข้อมูลให้ครบ');
+      return;
+    }
+
     this.restApi
-      .post('auth/login/', payload)
+      .post('auth/register/', payload)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
-        next: (response) => {
-          if (response == 200) {
-            console.log('Login successful:', response);
+        next: (response: any) => {
+          if (response.code === 200) {
+            this.toast.success('Register Successful');
+            console.log('Register Successful', response);
           } else {
-            console.error('Login failed:', response);
+            this.toast.error(response.message || 'Register Failed');
+            console.error('Register failed:', response);
           }
+        },
+        error: (err) => {
+          console.error('Register API error:', err);
+          this.toast.error(err.error?.message || 'เกิดข้อผิดพลาด');
         },
       });
   }

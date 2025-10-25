@@ -7,6 +7,7 @@ import { GroupComponent } from './pages/group/group.component';
 import { MessageComponent } from './pages/message/message.component';
 import { NotificationComponent } from './pages/notification/notification.component';
 import { BookmarkComponent } from './pages/bookmark/bookmark.component';
+import { FriendsComponent } from './pages/friends/friends.component';
 
 export const workspaceRoutes: Routes = [
   {
@@ -16,33 +17,36 @@ export const workspaceRoutes: Routes = [
       {
         path: '',
         redirectTo: 'home',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'home',
-        component: HomeComponent
+        component: HomeComponent,
       },
       {
         path: 'profile',
-        component: ProfileComponent
+        component: ProfileComponent,
       },
       {
         path: 'group',
-        component: GroupComponent
+        component: GroupComponent,
       },
       {
         path: 'message',
-        component: MessageComponent
+        component: MessageComponent,
       },
       {
         path: 'notification',
-        component: NotificationComponent
+        component: NotificationComponent,
       },
       {
         path: 'Bookmark',
-        component: BookmarkComponent
-
-      }
+        component: BookmarkComponent,
+      },
+      {
+        path: 'Friends',
+        component: FriendsComponent,
+      },
     ],
   },
 ];

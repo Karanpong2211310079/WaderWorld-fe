@@ -1,0 +1,50 @@
+<div class="d-flex flex-column p-3 gap-1">
+  <div class="d-flex flex-column align-items-center bg-white rounded shadow-sm">
+    <h3>Friends Request</h3>
+  </div>
+  <app-follow-btn
+    [choice1]="Friend_Requests"
+    [choice2]="Friend"
+    (choiceChange)="onChoiceChanged($event)"
+  ></app-follow-btn>
+  @if (state == 'Friend Requests') { @for (item of Friend_Request_Data; track
+  $index) {
+  <div
+    class="d-flex flex-row bg-white rounded shadow-sm mb-3 p-3 align-items-center gap-3"
+  >
+    <img
+      class="rounded"
+      style="width: 100px; height: 100px; object-fit: cover"
+      src=""
+      alt="img-cover"
+    />
+    <div class="d-flex flex-column flex-grow-1">
+      <h5 class="mb-1 fw-bold">{{ item.friend_info.username }}</h5>
+      <p class="text-muted mb-2">Public · 30 members</p>
+    </div>
+    <div class="d-flex align-items-center">
+      <button class="btn btn-primary btn-md me-2">Confirm</button>
+      <button class="btn btn-secondary btn-md">Delete</button>
+    </div>
+  </div>
+
+  } } @if (state == 'Friend') {
+  <div
+    class="d-flex flex-row bg-white rounded shadow-sm mb-3 p-3 align-items-center gap-3"
+  >
+    <img
+      class="rounded"
+      style="width: 100px; height: 100px; object-fit: cover"
+      src=""
+      alt="img-cover"
+    />
+    <div class="d-flex flex-column flex-grow-1">
+      <h5 class="mb-1 fw-bold">Group Name</h5>
+      <p class="text-muted mb-2">Public · 30 members</p>
+    </div>
+    <div class="d-flex align-items-center">
+      <i class="bi bi-chat fs-6">message</i>
+    </div>
+  </div>
+  }
+</div>
