@@ -1,0 +1,26 @@
+<div class="d-flex flex-column p-3 gap-3">
+  <h3>edit profile</h3>
+  <span class="font-weight-bold text-muted">Profile picture</span>
+
+  <div class="d-flex flex-column align-items-center bg-white mb-3">
+    <img
+      class="rounded-circle img-fluid p-3"
+      src="https://i.pravatar.cc/220?img=2"
+      alt="avatar"
+    />
+  </div>
+
+  <label class="form-label">
+    <span class="font-weight-bold text-muted">Name</span>
+    <input type="text" class="form-control" placeholder="Name" />
+  </label>
+
+  <label for="bio" class="form-label">
+    <span class="font-weight-bold text-muted">Bio</span>
+    <input type="text" class="form-control" placeholder="Bio" />
+  </label>
+
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-primary" (click)="saveProfile()">Save</button>
+  </div>
+</div>

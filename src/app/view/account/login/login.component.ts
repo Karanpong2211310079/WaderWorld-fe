@@ -1,66 +1,70 @@
-import { Component,inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup , FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { PayloadUserModel } from '../../../core/model/payload.model';
 import { Router } from '@angular/router';
-
+import { RestApiService } from '../../../core/service/rest-api-service/rest-api.service';
+import { delay, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
+import { ResponseMessageModel } from '../../../core/model/response.model';
+import { AuthenticationServiceService } from '../../../core/service/authentication-service/authentication-service.service';
 @Component({
   selector: 'app-login',
-  imports: [CommonModule,ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
-export class LoginComponent {
-  private router = inject(Router)
+export class LoginComponent implements OnInit, OnDestroy {
+  private unsubscribe$ = new Subject<void>();
 
-  signupForm: FormGroup;
+  private router = inject(Router);
+  private restApi = inject(RestApiService);
+  private authService = inject(AuthenticationServiceService);
+
   showPassword = false;
   isLoading = false;
 
-  constructor(private fb: FormBuilder) {
-    this.signupForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-    });
+  public form = new FormGroup({
+    username: new FormControl(''),
+    password: new FormControl(''),
+  });
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+  ngOnInit(): void {}
+
+  private getUserData(): PayloadUserModel | undefined {
+    if (!this.form.valid) return undefined;
+    const formData = this.form.value;
+    return {
+      username: formData.username,
+      password: formData.password,
+    };
   }
 
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
+  public onSubmit() {
+    const payload = this.getUserData();
+    console.log(payload);
+    this.restApi
+      .post('auth/login/', payload)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (response: ResponseMessageModel) => {
+          if (response.code == 200) {
+            this.authService.setToken(response.data.tokens.access);
+            delay(3000);
+            this.router.navigate(['workspace']);
+          } else {
+            console.error('Login failed:', response);
+          }
+        },
+      });
   }
 
-  onSubmit() {
-    if (this.signupForm.valid) {
-      this.isLoading = true;
-      
-      // Simulate API call
-      setTimeout(() => {
-        console.log('Form submitted:', this.signupForm.value);
-        this.isLoading = false;
-        // Handle successful signup here
-      }, 2000);
-    } else {
-      this.markFormGroupTouched(this.signupForm);
-    }
+  public NavigateSignup() {
+    this.router.navigate(['auth/register']);
   }
-
-  onLoginClick() {
-    // Navigate to login page
-   this.router.navigate(['/register']);
-  }
-
-  private markFormGroupTouched(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach(key => {
-      const control = formGroup.get(key);
-      control?.markAsTouched();
-    });
-  }
-
-  // Getter methods for easy access in template
-  get username() { return this.signupForm.get('username'); }
-  get email() { return this.signupForm.get('email'); }
-  get password() { return this.signupForm.get('password'); }
-  
-
 }
