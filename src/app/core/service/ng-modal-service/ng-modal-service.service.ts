@@ -7,6 +7,7 @@ import {
   TemplateModalOptionsModel,
 } from '../../model/modal.model';
 import { TemplateModalComponent } from '../../../shared/components/modal/template-modal/template-modal.component';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -84,5 +85,42 @@ export class NgModalServiceService {
 
   public dismissModal(modalEl: NgbModalRef | undefined, value?: any): void {
     modalEl?.dismiss(value ?? undefined);
+  }
+  public openConfirm(
+    title: string,
+    message: string,
+    confirmText: string = 'Confirm',
+    cancelText: string = 'Cancel'
+  ): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      const modalRef = this.openTemplateModal(
+        'confirm-modal',
+        {
+          centered: true,
+          backdrop: 'static',
+          keyboard: false,
+          size: 'sm',
+        },
+        {
+          title: { text: title }, // ✅ ต้องเป็น TextModel
+          value: null,
+          componentRef: TemplateModalComponent,
+          footer: true,
+        }
+      );
+
+      const componentInstance = modalRef.componentInstance;
+      componentInstance.confirmText = confirmText;
+      componentInstance.cancelText = cancelText;
+
+      componentInstance.onConfirm = () => {
+        this.closeModal(modalRef);
+        resolve(true);
+      };
+      componentInstance.onCancel = () => {
+        this.dismissModal(modalRef);
+        resolve(false);
+      };
+    });
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, input } from '@angular/core';
 
 @Component({
   selector: 'app-follow-btn',
@@ -8,6 +8,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class FollowBtnComponent {
   @Input() choice1!: string;
   @Input() choice2!: string;
+  @Input() Count!: string;
   @Output() choiceChange = new EventEmitter<string>();
 
   currentChoice!: string;
