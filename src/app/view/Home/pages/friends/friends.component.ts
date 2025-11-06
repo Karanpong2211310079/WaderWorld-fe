@@ -69,13 +69,10 @@ export class FriendsComponent implements OnInit, OnDestroy {
 
     this.modalService
       .openConfirm(
-        'Confirm Deletion'
-        {
-          message: 'Are you sure you want to delete this friend?',
-          confirmText: 'Yes, Delete',
-          cancelText: 'Cancel',
-        }
-        
+        'Confirm Deletion',
+        'Are you sure you want to delete this friend?',
+        'Yes, Delete',
+        'Cancel'
       )
       .then((confirmed) => {
         if (confirmed) {
