@@ -1,11 +1,8 @@
-<div class="d-flex flex-column p-3 gap-3">
-  <!-- Create Post -->
-  <app-create-post></app-create-post>
-
+<div class="d-flex flex-column p-3 gap-3 position-relative">
   <!-- Follow Button -->
   <app-follow-btn
-    [choice1]="'Group Requests'"
-    [choice2]="'Groups'"
+    [choice1]="'Your Groups'"
+    [choice2]="'Discover'"
   ></app-follow-btn>
 
   <!-- Group Card -->
@@ -23,5 +20,12 @@
       <p class="text-muted mb-2">Public · 30 members</p>
       <button class="btn btn-primary btn-sm w-100">View Group</button>
     </div>
+  </div>
+
+  <!-- Floating Create Button -->
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-primary">
+      <i class="bi bi-plus-lg"></i> Create Group
+    </button>
   </div>
 </div>
