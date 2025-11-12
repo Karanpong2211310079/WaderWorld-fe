@@ -8,7 +8,7 @@ import { MessageComponent } from './pages/message/message.component';
 import { NotificationComponent } from './pages/notification/notification.component';
 import { BookmarkComponent } from './pages/bookmark/bookmark.component';
 import { FriendsComponent } from './pages/friends/friends.component';
-
+import { GroupPostListComponent } from '../../shared/components/group-post-list/group-post-list.component';
 export const workspaceRoutes: Routes = [
   {
     path: '',
@@ -29,7 +29,11 @@ export const workspaceRoutes: Routes = [
       },
       {
         path: 'group',
-        component: GroupComponent,
+        component: GroupComponent, // หน้า list ของกลุ่มทั้งหมด
+      },
+      {
+        path: 'group/:id',
+        component: GroupPostListComponent, // หน้า detail ของแต่ละ group
       },
       {
         path: 'message',

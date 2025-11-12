@@ -1,1 +1,83 @@
-<p>group-post-list works!</p>
+<div class="d-flex flex-column p-3">
+  <div
+    class="d-flex flex-column bg-white rounded shadow-sm mb-3 overflow-hidden"
+  >
+    <!-- ภาพพื้นหลัง -->
+    <img
+      [src]="group_data.image_url"
+      alt="Group Image"
+      class="w-100"
+      style="height: 180px; object-fit: cover"
+    />
+
+    <!-- ส่วนรายละเอียด -->
+    <div class="p-3 bg-white">
+      <!-- ชื่อกลุ่ม -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <h5 class="mb-0 fw-semibold">{{ group_data.name }}</h5>
+          <small class="text-muted"
+            >{{ group_data.members_count }} members</small
+          >
+        </div>
+      </div>
+
+      <!-- ปุ่ม Joined + Invite -->
+      <div class="d-flex gap-2 mb-3">
+        <div class="dropdown flex-fill">
+          <button
+            class="btn btn-light border dropdown-toggle w-100 py-2"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Joined
+          </button>
+          <ul class="dropdown-menu w-100">
+            <li><a class="dropdown-item" href="#">Leave group</a></li>
+          </ul>
+        </div>
+
+        <button
+          class="btn text-white flex-fill py-2 fw-medium"
+          style="background-color: #8fbcd4; border: none"
+        >
+          Invite
+        </button>
+      </div>
+
+      <!-- Tabs -->
+      <div class="d-flex justify-content-between mt-2">
+        <button
+          class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium"
+        >
+          You
+        </button>
+        <button
+          class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium"
+        >
+          About
+        </button>
+        <button
+          class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium"
+        >
+          People
+        </button>
+        <button
+          class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium"
+        >
+          Chats
+        </button>
+      </div>
+    </div>
+  </div>
+  <app-create-post
+    [placeholderText]="'Create post in ' + group_data.name"
+    [State]="'creategrouppost'"
+    [group_id]="group_data.id"
+  ></app-create-post>
+
+  <ng-container *ngFor="let post of group_data.posts">
+    <app-post [group_post]="post"></app-post>
+  </ng-container>
+</div>

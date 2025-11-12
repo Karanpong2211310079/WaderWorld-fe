@@ -1,31 +1,62 @@
-<div class="d-flex flex-column rounded shadow-sm p-3 bg-white">
+<div class="d-flex flex-column rounded shadow-sm p-3 bg-white mt-3">
+  <!-- Row: avatar + name left, icon right -->
 
-    <!-- Row: avatar + name left, icon right -->
-    <div class="d-flex align-items-center justify-content-between mb-3">
-        <div class="d-flex align-items-center gap-2">
-            <img 
-                class="rounded-circle img-fluid"
-                width="50" height="50"
-                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face" 
-                alt="">
-            <div>
-                <h3 class="mb-0">Karanpong Kotchakaew</h3>
-                <small>47 minutes ago</small>
-            </div>
-        </div>
-        <i class="bi bi-list fs-4" style="cursor: pointer;"></i>
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <div class="d-flex align-items-center gap-2">
+      <img
+        class="rounded-circle img-fluid"
+        width="50"
+        height="50"
+        [src]="group_post.user_image_url"
+        alt=""
+      />
+      <div>
+        <h3 class="mb-0">{{ group_post.username }}</h3>
+        <small>47 minutes ago</small>
+      </div>
     </div>
-    <div class="mb-3">
-        <p>Just had an amazing day at the beach! The sun, the sand, and the waves were perfect. Can't wait to go back!</p>
-        <img 
-            style=" max-height: 400px; object-fit: cover; width: 100%;"
-            class="img-fluid rounded "
-            src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=400&fit=crop" 
-            alt="">
-    </div>
+    <i class="bi bi-list fs-4" style="cursor: pointer"></i>
+  </div>
+  <div class="mb-3">
+    <p>
+      {{ group_post.content }}
+    </p>
+    <img
+      style="max-height: 400px; object-fit: cover; width: 100%"
+      class="img-fluid rounded"
+      [src]="group_post.media"
+      alt=""
+    />
+  </div>
+  <div
+    class="d-flex align-items-center justify-content-between mt-3 pt-2 border-top"
+  >
+    <!-- Left side: Like + Comment -->
     <div class="d-flex align-items-center gap-3">
-        <i class="bi bi-heart-fill fs-4" style="cursor: pointer;">like</i>
-        <i class="bi bi-chat-fill fs-4" style="cursor: pointer;"></i>
-        <i class="bi bi-share-fill fs-4" style="cursor: pointer;"></i>
+      <!-- Like -->
+      <div
+        class="d-flex align-items-center gap-1"
+        style="cursor: pointer"
+        (click)="onLike()"
+      >
+        <i class="bi bi-heart"></i>
+        <span>{{ likesCount }} likes</span>
+      </div>
+
+      <!-- Comment -->
+      <div
+        class="d-flex align-items-center gap-1"
+        style="cursor: pointer"
+        (click)="onComment()"
+      >
+        <i class="bi bi-chat"></i>
+        <span>{{ commentsCount }} comment</span>
+      </div>
     </div>
+
+    <!-- Right side: Bookmark -->
+    <div style="cursor: pointer">
+      <i class="bi bi-bookmark"></i>
+    </div>
+  </div>
 </div>

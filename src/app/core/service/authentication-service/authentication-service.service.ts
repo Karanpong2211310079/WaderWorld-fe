@@ -51,7 +51,8 @@ export class AuthenticationServiceService {
     try {
       const cleanToken = token.replace('Bearer ', '');
       const decoded: any = jwtDecode(cleanToken);
-      return decoded.user_id || null;
+      const userId = decoded.user_id;
+      return userId !== undefined && userId !== null ? Number(userId) : null;
     } catch (e) {
       console.error('Invalid token:', e);
       return null;

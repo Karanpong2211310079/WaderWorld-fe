@@ -3,28 +3,60 @@
   <app-follow-btn
     [choice1]="'Your Groups'"
     [choice2]="'Discover'"
+    (choiceChange)="onChoiceChange($event)"
   ></app-follow-btn>
 
-  <!-- Group Card -->
+  @if (choice == 'Your Groups') { @for (item of Usergroups; track $index) {
   <div
     class="d-flex flex-row bg-white rounded shadow-sm mb-3 p-3 align-items-center gap-3"
   >
     <img
       class="rounded"
       style="width: 100px; height: 100px; object-fit: cover"
-      src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+      [src]="item.image_url"
       alt="img-cover"
     />
     <div class="d-flex flex-column flex-grow-1">
-      <h5 class="mb-1 fw-bold">Group Name</h5>
+      <h5 class="mb-1 fw-bold">{{ item.name }}</h5>
       <p class="text-muted mb-2">Public · 30 members</p>
-      <button class="btn btn-primary btn-sm w-100">View Group</button>
+      <button
+        class="btn btn-primary btn-sm w-100"
+        (click)="NavigateToGroup($event, item.id)"
+      >
+        View Group
+      </button>
     </div>
   </div>
 
   <!-- Floating Create Button -->
+
+  } } @if (choice == 'Discover') { @for (item of Allgroups; track $index) {
+  <div
+    class="d-flex flex-row bg-white rounded shadow-sm mb-3 p-3 align-items-center gap-3"
+  >
+    <img
+      class="rounded"
+      style="width: 100px; height: 100px; object-fit: cover"
+      [src]="item.image_url"
+      alt="img-cover"
+    />
+    <div class="d-flex flex-column flex-grow-1">
+      <h5 class="mb-1 fw-bold">{{ item.name }}</h5>
+      <p class="text-muted mb-2">Public · 30 members</p>
+      <button
+        class="btn btn-primary btn-sm w-100"
+        (click)="NavigateToGroup($event, item.id)"
+      >
+        View Group
+      </button>
+    </div>
+  </div>
+
+  <!-- Floating Create Button -->
+
+  } }
   <div class="d-flex justify-content-end">
-    <button class="btn btn-primary">
+    <button class="btn btn-primary" (click)="openCreateGroup()">
       <i class="bi bi-plus-lg"></i> Create Group
     </button>
   </div>
