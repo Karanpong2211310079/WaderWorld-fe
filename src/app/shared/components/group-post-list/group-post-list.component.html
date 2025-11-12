@@ -20,64 +20,61 @@
             >{{ group_data.members_count }} members</small
           >
         </div>
-      </div>
-
-      <!-- ปุ่ม Joined + Invite -->
-      <div class="d-flex gap-2 mb-3">
-        <div class="dropdown flex-fill">
-          <button
-            class="btn btn-light border dropdown-toggle w-100 py-2"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Joined
-          </button>
-          <ul class="dropdown-menu w-100">
-            <li><a class="dropdown-item" href="#">Leave group</a></li>
-          </ul>
+        <div>
+          <i class="bi bi-gear-fill"></i>
+          <!-- ฟันเฟือง -->
         </div>
-
-        <button
-          class="btn text-white flex-fill py-2 fw-medium"
-          style="background-color: #8fbcd4; border: none"
-        >
-          Invite
-        </button>
-      </div>
-
-      <!-- Tabs -->
-      <div class="d-flex justify-content-between mt-2">
-        <button
-          class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium"
-        >
-          You
-        </button>
-        <button
-          class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium"
-        >
-          About
-        </button>
-        <button
-          class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium"
-        >
-          People
-        </button>
-        <button
-          class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium"
-        >
-          Chats
-        </button>
       </div>
     </div>
-  </div>
-  <app-create-post
-    [placeholderText]="'Create post in ' + group_data.name"
-    [State]="'creategrouppost'"
-    [group_id]="group_data.id"
-  ></app-create-post>
 
-  <ng-container *ngFor="let post of group_data.posts">
-    <app-post [group_post]="post"></app-post>
-  </ng-container>
+    <!-- ปุ่ม Joined + Invite -->
+    <div class="d-flex gap-2 mb-3">
+      <div class="dropdown flex-fill">
+        <button
+          class="btn btn-light border dropdown-toggle w-100 py-2"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Joined
+        </button>
+        <ul class="dropdown-menu w-100">
+          <li><a class="dropdown-item" href="#">Leave group</a></li>
+        </ul>
+      </div>
+
+      <button
+        class="btn text-white flex-fill py-2 fw-medium"
+        style="background-color: #8fbcd4; border: none"
+        (click)="invite_people()"
+      >
+        Invite
+      </button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="d-flex justify-content-between mt-2">
+      <button class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium">
+        You
+      </button>
+      <button class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium">
+        About
+      </button>
+      <button class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium">
+        People
+      </button>
+      <button class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium">
+        Chats
+      </button>
+    </div>
+  </div>
 </div>
+<app-create-post
+  [placeholderText]="'Create post in ' + group_data.name"
+  [State]="'creategrouppost'"
+  [group_id]="group_data.id"
+></app-create-post>
+
+<ng-container *ngFor="let post of group_data.posts">
+  <app-post [group_post]="post"></app-post>
+</ng-container>

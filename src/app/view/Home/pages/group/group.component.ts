@@ -68,7 +68,7 @@ export class GroupComponent implements OnDestroy, OnInit {
 
   public openCreateGroup() {
     this.modalService.openTemplateModal(
-      'Edit Profile',
+      'Create Group',
       {
         autoCloseRoutingChange: true,
         backdrop: 'static',

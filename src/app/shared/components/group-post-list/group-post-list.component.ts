@@ -6,6 +6,8 @@ import { Subject, takeUntil } from 'rxjs';
 import { PostComponent } from '../post/post.component';
 import { CreatePostComponent } from '../create-post/create-post.component';
 import { CommonModule } from '@angular/common';
+import { NgModalServiceService } from '../../../core/service/ng-modal-service/ng-modal-service.service';
+import { InviteComponent } from './components/group-invite/invite.component';
 @Component({
   selector: 'app-group-post-list',
   imports: [PostComponent, CreatePostComponent, CommonModule],
@@ -17,6 +19,7 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
   private restapi = inject(RestApiService);
   private authen = inject(AuthenticationServiceService);
   private unsubscribe$ = new Subject<void>();
+  private modalService = inject(NgModalServiceService);
 
   public group_data: any = [];
 
@@ -39,5 +42,26 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
         },
         error: (err) => console.error('❌ Load group posts error:', err),
       });
+  }
+  public invite_people() {
+    this.modalService.openTemplateModal(
+      'Edit Profile',
+      {
+        autoCloseRoutingChange: true,
+        backdrop: 'static',
+        keyboard: false,
+        size: 'lg',
+        scrollable: false,
+      },
+      {
+        componentRef: InviteComponent,
+        value: '',
+        title: {
+          text: 'PAGE.WORKSPACE.SETTINGS.UPDATE_ROLEPERMISSION.TITLE',
+        },
+        footer: false,
+        headerClass: 'bg-danger',
+      }
+    );
   }
 }
