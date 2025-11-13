@@ -7,10 +7,11 @@ import { RestApiService } from '../../../../core/service/rest-api-service/rest-a
 import { CreateGroupComponent } from './components/create-group/create-group.component';
 import { NgModalServiceService } from '../../../../core/service/ng-modal-service/ng-modal-service.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-group',
-  imports: [CreatePostComponent, FollowBtnComponent],
+  imports: [CreatePostComponent, CommonModule, FollowBtnComponent],
   templateUrl: './group.component.html',
   styleUrl: './group.component.scss',
 })
@@ -55,7 +56,7 @@ export class GroupComponent implements OnDestroy, OnInit {
       user_id: this.authen.getUserId(),
     };
     this.restapi
-      .get('group/get_groups/')
+      .post('group/get_groups/', user_id)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (response: any) => {
@@ -90,6 +91,22 @@ export class GroupComponent implements OnDestroy, OnInit {
   public NavigateToGroup(event: Event, groupId: number) {
     event.preventDefault();
     this.router.navigate(['/workspace/group', groupId]);
+  }
+  public RequestJoined(event: Event, groupId: number) {
+    const payload = {
+      user_id: this.authen.getUserId(),
+      group_id: groupId,
+    };
+    this.restapi
+      .post('group/create_request_join/', payload)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (response: any) => {
+          console.log('✅ Join request sent:', response);
+          this.LoadAllGroup();
+        },
+        error: (err) => console.error('❌ Join request error:', err),
+      });
   }
 
   public onChoiceChange(choice: string) {

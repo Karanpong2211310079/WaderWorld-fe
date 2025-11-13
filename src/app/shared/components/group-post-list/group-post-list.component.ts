@@ -8,9 +8,17 @@ import { CreatePostComponent } from '../create-post/create-post.component';
 import { CommonModule } from '@angular/common';
 import { NgModalServiceService } from '../../../core/service/ng-modal-service/ng-modal-service.service';
 import { InviteComponent } from './components/group-invite/invite.component';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastService } from '../../../core/service/toast-service/toast.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-group-post-list',
-  imports: [PostComponent, CreatePostComponent, CommonModule],
+  imports: [
+    PostComponent,
+    CreatePostComponent,
+    CommonModule,
+    NgbDropdownModule,
+  ],
   templateUrl: './group-post-list.component.html',
   styleUrl: './group-post-list.component.scss',
 })
@@ -20,13 +28,19 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
   private authen = inject(AuthenticationServiceService);
   private unsubscribe$ = new Subject<void>();
   private modalService = inject(NgModalServiceService);
+  private toast = inject(ToastService);
+  private router = inject(Router);
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
   public group_data: any = [];
 
   ngOnInit(): void {
     this.LoadGroupData();
   }
-  ngOnDestroy(): void {}
 
   public LoadGroupData() {
     const group_id = {
@@ -43,7 +57,25 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
         error: (err) => console.error('❌ Load group posts error:', err),
       });
   }
+  public Leave_group() {
+    const payload = {
+      group_id: this.route.snapshot.paramMap.get('id'),
+      user_id: this.authen.getUserId(),
+    };
+    this.restapi
+      .post('group/LeaveGroup/', payload)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (response: any) => {
+          this.router.navigate(['/workspace/group']);
+          this.toast.success('failed to leave group');
+        },
+        error: (err) => this.toast.error(''),
+      });
+  }
   public invite_people() {
+    const group_id = this.route.snapshot.paramMap.get('id');
+
     this.modalService.openTemplateModal(
       'Edit Profile',
       {
@@ -55,7 +87,7 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
       },
       {
         componentRef: InviteComponent,
-        value: '',
+        value: group_id,
         title: {
           text: 'PAGE.WORKSPACE.SETTINGS.UPDATE_ROLEPERMISSION.TITLE',
         },
@@ -63,5 +95,8 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
         headerClass: 'bg-danger',
       }
     );
+  }
+  public onPostUpdated(updatedPost: any) {
+    this.LoadGroupData();
   }
 }

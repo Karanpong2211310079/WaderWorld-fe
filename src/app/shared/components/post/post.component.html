@@ -12,7 +12,7 @@
       />
       <div>
         <h3 class="mb-0">{{ group_post.username }}</h3>
-        <small>47 minutes ago</small>
+        <small>วันที่ : {{ calculation_time(group_post.created_at) }}</small>
       </div>
     </div>
     <i class="bi bi-list fs-4" style="cursor: pointer"></i>
@@ -34,23 +34,23 @@
     <!-- Left side: Like + Comment -->
     <div class="d-flex align-items-center gap-3">
       <!-- Like -->
-      <div
-        class="d-flex align-items-center gap-1"
-        style="cursor: pointer"
-        (click)="onLike()"
-      >
-        <i class="bi bi-heart"></i>
-        <span>{{ likesCount }} likes</span>
+      <div class="d-flex align-items-center gap-1" style="cursor: pointer">
+        <i
+          class="bi"
+          [ngClass]="user_liked ? 'bi-heart-fill text-danger' : 'bi-heart'"
+          (click)="like_post()"
+        ></i>
+        <span>{{ group_post.like_count }} likes</span>
       </div>
 
       <!-- Comment -->
       <div
         class="d-flex align-items-center gap-1"
         style="cursor: pointer"
-        (click)="onComment()"
+        (click)="comment_modal()"
       >
         <i class="bi bi-chat"></i>
-        <span>{{ commentsCount }} comment</span>
+        <span>{{ group_post.comment_count }} comment</span>
       </div>
     </div>
 
