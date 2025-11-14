@@ -1,11 +1,12 @@
 .container {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 10px;
-  color: #222222;  /* เปลี่ยนเป็นสีเข้มอ่านง่าย */
-  font-family: 'Roboto', sans-serif;  
+  color: #222222; /* เปลี่ยนเป็นสีเข้มอ่านง่าย */
+  font-family: "Roboto", sans-serif;
   font-weight: bold;
+
   font-size: 13px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   padding: 10px;
   margin: 10px;
   width: 95%;
@@ -41,8 +42,8 @@
   border-radius: 5px;
 }
 a {
-  text-decoration: none;      /* ลบขีดเส้นใต้ */
-  color: inherit;             /* ใช้สีเดียวกับพ่อ */
-  outline: none;              /* ลบกรอบเมื่อโฟกัส */
-  background: transparent;    /* ลบสีพื้นหลัง */
+  text-decoration: none; /* ลบขีดเส้นใต้ */
+  color: inherit; /* ใช้สีเดียวกับพ่อ */
+  outline: none; /* ลบกรอบเมื่อโฟกัส */
+  background: transparent; /* ลบสีพื้นหลัง */
 }

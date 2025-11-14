@@ -1,1 +1,67 @@
-<p>manage-post works!</p>
+<div class="container">
+  <h2>Manage Posts</h2>
+  <app-follow-btn
+    [choice1]="User_state"
+    [choice2]="Group_state"
+    (choiceChange)="onChoiceChanged($event)"
+  >
+  </app-follow-btn>
+
+  @if (state == 'User') {
+  <table class="mt-3">
+    <tr class="head-table">
+      <th>ID</th>
+      <th>Poster</th>
+      <th>Content</th>
+      <th>Like</th>
+      <th>Comment</th>
+      <th>Create at</th>
+      <th>visibility</th>
+      <th>Action</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Shinobi</td>
+      <td>Kalee gmail.com</td>
+      <td>10</td>
+      <td>10/20/2025</td>
+      <td>
+        <button class="btn btn-danger">
+          <i class="bi bi-trash"></i>
+        </button>
+
+        <button class="btn btn-primary">
+          <i class="bi bi-pencil-square"></i>
+        </button>
+      </td>
+    </tr>
+  </table>
+  } @if (state == 'Group') {
+  <table class="mt-3">
+    <tr class="head-table">
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Bio</th>
+      <th>Create at</th>
+      <th>Action</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Shinobi</td>
+      <td>Kalee gmail.com</td>
+      <td>10</td>
+      <td>10/20/2025</td>
+      <td>
+        <button class="btn btn-danger">
+          <i class="bi bi-trash"></i>
+        </button>
+
+        <button class="btn btn-primary">
+          <i class="bi bi-pencil-square"></i>
+        </button>
+      </td>
+    </tr>
+  </table>
+  }
+</div>
