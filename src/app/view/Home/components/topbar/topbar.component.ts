@@ -4,20 +4,18 @@ import { RouterModule, Router, RouterOutlet } from '@angular/router'; // <== เ
 
 @Component({
   selector: 'app-topbar',
-  imports: [CommonModule,RouterModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './topbar.component.html',
-  styleUrl: './topbar.component.scss'
+  styleUrl: './topbar.component.scss',
 })
 export class TopbarComponent {
-private router = inject(Router)
-isMenuOpen = false;
+  private router = inject(Router);
+  isMenuOpen = false;
 
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
   }
-
-public navigateProfile(){
-  this.router.navigate(['/workspace/profile'])
-}
-
+  public navigateToProfile() {
+    this.router.navigate(['/workspace/profile']);
+  }
 }

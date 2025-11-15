@@ -1,153 +1,35 @@
-<div class="create-post-section">
-    <div class="top">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face"
-             alt="User Avatar">
-        <input type="text" placeholder="What’s on your mind?">
+<div class="d-flex flex-column p-3">
+  <div class="d-flex flex-column p-3 rounded shadow-sm bg-white">
+    <div class="d-flex align-items-center gap-2">
+      <img
+        class="rounded-circle"
+        src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face"
+        alt="User Avatar"
+        width="50"
+        height="50"
+      />
+      <input
+        placeholder="What's on your mind?"
+        type="text"
+        class="flex-grow-1 border-0 bg-light rounded px-3 py-2"
+        style="min-width: 0"
+      />
     </div>
-    <div class="down">
-        <i class="fas fa-image"></i>
-        <button>Create</button>
+    <div class="d-flex justify-content-end align-items-center p-2 gap-2">
+      <i class="bi bi-image-fill text-primary mx-2" style="font-size: 40px"></i>
+      <button class="btn btn-primary">create</button>
     </div>
-</div>
+  </div>
 
-<div class="content-condition-wrapper">
-  <div class="content-condition">
-  @if (condition === 1) {
-    <h3 class="active" (click)="changeStateIndex(1)">For you</h3>
-    <h3 (click)="changeStateIndex(2)">Following</h3>
-  } @else {
-    <h3 (click)="changeStateIndex(1)">For you</h3>
-    <h3 class="active" (click)="changeStateIndex(2)">Following</h3>
-  }
-</div>
+  <!-- แก้ตรงนี้ -->
 
-</div>
+  <app-follow-btn
+    [choice1]="'For You'"
+    [choice2]="'Following'"
+  ></app-follow-btn>
 
-<div class="post-card">
-    <div class="poster-detail">
-        <div class="poster-user">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face" alt="User Avatar">
-            <div class="poster-name">
-                <h3>Phraewphan Wannatawee</h3>
-                <h5>47 minutes ago</h5>
-            </div>
-        </div>
-        <i class="fas fa-ellipsis-h more-icon"></i>
-    </div>
-
-    <div class="content">
-        <h4 class="post-text">
-            สุดสัปดาห์ที่เกาะกูด<br>
-            ทริปเกาะกูด 3 วัน 2 คืน เป็นเกาะสำหรับพักผ่อน ไม่วุ่นวาย คนไม่เยอะ<br>
-            ปักหมุดที่พัก xxxxxxxxxx 2490.- มีอาหารเช้า ที่พักดี พนักงานบริการดี<br>
-            บรรยากาศดีมากกกกก
-        </h4>
-        <img class="post-image" src="https://www.chillpainai.com/src/wewakeup/scoop/images/56b8dded36353e49b2c246608bf3ebc06eb6d8a6.jpg" alt="Post Image">
-
-        <div class="post-actions">
-            <div class="left-actions">
-                <i class="fas fa-heart"></i> <span>Like</span>
-                <i class="fas fa-comment"></i> <span>Comments</span>
-            </div>
-            <div class="right-actions">
-                <i class="fas fa-bookmark"></i> <span>Bookmarks</span>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="post-card">
-    <div class="poster-detail">
-        <div class="poster-user">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face" alt="User Avatar">
-            <div class="poster-name">
-                <h3>Phraewphan Wannatawee</h3>
-                <h5>47 minutes ago</h5>
-            </div>
-        </div>
-        <i class="fas fa-ellipsis-h more-icon"></i>
-    </div>
-
-    <div class="content">
-        <h4 class="post-text">
-            สุดสัปดาห์ที่เกาะกูด<br>
-            ทริปเกาะกูด 3 วัน 2 คืน เป็นเกาะสำหรับพักผ่อน ไม่วุ่นวาย คนไม่เยอะ<br>
-            ปักหมุดที่พัก xxxxxxxxxx 2490.- มีอาหารเช้า ที่พักดี พนักงานบริการดี<br>
-            บรรยากาศดีมากกกกก
-        </h4>
-        <img class="post-image" src="https://www.chillpainai.com/src/wewakeup/scoop/images/56b8dded36353e49b2c246608bf3ebc06eb6d8a6.jpg" alt="Post Image">
-
-        <div class="post-actions">
-            <div class="left-actions">
-                <i class="fas fa-heart"></i> <span>Like</span>
-                <i class="fas fa-comment"></i> <span>Comments</span>
-            </div>
-            <div class="right-actions">
-                <i class="fas fa-bookmark"></i> <span>Bookmarks</span>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="post-card">
-    <div class="poster-detail">
-        <div class="poster-user">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face" alt="User Avatar">
-            <div class="poster-name">
-                <h3>Phraewphan Wannatawee</h3>
-                <h5>47 minutes ago</h5>
-            </div>
-        </div>
-        <i class="fas fa-ellipsis-h more-icon"></i>
-    </div>
-
-    <div class="content">
-        <h4 class="post-text">
-            สุดสัปดาห์ที่เกาะกูด<br>
-            ทริปเกาะกูด 3 วัน 2 คืน เป็นเกาะสำหรับพักผ่อน ไม่วุ่นวาย คนไม่เยอะ<br>
-            ปักหมุดที่พัก xxxxxxxxxx 2490.- มีอาหารเช้า ที่พักดี พนักงานบริการดี<br>
-            บรรยากาศดีมากกกกก
-        </h4>
-        <img class="post-image" src="https://www.chillpainai.com/src/wewakeup/scoop/images/56b8dded36353e49b2c246608bf3ebc06eb6d8a6.jpg" alt="Post Image">
-
-        <div class="post-actions">
-            <div class="left-actions">
-                <i class="fas fa-heart"></i> <span>Like</span>
-                <i class="fas fa-comment"></i> <span>Comments</span>
-            </div>
-            <div class="right-actions">
-                <i class="fas fa-bookmark"></i> <span>Bookmarks</span>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="post-card">
-    <div class="poster-detail">
-        <div class="poster-user">
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face" alt="User Avatar">
-            <div class="poster-name">
-                <h3>Phraewphan Wannatawee</h3>
-                <h5>47 minutes ago</h5>
-            </div>
-        </div>
-        <i class="fas fa-ellipsis-h more-icon"></i>
-    </div>
-
-    <div class="content">
-        <h4 class="post-text">
-            สุดสัปดาห์ที่เกาะกูด<br>
-            ทริปเกาะกูด 3 วัน 2 คืน เป็นเกาะสำหรับพักผ่อน ไม่วุ่นวาย คนไม่เยอะ<br>
-            ปักหมุดที่พัก xxxxxxxxxx 2490.- มีอาหารเช้า ที่พักดี พนักงานบริการดี<br>
-            บรรยากาศดีมากกกกก
-        </h4>
-        <img class="post-image" src="https://www.chillpainai.com/src/wewakeup/scoop/images/56b8dded36353e49b2c246608bf3ebc06eb6d8a6.jpg" alt="Post Image">
-
-        <div class="post-actions">
-            <div class="left-actions">
-                <i class="fas fa-heart"></i> <span>Like</span>
-                <i class="fas fa-comment"></i> <span>Comments</span>
-            </div>
-            <div class="right-actions">
-                <i class="fas fa-bookmark"></i> <span>Bookmarks</span>
-            </div>
-        </div>
-    </div>
+  <!-- <app-post></app-post> -->
+  <div class="content mt-3">
+    <!-- <app-post></app-post> -->
+  </div>
 </div>
