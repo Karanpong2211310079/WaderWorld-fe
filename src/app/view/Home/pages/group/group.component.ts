@@ -1,5 +1,5 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { CreatePostComponent } from '../../../../shared/components/create-post/create-post.component';
+import { CreatePostComponent } from '../../../../shared/components/create-group-post/create-post.component';
 import { FollowBtnComponent } from '../../../../shared/components/follow-btn/follow-btn.component';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthenticationServiceService } from '../../../../core/service/authentication-service/authentication-service.service';

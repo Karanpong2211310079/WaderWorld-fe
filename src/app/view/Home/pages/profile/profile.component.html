@@ -42,5 +42,11 @@
       </div>
     </div>
   </div>
-  <!-- <app-post></app-post> -->
+  <ng-container *ngFor="let post of user_post">
+    <app-user-post
+      [group_post]="post"
+      type="user"
+      (postUpdated)="handlePostUpdated($event)"
+    ></app-user-post>
+  </ng-container>
 </div>

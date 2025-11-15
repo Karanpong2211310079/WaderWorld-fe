@@ -4,7 +4,7 @@ import { RestApiService } from '../../../core/service/rest-api-service/rest-api.
 import { AuthenticationServiceService } from '../../../core/service/authentication-service/authentication-service.service';
 import { Subject, takeUntil } from 'rxjs';
 import { PostComponent } from '../post/post.component';
-import { CreatePostComponent } from '../create-post/create-post.component';
+import { CreatePostComponent } from '../create-group-post/create-post.component';
 import { CommonModule } from '@angular/common';
 import { NgModalServiceService } from '../../../core/service/ng-modal-service/ng-modal-service.service';
 import { InviteComponent } from './components/group-invite/invite.component';
@@ -30,6 +30,8 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
   private modalService = inject(NgModalServiceService);
   private toast = inject(ToastService);
   private router = inject(Router);
+
+  public type: string = 'group';
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();

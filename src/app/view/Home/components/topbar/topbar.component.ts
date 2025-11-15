@@ -18,4 +18,10 @@ export class TopbarComponent {
   public navigateToProfile() {
     this.router.navigate(['/workspace/profile']);
   }
+  public navigateToDashboard() {
+    this.router.navigate(['admin']);
+  }
+  public navigateToHome() {
+    this.router.navigate(['/workspace/home']);
+  }
 }
