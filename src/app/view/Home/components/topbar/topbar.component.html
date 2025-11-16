@@ -1,18 +1,46 @@
 <div class="container-fluid bg-white shadow-sm">
   <div class="d-flex justify-content-between align-items-center p-3">
     <!-- Left: Brand + Search -->
-    <div class="d-flex align-items-center gap-3 flex-grow-1">
-      <h3 class="mb-0">WanderWorld</h3>
-      <input
-        type="text"
-        class="form-control flex-grow-1 d-none d-md-block"
-        placeholder="Search..."
-        style="max-width: 300px"
-      />
-    </div>
+    <form [formGroup]="searchform" class="position-relative">
+      <div class="d-flex align-items-center gap-3 flex-grow-1">
+        <h3 class="mb-0" (click)="navigateToHome()">WanderWorld</h3>
+        <input
+          type="text"
+          class="form-control flex-grow-1 d-none d-md-block"
+          formControlName="username"
+          placeholder="Search..."
+          style="max-width: 300px"
+        />
+      </div>
+
+      <!-- Dropdown แสดงผล -->
+      <ul
+        *ngIf="searchform.value.username && user?.length > 0"
+        class="list-group position-absolute shadow-sm"
+        style="z-index: 1000; top: 100%; left: 0; right: 0"
+      >
+        <li
+          class="list-group-item list-group-item-action d-flex align-items-center"
+          *ngFor="let u of user"
+        >
+          <img
+            *ngIf="u.image_url"
+            [src]="u.image_url"
+            class="rounded-circle me-2"
+            width="30"
+            height="30"
+            alt="avatar"
+          />
+          {{ u.username }}
+        </li>
+      </ul>
+    </form>
 
     <!-- Right: Icons + Avatar -->
     <div class="d-flex align-items-center gap-3">
+      <button class="btn btn-outline-primary" (click)="navigateToDashboard()">
+        Dashboard
+      </button>
       <i class="bi bi-bell fs-4" style="cursor: pointer"></i>
       <img
         class="rounded-circle img-fluid"

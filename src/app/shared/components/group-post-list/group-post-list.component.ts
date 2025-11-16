@@ -4,13 +4,14 @@ import { RestApiService } from '../../../core/service/rest-api-service/rest-api.
 import { AuthenticationServiceService } from '../../../core/service/authentication-service/authentication-service.service';
 import { Subject, takeUntil } from 'rxjs';
 import { PostComponent } from '../post/post.component';
-import { CreatePostComponent } from '../create-post/create-post.component';
+import { CreatePostComponent } from '../create-group-post/create-post.component';
 import { CommonModule } from '@angular/common';
 import { NgModalServiceService } from '../../../core/service/ng-modal-service/ng-modal-service.service';
 import { InviteComponent } from './components/group-invite/invite.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from '../../../core/service/toast-service/toast.service';
 import { Router } from '@angular/router';
+import { PeopleComponent } from './components/group-people/people.component';
 @Component({
   selector: 'app-group-post-list',
   imports: [
@@ -30,6 +31,8 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
   private modalService = inject(NgModalServiceService);
   private toast = inject(ToastService);
   private router = inject(Router);
+
+  public type: string = 'group';
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
@@ -88,6 +91,32 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
       {
         componentRef: InviteComponent,
         value: group_id,
+        title: {
+          text: 'PAGE.WORKSPACE.SETTINGS.UPDATE_ROLEPERMISSION.TITLE',
+        },
+        footer: false,
+        headerClass: 'bg-danger',
+      }
+    );
+  }
+  public PeopleGroup() {
+    const group_id = this.route.snapshot.paramMap.get('id');
+
+    this.modalService.openTemplateModal(
+      'Create Group',
+      {
+        autoCloseRoutingChange: true,
+        backdrop: 'static',
+        keyboard: false,
+        size: 'lg',
+        scrollable: false,
+      },
+      {
+        componentRef: PeopleComponent,
+        value: {
+          group_id: group_id,
+          members: this.group_data.members,
+        },
         title: {
           text: 'PAGE.WORKSPACE.SETTINGS.UPDATE_ROLEPERMISSION.TITLE',
         },

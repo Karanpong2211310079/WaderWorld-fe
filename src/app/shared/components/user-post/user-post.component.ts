@@ -13,18 +13,19 @@ import { takeUntil } from 'rxjs';
 import { Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgModalServiceService } from '../../../core/service/ng-modal-service/ng-modal-service.service';
-import { CommentsComponent } from './components/comments/comments.component';
 import { EventEmitter, Output } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { firstValueFrom } from 'rxjs';
+import { CommentsComponent } from './component/comments/comments.component';
+
 @Component({
-  selector: 'app-post',
+  selector: 'app-user-post',
   imports: [CommonModule],
-  templateUrl: './post.component.html',
-  styleUrl: './post.component.scss',
+  templateUrl: './user-post.component.html',
+  styleUrl: './user-post.component.scss',
 })
-export class PostComponent implements OnDestroy, OnInit {
+export class UserPostComponent {
   private restapi = inject(RestApiService);
   private toast = inject(ToastService);
   private authen = inject(AuthenticationServiceService);
@@ -82,30 +83,39 @@ export class PostComponent implements OnDestroy, OnInit {
   }
 
   public like_post() {
-    this.user_liked = !this.user_liked; // สลับสถานะไลค์ก่อนส่งคำขอ
     const payload = {
       user_id: this.authen.getUserId(),
-      group_post_id: this.group_post.id,
+      post_id: this.group_post.id,
     };
+
     this.restapi
-      .post('group/create_group_like/', payload)
+      .post('post/like_post/', payload)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (response: any) => {
-          this.response = response?.message;
+          this.response = response?.message?.message;
+          this.user_liked = response?.message?.liked ?? false;
+          console.log('Post like status updated:', this.user_liked);
+
+          // ส่ง event ไป parent ว่าโพสต์อัปเดตแล้ว
+          this.postUpdated.emit({
+            post_id: this.group_post.id,
+            liked: this.user_liked,
+          });
         },
         error: (err) => console.error('Error liking/unliking post:', err),
       });
   }
+
   public async check_like(post_id: any): Promise<boolean> {
     const payload = {
-      group_post_id: post_id,
+      post_id: post_id,
       user_id: this.authen.getUserId(),
     };
 
     try {
       const response = await firstValueFrom(
-        this.restapi.post('group/check_group_post_like/', payload)
+        this.restapi.post('post/check_like/', payload)
       );
       console.log('Check like response:', response.message);
       return response.message || false;
