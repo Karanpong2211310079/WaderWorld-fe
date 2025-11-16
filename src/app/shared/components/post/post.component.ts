@@ -65,6 +65,21 @@ export class PostComponent implements OnDestroy, OnInit {
 
     return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
   }
+  menuOpen = false;
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  editPost() {
+    console.log('Edit Post clicked');
+    this.menuOpen = false;
+  }
+
+  deletePost() {
+    console.log('Delete Post clicked');
+    this.menuOpen = false;
+  }
 
   public like_post() {
     this.user_liked = !this.user_liked; // สลับสถานะไลค์ก่อนส่งคำขอ

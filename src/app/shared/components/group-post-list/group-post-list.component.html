@@ -60,7 +60,10 @@
       <button class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium">
         About
       </button>
-      <button class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium">
+      <button
+        class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium"
+        (click)="PeopleGroup()"
+      >
         People
       </button>
       <button class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium">
@@ -79,5 +82,6 @@
   <app-post
     [group_post]="post"
     (postUpdated)="onPostUpdated($event)"
+    type="group"
   ></app-post>
 </ng-container>

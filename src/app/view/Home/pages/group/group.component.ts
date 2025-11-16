@@ -1,5 +1,5 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { CreatePostComponent } from '../../../../shared/components/create-post/create-post.component';
+import { CreatePostComponent } from '../../../../shared/components/create-group-post/create-post.component';
 import { FollowBtnComponent } from '../../../../shared/components/follow-btn/follow-btn.component';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthenticationServiceService } from '../../../../core/service/authentication-service/authentication-service.service';
@@ -8,6 +8,7 @@ import { CreateGroupComponent } from './components/create-group/create-group.com
 import { NgModalServiceService } from '../../../../core/service/ng-modal-service/ng-modal-service.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { PeopleGroupComponent } from './components/people-group/people-group.component';
 
 @Component({
   selector: 'app-group',
@@ -79,6 +80,27 @@ export class GroupComponent implements OnDestroy, OnInit {
       },
       {
         componentRef: CreateGroupComponent,
+        value: '',
+        title: {
+          text: 'PAGE.WORKSPACE.SETTINGS.UPDATE_ROLEPERMISSION.TITLE',
+        },
+        footer: false,
+        headerClass: 'bg-danger',
+      }
+    );
+  }
+  public PeopleGroup() {
+    this.modalService.openTemplateModal(
+      'Create Group',
+      {
+        autoCloseRoutingChange: true,
+        backdrop: 'static',
+        keyboard: false,
+        size: 'lg',
+        scrollable: false,
+      },
+      {
+        componentRef: PeopleGroupComponent,
         value: '',
         title: {
           text: 'PAGE.WORKSPACE.SETTINGS.UPDATE_ROLEPERMISSION.TITLE',
