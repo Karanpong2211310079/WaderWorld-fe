@@ -9,6 +9,7 @@ import { NotificationComponent } from './pages/notification/notification.compone
 import { BookmarkComponent } from './pages/bookmark/bookmark.component';
 import { FriendsComponent } from './pages/friends/friends.component';
 import { GroupPostListComponent } from '../../shared/components/group-post-list/group-post-list.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 export const workspaceRoutes: Routes = [
   {
     path: '',
@@ -26,6 +27,10 @@ export const workspaceRoutes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
+      },
+      {
+        path: 'profile/:id',
+        component: UserProfileComponent,
       },
       {
         path: 'group',

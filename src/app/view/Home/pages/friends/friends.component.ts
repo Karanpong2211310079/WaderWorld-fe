@@ -6,6 +6,8 @@ import { OnInit, OnDestroy } from '@angular/core';
 import { AuthenticationServiceService } from '../../../../core/service/authentication-service/authentication-service.service';
 import { ToastService } from '../../../../core/service/toast-service/toast.service';
 import { NgModalServiceService } from '../../../../core/service/ng-modal-service/ng-modal-service.service';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-friends',
   imports: [FollowBtnComponent],
@@ -21,10 +23,12 @@ export class FriendsComponent implements OnInit, OnDestroy {
   private toast = inject(ToastService);
   private modalService = inject(NgModalServiceService);
   private authen = inject(AuthenticationServiceService);
-
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private restApi = new RestApiService();
   private unsubscribe$ = new Subject<void>();
   public state = 'Friend Requests';
+  public is_friend: boolean = false;
 
   private setIdPayload() {
     const id = this.authen.getUserId();
@@ -39,6 +43,30 @@ export class FriendsComponent implements OnInit, OnDestroy {
       user_id: id,
     };
   }
+  public goToMessage(friendId: number) {
+    const payload = {
+      user_ids: [this.authen.getUserId(), friendId],
+      chatroom_type: 'PRIVATE',
+    };
+
+    this.restApi
+      .post('message/create_chatroom/', payload)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (response: any) => {
+          // backend ต้อง return chatroom_id ไม่ว่าจะสร้างใหม่หรือมีอยู่แล้ว
+          const chatroomId = response.chatroom_id;
+          console.log('Chatroom ID:', chatroomId);
+
+          // ไปหน้า message component และเลือก chatroom
+          this.router.navigate(['/workspace/message'], {
+            queryParams: { chatroom_id: chatroomId },
+          });
+        },
+        error: (err) => console.error('Error creating/getting chatroom:', err),
+      });
+  }
+
   public getFriendRequests() {
     const id = this.setIdPayload();
     console.log('Payload for Friend Requests:', id);

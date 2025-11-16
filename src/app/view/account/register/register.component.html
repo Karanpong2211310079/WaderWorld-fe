@@ -1,6 +1,6 @@
 <div class="signup-container">
   <div class="signup-card">
-    <h1 class="signup-title">Login to your account</h1>
+    <h1 class="signup-title">Sign Up</h1>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <!-- Username Field -->
@@ -41,14 +41,13 @@
       </div>
 
       <!-- Submit Button -->
-      <button type="submit" class="create-account-btn">Log in</button>
+      <button type="submit" class="create-account-btn">Register</button>
     </form>
 
     <!-- Login Link -->
     <div class="login-link">
-      <span class="login-text">Don't have an account?</span>
       <button (click)="NavigateLogin()" type="button" class="login-btn">
-        Sign up
+        Sign in
       </button>
     </div>
   </div>

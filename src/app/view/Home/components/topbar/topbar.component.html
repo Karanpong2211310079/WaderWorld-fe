@@ -22,6 +22,7 @@
         <li
           class="list-group-item list-group-item-action d-flex align-items-center"
           *ngFor="let u of user"
+          (click)="selectUser(u)"
         >
           <img
             *ngIf="u.image_url"
@@ -46,7 +47,7 @@
         class="rounded-circle img-fluid"
         width="40"
         height="40"
-        src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face"
+        [src]="userImage"
         alt="User Avatar"
         (click)="navigateToProfile()"
       />

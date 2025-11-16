@@ -23,7 +23,7 @@ export class TopbarComponent implements OnDestroy, OnInit {
   private modalService = inject(NgModalServiceService);
   private toast = inject(ToastService);
   private unsubscribe$ = new Subject<void>();
-
+  public userImage: any;
   public user: any;
   public searchform = new FormGroup({ username: new FormControl('') });
 
@@ -35,6 +35,10 @@ export class TopbarComponent implements OnDestroy, OnInit {
       .subscribe((value: string | null) => {
         this.search_user(value || ''); // ถ้า null ให้เป็น ''
       });
+    this.authen.getProfile().subscribe((imgUrl) => {
+      console.log('Profile image:', imgUrl);
+      this.userImage = imgUrl; // เก็บไว้ใช้ใน template
+    });
   }
 
   ngOnDestroy(): void {
@@ -57,6 +61,9 @@ export class TopbarComponent implements OnDestroy, OnInit {
 
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
+  }
+  selectUser(user: any) {
+    this.router.navigate(['/workspace/profile/', user.id]);
   }
 
   public navigateToProfile() {
