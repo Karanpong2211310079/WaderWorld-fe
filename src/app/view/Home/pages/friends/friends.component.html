@@ -44,21 +44,32 @@
   </div>
   } } } @if (state == 'Friend') { @for (item of AllFriends; track $index) {
   <div
-    class="d-flex flex-row bg-white rounded shadow-sm mb-3 p-3 align-items-center gap-3"
+    class="d-flex flex-row bg-white rounded shadow-sm mb-3 p-3 align-items-center"
   >
+    <!-- Avatar -->
     <img
-      class="rounded"
-      style="width: 100px; height: 100px; object-fit: cover"
-      src=""
-      alt="img-cover"
+      class="rounded-circle"
+      [src]="item.friend_info.image_url || 'assets/default-avatar.png'"
+      alt="avatar"
+      style="width: 80px; height: 80px; object-fit: cover"
     />
-    <div class="d-flex flex-column flex-grow-1">
+
+    <!-- User Info -->
+    <div class="d-flex flex-column flex-grow-1 ms-3">
       <h5 class="mb-1 fw-bold">{{ item.friend_info.username }}</h5>
-      <p class="text-muted mb-2">Public · 30 members</p>
+      <p class="text-muted mb-0" style="font-size: 0.875rem">
+        Public · 30 members
+      </p>
     </div>
-    <div class="d-flex align-items-center">
-      <i class="bi bi-chat fs-6">message</i>
-    </div>
+
+    <!-- Message Button -->
+    <button
+      class="btn btn-outline-primary btn-sm"
+      (click)="goToMessage(item.friend_info.id)"
+    >
+      <i class="bi bi-chat me-1"></i> Message
+    </button>
   </div>
+
   } }
 </div>

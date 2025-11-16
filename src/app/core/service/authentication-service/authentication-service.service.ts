@@ -1,9 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, takeUntil } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { jwtDecode } from 'jwt-decode';
+import { RestApiService } from '../rest-api-service/rest-api.service';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +13,9 @@ import { jwtDecode } from 'jwt-decode';
 export class AuthenticationServiceService {
   private cookieService = inject(CookieService);
   private http = inject(HttpClient);
+  private restapi = inject(RestApiService);
+  private unsubscribe$ = new Subject<void>();
+  public image_url: any;
 
   // === CONFIG ===
   private refreshUrl = 'http://127.0.0.1:8000/api/token/refresh/'; // <-- เปลี่ยนตาม Django ของคุณ
@@ -98,5 +103,20 @@ export class AuthenticationServiceService {
           return of(false);
         })
       );
+  }
+  // ใน service
+  // AuthenticationServiceService
+  getProfile(): Observable<string | null> {
+    const userId = this.getUserId();
+    if (!userId) return of(null);
+
+    const payload = { user_id: userId };
+    return this.restapi.post('profile/get_profile/', payload).pipe(
+      map((res: any) => res.image_url),
+      catchError((err) => {
+        console.error('Error fetching profile:', err);
+        return of(null);
+      })
+    );
   }
 }
