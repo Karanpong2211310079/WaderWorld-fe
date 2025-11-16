@@ -1,26 +1,55 @@
-<div class="d-flex flex-column p-3 gap-3">
+<div class="d-flex flex-column p-3 gap-3" [formGroup]="userForm">
   <h3>edit profile</h3>
   <span class="font-weight-bold text-muted">Profile picture</span>
 
-  <div class="d-flex flex-column align-items-center bg-white mb-3">
+  <div
+    class="d-flex flex-column align-items-center bg-white mb-3 position-relative"
+  >
+    <!-- รูปโปรไฟล์ -->
     <img
       class="rounded-circle img-fluid p-3"
-      src="https://i.pravatar.cc/220?img=2"
+      [src]="getProfileImage()"
       alt="avatar"
+      style="width: 220px; height: 220px; object-fit: cover; cursor: pointer"
+      (click)="fileInput.click()"
+    />
+
+    <!-- ปุ่ม Choose File -->
+    <button class="btn btn-sm btn-secondary mt-2" (click)="fileInput.click()">
+      Change picture
+    </button>
+
+    <!-- input file แบบซ่อน -->
+    <input
+      type="file"
+      #fileInput
+      accept="image/*"
+      style="display: none"
+      (change)="onFileSelected($event)"
     />
   </div>
 
   <label class="form-label">
     <span class="font-weight-bold text-muted">Name</span>
-    <input type="text" class="form-control" placeholder="Name" />
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Name"
+      formControlName="username"
+    />
   </label>
 
-  <label for="bio" class="form-label">
+  <label class="form-label">
     <span class="font-weight-bold text-muted">Bio</span>
-    <input type="text" class="form-control" placeholder="Bio" />
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Bio"
+      formControlName="bio"
+    />
   </label>
 
   <div class="d-flex justify-content-end">
-    <button class="btn btn-primary" (click)="saveProfile()">Save</button>
+    <button class="btn btn-primary" (click)="submitForm()">Save</button>
   </div>
 </div>

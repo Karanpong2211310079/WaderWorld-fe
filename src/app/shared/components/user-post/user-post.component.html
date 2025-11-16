@@ -15,7 +15,19 @@
         <small>วันที่ : {{ calculation_time(group_post.created_at) }}</small>
       </div>
     </div>
-    <i class="bi bi-list fs-4" style="cursor: pointer"></i>
+    <div class="post-menu-wrapper">
+      <i
+        class="bi bi-list fs-4"
+        style="cursor: pointer"
+        id="postMenuButton"
+        (click)="toggleMenu()"
+      ></i>
+
+      <ul class="post-menu" [class.show]="menuOpen">
+        <li (click)="editPost()">Edit Post</li>
+        <li (click)="deletePost()">Delete Post</li>
+      </ul>
+    </div>
   </div>
   <div class="mb-3">
     <p>

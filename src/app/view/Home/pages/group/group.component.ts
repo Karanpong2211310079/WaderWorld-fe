@@ -8,6 +8,7 @@ import { CreateGroupComponent } from './components/create-group/create-group.com
 import { NgModalServiceService } from '../../../../core/service/ng-modal-service/ng-modal-service.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { PeopleGroupComponent } from './components/people-group/people-group.component';
 
 @Component({
   selector: 'app-group',
@@ -79,6 +80,27 @@ export class GroupComponent implements OnDestroy, OnInit {
       },
       {
         componentRef: CreateGroupComponent,
+        value: '',
+        title: {
+          text: 'PAGE.WORKSPACE.SETTINGS.UPDATE_ROLEPERMISSION.TITLE',
+        },
+        footer: false,
+        headerClass: 'bg-danger',
+      }
+    );
+  }
+  public PeopleGroup() {
+    this.modalService.openTemplateModal(
+      'Create Group',
+      {
+        autoCloseRoutingChange: true,
+        backdrop: 'static',
+        keyboard: false,
+        size: 'lg',
+        scrollable: false,
+      },
+      {
+        componentRef: PeopleGroupComponent,
         value: '',
         title: {
           text: 'PAGE.WORKSPACE.SETTINGS.UPDATE_ROLEPERMISSION.TITLE',

@@ -11,6 +11,7 @@ import { InviteComponent } from './components/group-invite/invite.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from '../../../core/service/toast-service/toast.service';
 import { Router } from '@angular/router';
+import { PeopleComponent } from './components/group-people/people.component';
 @Component({
   selector: 'app-group-post-list',
   imports: [
@@ -90,6 +91,32 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
       {
         componentRef: InviteComponent,
         value: group_id,
+        title: {
+          text: 'PAGE.WORKSPACE.SETTINGS.UPDATE_ROLEPERMISSION.TITLE',
+        },
+        footer: false,
+        headerClass: 'bg-danger',
+      }
+    );
+  }
+  public PeopleGroup() {
+    const group_id = this.route.snapshot.paramMap.get('id');
+
+    this.modalService.openTemplateModal(
+      'Create Group',
+      {
+        autoCloseRoutingChange: true,
+        backdrop: 'static',
+        keyboard: false,
+        size: 'lg',
+        scrollable: false,
+      },
+      {
+        componentRef: PeopleComponent,
+        value: {
+          group_id: group_id,
+          members: this.group_data.members,
+        },
         title: {
           text: 'PAGE.WORKSPACE.SETTINGS.UPDATE_ROLEPERMISSION.TITLE',
         },

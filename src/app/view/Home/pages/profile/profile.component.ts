@@ -85,7 +85,7 @@ export class ProfileComponent implements OnDestroy, OnInit {
 
   // ✔️ เปิด modal แก้ไขโปรไฟล์
   openEditProfile() {
-    this.modalService.openTemplateModal(
+    const modalRef = this.modalService.openTemplateModal(
       'Edit Profile',
       {
         autoCloseRoutingChange: true,
@@ -96,12 +96,26 @@ export class ProfileComponent implements OnDestroy, OnInit {
       },
       {
         componentRef: EditProfileComponent,
-        value: '',
+        value: this.user_data,
         title: {
           text: 'PAGE.WORKSPACE.SETTINGS.UPDATE_ROLEPERMISSION.TITLE',
         },
         footer: false,
         headerClass: 'bg-danger',
+      }
+    );
+
+    // รอ modal ปิด แล้วเรียก get_user_profile()
+    modalRef.result.then(
+      (result) => {
+        console.log('Modal closed with:', result);
+        // อัปเดตข้อมูล user หลัง modal ปิด
+        this.get_user_profile();
+      },
+      (reason) => {
+        console.log('Modal dismissed:', reason);
+        // ถ้า modal ถูกปิดแบบ dismiss ก็ยังเรียก get_user_profile() ได้เช่นกัน
+        this.get_user_profile();
       }
     );
   }
