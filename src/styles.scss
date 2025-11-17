@@ -3,3 +3,8 @@
 
 // regular style toast
 @import "ngx-toastr/toastr";
+/* ตั้งฟอนต์ทั้งหน้า */
+html,
+body {
+  font-family: "Inter", "Poppins", sans-serif;
+}

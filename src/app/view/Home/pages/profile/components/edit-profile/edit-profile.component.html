@@ -6,13 +6,24 @@
     class="d-flex flex-column align-items-center bg-white mb-3 position-relative"
   >
     <!-- รูปโปรไฟล์ -->
-    <img
-      class="rounded-circle img-fluid p-3"
-      [src]="getProfileImage()"
-      alt="avatar"
-      style="width: 220px; height: 220px; object-fit: cover; cursor: pointer"
-      (click)="fileInput.click()"
-    />
+    <div class="avatar-wrapper position-relative">
+      <!-- Skeleton / Placeholder -->
+      <div
+        *ngIf="!userForm?.value?.image"
+        class="avatar-placeholder rounded-circle"
+      ></div>
+
+      <!-- Actual Image -->
+      <img
+        *ngIf="userForm?.value?.image"
+        [src]="getProfileImage()"
+        class="rounded-circle"
+        alt="avatar"
+        width="300"
+        height="300"
+        style="object-fit: cover"
+      />
+    </div>
 
     <!-- ปุ่ม Choose File -->
     <button class="btn btn-sm btn-secondary mt-2" (click)="fileInput.click()">

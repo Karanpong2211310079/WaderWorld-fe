@@ -6,10 +6,10 @@ import { AuthenticationServiceService } from '../../../../core/service/authentic
 import { RestApiService } from '../../../../core/service/rest-api-service/rest-api.service';
 import { Subject, takeUntil } from 'rxjs';
 import { PostDataModalComponent } from '../components/post-data-modal/post-data-modal.component';
-
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-manage-group',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './manage-group.component.html',
   styleUrl: './manage-group.component.scss',
 })

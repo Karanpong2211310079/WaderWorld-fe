@@ -14,9 +14,10 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder } from '@angular/forms';
 import { ToastService } from '../../../../../../core/service/toast-service/toast.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-edit-profile',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.scss',
 })
@@ -81,9 +82,6 @@ export class EditProfileComponent implements OnDestroy, OnInit {
     if (image instanceof File && this.imagePreview) {
       return this.imagePreview;
     }
-
-    // ถ้าเป็น URL เดิมจาก database
-    return image || 'https://i.pravatar.cc/220?img=2';
   }
 
   public onFileSelected(event: Event) {

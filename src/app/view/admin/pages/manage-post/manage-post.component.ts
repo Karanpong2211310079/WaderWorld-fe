@@ -6,9 +6,11 @@ import { AuthenticationServiceService } from '../../../../core/service/authentic
 import { RestApiService } from '../../../../core/service/rest-api-service/rest-api.service';
 import { Subject, takeUntil } from 'rxjs';
 import { PostDataModalComponent } from '../components/post-data-modal/post-data-modal.component';
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-manage-post',
-  imports: [FollowBtnComponent],
+  imports: [FollowBtnComponent, CommonModule],
   templateUrl: './manage-post.component.html',
   styleUrl: './manage-post.component.scss',
 })

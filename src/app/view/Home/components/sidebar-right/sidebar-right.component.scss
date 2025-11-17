@@ -1,75 +1,53 @@
-.container {
-  background-color: #FFFFFF;
-  border-radius: 10px;
-  color: #222222;  /* เปลี่ยนเป็นสีเข้มอ่านง่าย */
-  font-family: 'Roboto', sans-serif;  
-  font-weight: bold;
-  font-size: 13px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  padding: 10px;
-  margin-top: 10px;
-  width: 95%;
+/* Card หลักให้ดูเป็นกล่องท่องเที่ยว */
+.travel-card {
+  border-radius: 14px;
+  padding: 10px 0;
+  background: #ffffff;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid #eef2f5;
 }
 
-.title {
-  font-size: 16px;
+/* Title */
+.travel-card .title {
   font-weight: 600;
-  margin-bottom: 1rem;
-  color: #111;
+  color: #1a3c6e;
 }
 
-.user-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* รูป Avatar ของ Traveler */
+.traveler-img {
+  border: 2px solid #d7ecff;
 }
 
-.user-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 0;
+/* รายการผู้ใช้ */
+.traveler-item {
+  padding: 8px;
+  border-radius: 10px;
+  transition: 0.2s;
 }
 
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+.traveler-item:hover {
+  background: #f7fbff;
+  transform: translateY(-2px);
 }
 
-.user-info img {
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-}
-
-.user-details {
-  display: flex;
-  flex-direction: column;
-}
-
-.username {
-  font-weight: 500;
-  color: #111;
-}
-
-.user-handle {
-  font-size: 13px;
-  color: #555;
-}
-
-.follow-btn {
-  background-color: #6ba9b1;
-  color: white;
+/* ปุ่ม Follow แบบสไตล์ท่องเที่ยว */
+.btn-travel-follow {
+  background: linear-gradient(135deg, #48a8ff, #2d89ff);
   border: none;
-  border-radius: 999px;
-  padding: 6px 16px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+  color: white;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  box-shadow: 0 3px 8px rgba(45, 137, 255, 0.3);
+  transition: 0.2s;
 }
 
-.follow-btn:hover {
-  background-color: #5b97a0;
+.btn-travel-follow:hover {
+  background: linear-gradient(135deg, #2d89ff, #1f6fe0);
+  transform: scale(1.05);
+}
+
+/* ข้อความแท็ก */
+.travel-card small {
+  font-size: 0.75rem;
 }

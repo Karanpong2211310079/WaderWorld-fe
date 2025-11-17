@@ -1,0 +1,30 @@
+/* ซ่อน scroll bar ของ Main Content */
+.order-1::-webkit-scrollbar {
+  display: none;
+}
+
+/* เคลื่อนไหวสติกเกอร์เล็ก ๆ */
+@keyframes floatSticker {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.main-content img {
+  animation: floatSticker 4s ease-in-out infinite;
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+  .main-content {
+    padding: 8px;
+  }
+  .main-content > * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}

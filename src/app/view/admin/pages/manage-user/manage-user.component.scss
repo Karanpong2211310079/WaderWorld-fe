@@ -1,50 +1,32 @@
-.container {
-  background-color: #ffffff;
-  border-radius: 10px;
-  color: #222222;
-  font-family: "Roboto", sans-serif;
-  font-weight: bold;
-  font-size: 13px;
-
-  /* เพิ่มเงาขอบ */
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-
-  padding: 25px;
-  margin: 10px;
-  width: 95%;
+.table-card {
+  border-radius: 14px;
+  background: #ffffff;
+  padding: 15px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eef2f5;
 }
 
-table {
+.table-card table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #eeeceb;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  font-family: Arial, sans-serif;
 }
 
-th,
-td {
+.table-card th,
+.table-card td {
   padding: 12px 16px;
   text-align: center;
-  border-bottom: 1px solid #ddd;
 }
 
-th {
-  background-color: #d3d3d3;
-  color: #333;
+.table-card thead {
+  background-color: #f0f4f8;
+  font-weight: 600;
 }
 
-td {
-  background-color: #fff;
+.table-card tbody tr:hover td {
+  background-color: #f7fbff;
+  transition: 0.2s;
 }
 
-tr:hover td {
-  background-color: #f9f9f9;
-}
-
-button {
+.table-card button {
   margin-right: 5px;
-  padding: 4px 8px;
-  font-size: 0.9rem;
-  cursor: pointer;
 }

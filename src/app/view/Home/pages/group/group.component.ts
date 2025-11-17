@@ -9,10 +9,15 @@ import { NgModalServiceService } from '../../../../core/service/ng-modal-service
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PeopleGroupComponent } from './components/people-group/people-group.component';
-
+import { OrderByIdDescPipe } from '../../../../shared/pipe/order-by-id-desc.pipe';
 @Component({
   selector: 'app-group',
-  imports: [CreatePostComponent, CommonModule, FollowBtnComponent],
+  imports: [
+    CreatePostComponent,
+    CommonModule,
+    FollowBtnComponent,
+    OrderByIdDescPipe,
+  ],
   templateUrl: './group.component.html',
   styleUrl: './group.component.scss',
 })
@@ -29,7 +34,6 @@ export class GroupComponent implements OnDestroy, OnInit {
   public Allgroups: any[] = [];
 
   ngOnInit(): void {
-    this.LoadYourGroup();
     this.LoadAllGroup();
   }
   ngOnDestroy(): void {
@@ -37,32 +41,17 @@ export class GroupComponent implements OnDestroy, OnInit {
     this.unsubscribe$.complete();
   }
 
-  public LoadYourGroup() {
-    const user_id = {
-      user_id: this.authen.getUserId(),
-    };
-    this.restapi
-      .post('group/get_user_groups/', user_id)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe({
-        next: (response: any) => {
-          this.Usergroups = response?.message || [];
-          console.log('📂 User Groups:', this.Usergroups);
-        },
-        error: (err) => console.error('❌ Load group error:', err),
-      });
-  }
   public LoadAllGroup() {
-    const user_id = {
-      user_id: this.authen.getUserId(),
-    };
+    const user_id = { user_id: this.authen.getUserId() };
     this.restapi
       .post('group/get_groups/', user_id)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (response: any) => {
-          this.Allgroups = response?.message || [];
-          console.log('📂 User Groups:', this.Allgroups);
+          this.Usergroups = response?.user_groups || [];
+          this.Allgroups = response?.all_groups || [];
+          console.log('📂 User Groups:', this.Usergroups);
+          console.log('📂 All Groups:', this.Allgroups);
         },
         error: (err) => console.error('❌ Load group error:', err),
       });
