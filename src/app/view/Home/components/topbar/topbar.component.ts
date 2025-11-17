@@ -26,6 +26,15 @@ export class TopbarComponent implements OnDestroy, OnInit {
   public userImage: any;
   public user: any;
   public searchform = new FormGroup({ username: new FormControl('') });
+  public userMenuOpen = false;
+
+  toggleUserMenu() {
+    this.userMenuOpen = !this.userMenuOpen;
+  }
+
+  closeUserMenu() {
+    this.userMenuOpen = false;
+  }
 
   ngOnInit(): void {
     // ค้นหา user ตอนพิมพ์
@@ -44,6 +53,13 @@ export class TopbarComponent implements OnDestroy, OnInit {
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  public Logout_btn() {
+    this.authen.logout(); // เคลียร์ token, cookie, session ทั้งหมด
+
+    this.toast.success('Logout สำเร็จ');
+    this.router.navigate(['/auth/login']);
   }
 
   public search_user(username: string) {

@@ -104,6 +104,16 @@ export class AuthenticationServiceService {
         })
       );
   }
+
+  logout(): void {
+    // ลบ access token + refresh token
+    this.cookieService.delete(this.accessTokenKey, '/');
+    this.cookieService.delete(this.refreshTokenKey, '/');
+
+    // เคลียร์ค่าใน memory (ถ้ามี)
+    this.image_url = null;
+  }
+
   // ใน service
   // AuthenticationServiceService
   getProfile(): Observable<string | null> {
