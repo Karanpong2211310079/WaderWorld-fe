@@ -46,6 +46,13 @@ export class TopbarComponent implements OnDestroy, OnInit {
     this.unsubscribe$.complete();
   }
 
+  public Logout_btn() {
+    this.authen.logout(); // เคลียร์ token, cookie, session ทั้งหมด
+
+    this.toast.success('Logout สำเร็จ');
+    this.router.navigate(['/auth/login']);
+  }
+
   public search_user(username: string) {
     const payload = { username: username || '' };
     this.restapi

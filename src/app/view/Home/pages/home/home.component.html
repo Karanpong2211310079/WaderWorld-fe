@@ -7,8 +7,14 @@
     [choice2]="'Following'"
   ></app-follow-btn>
 
-  <!-- <app-post></app-post> -->
   <div class="content mt-3">
-    <!-- <app-post></app-post> -->
+    <ng-container *ngFor="let post of user_post">
+      <app-user-post
+        [group_post]="post"
+        type="user"
+        (postUpdated)="handlePostUpdated($event)"
+      >
+      </app-user-post>
+    </ng-container>
   </div>
 </div>
