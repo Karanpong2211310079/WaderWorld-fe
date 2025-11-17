@@ -11,6 +11,7 @@ import {
   ɵInternalFormsSharedModule,
 } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgModalServiceService } from '../../../../../core/service/ng-modal-service/ng-modal-service.service';
 
 @Component({
   selector: 'app-comments',
@@ -23,6 +24,7 @@ export class CommentsComponent implements OnDestroy, OnInit {
   private authen = inject(AuthenticationServiceService);
   private unsubscribe$ = new Subject<void>();
   public group_post: any;
+  public modalService = inject(NgModalServiceService);
   commentForm = new FormGroup({
     comment: new FormControl('', [
       Validators.required, // ต้องกรอก
@@ -108,4 +110,8 @@ export class CommentsComponent implements OnDestroy, OnInit {
     @Inject('modalEl') public modalEl: NgbModalRef, // modal reference
     @Inject('value') public value: any
   ) {}
+
+  public closeModal() {
+    this.modalService.dismissModal(this.modalEl, 'cancle');
+  }
 }

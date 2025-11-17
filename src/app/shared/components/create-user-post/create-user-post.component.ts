@@ -29,6 +29,7 @@ export class CreateUserPostComponent implements OnDestroy, OnInit {
   private restapi = inject(RestApiService);
   private toast = inject(ToastService);
   private unsubscribe$ = new Subject<void>();
+  public userImage: any;
 
   public form = new FormGroup({
     user_id: new FormControl<number | null>(this.authen.getUserId(), [
@@ -79,11 +80,14 @@ export class CreateUserPostComponent implements OnDestroy, OnInit {
     const formData = new FormData();
     formData.append('user_id', String(this.authen.getUserId()));
     formData.append('visibility', this.form.value.visibility!);
-
-    if (this.form.value.content)
-      formData.append('content', this.form.value.content);
+    formData.append('content', this.form.value.content ?? '');
 
     if (this.form.value.media) formData.append('media', this.form.value.media);
+
+    // Debug ที่ถูกต้อง
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ': ', pair[1]);
+    }
 
     this.restapi
       .post('post/create/', formData)
@@ -94,7 +98,7 @@ export class CreateUserPostComponent implements OnDestroy, OnInit {
           this.resetForm();
         },
         error: (err) => {
-          console.error('❌ Error:', err);
+          console.error('❌ Error:', err.error); // แสดง error Django จริง
           this.toast.error('เกิดข้อผิดพลาดในการโพสต์');
         },
       });
@@ -109,7 +113,12 @@ export class CreateUserPostComponent implements OnDestroy, OnInit {
     this.selectedImage = null;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authen.getProfile().subscribe((imgUrl) => {
+      console.log('Profile image:', imgUrl);
+      this.userImage = imgUrl; // เก็บไว้ใช้ใน template
+    });
+  }
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();

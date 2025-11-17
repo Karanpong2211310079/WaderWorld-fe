@@ -143,7 +143,7 @@ export class UserPostComponent {
   // }
 
   public comment_modal() {
-    const group_id = this.route.snapshot.paramMap.get('id');
+    const post = this.group_post;
 
     this.modalService.openTemplateModal(
       'Edit Profile',
@@ -156,7 +156,7 @@ export class UserPostComponent {
       },
       {
         componentRef: CommentsComponent,
-        value: this.group_post,
+        value: post,
         title: {
           text: 'PAGE.WORKSPACE.SETTINGS.UPDATE_ROLEPERMISSION.TITLE',
         },
