@@ -26,6 +26,15 @@ export class TopbarComponent implements OnDestroy, OnInit {
   public userImage: any;
   public user: any;
   public searchform = new FormGroup({ username: new FormControl('') });
+  public userMenuOpen = false;
+
+  toggleUserMenu() {
+    this.userMenuOpen = !this.userMenuOpen;
+  }
+
+  closeUserMenu() {
+    this.userMenuOpen = false;
+  }
 
   ngOnInit(): void {
     // ค้นหา user ตอนพิมพ์

@@ -50,14 +50,39 @@
       </button>
 
       <i class="bi bi-bell fs-4" style="cursor: pointer"></i>
-      <img
-        class="rounded-circle img-fluid"
-        width="40"
-        height="40"
-        [src]="userImage"
-        alt="User Avatar"
-        (click)="navigateToProfile()"
-      />
+      <div class="position-relative d-inline-block">
+        <img
+          class="rounded-circle img-fluid"
+          width="40"
+          height="40"
+          [src]="userImage"
+          alt="User Avatar"
+          (click)="toggleUserMenu()"
+          style="cursor: pointer"
+        />
+
+        <!-- dropdown menu -->
+        <ul
+          class="position-absolute bg-white shadow rounded p-2 list-unstyled"
+          [class.d-none]="!userMenuOpen"
+          style="top: 50px; right: 0; min-width: 150px; z-index: 100"
+        >
+          <li
+            class="p-1"
+            (click)="navigateToProfile(); closeUserMenu()"
+            style="cursor: pointer"
+          >
+            Profile
+          </li>
+          <li
+            class="p-1"
+            (click)="navigateToDashboard(); closeUserMenu()"
+            style="cursor: pointer"
+          >
+            Dashboard
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
