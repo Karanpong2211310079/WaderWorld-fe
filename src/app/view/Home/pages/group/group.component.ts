@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PeopleGroupComponent } from './components/people-group/people-group.component';
 import { OrderByIdDescPipe } from '../../../../shared/pipe/order-by-id-desc.pipe';
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-group',
   imports: [
@@ -26,6 +28,7 @@ export class GroupComponent implements OnDestroy, OnInit {
   private authen = inject(AuthenticationServiceService);
   private modalService = inject(NgModalServiceService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   private unsubscribe$ = new Subject<void>();
   public choice = 'Your Groups';

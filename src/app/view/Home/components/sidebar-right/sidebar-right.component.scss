@@ -51,3 +51,9 @@
 .travel-card small {
   font-size: 0.75rem;
 }
+.traveler-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover; // ทำให้รูปเต็มกรอบไม่เบี้ยว
+  flex-shrink: 0;
+}

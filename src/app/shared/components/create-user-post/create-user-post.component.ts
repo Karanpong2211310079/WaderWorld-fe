@@ -30,6 +30,7 @@ export class CreateUserPostComponent implements OnDestroy, OnInit {
   private toast = inject(ToastService);
   private unsubscribe$ = new Subject<void>();
   public userImage: any;
+  public categories = ['OTHER', 'BEACH', 'MOUNTAIN', 'FOREST', 'TOURIST_SPOT'];
 
   public form = new FormGroup({
     user_id: new FormControl<number | null>(this.authen.getUserId(), [
@@ -45,6 +46,7 @@ export class CreateUserPostComponent implements OnDestroy, OnInit {
     visibility: new FormControl<VisibilityType>(VisibilityType.PUBLIC, [
       Validators.required,
     ]),
+    category: new FormControl<string>('OTHER', Validators.required), // fix default OTHER
   });
   selectedImage: string | ArrayBuffer | null = null;
   isUploading: boolean = false;
@@ -81,6 +83,7 @@ export class CreateUserPostComponent implements OnDestroy, OnInit {
     formData.append('user_id', String(this.authen.getUserId()));
     formData.append('visibility', this.form.value.visibility!);
     formData.append('content', this.form.value.content ?? '');
+    formData.append('category', this.form.value.category ?? 'OTHER'); // เพิ่ม category
 
     if (this.form.value.media) formData.append('media', this.form.value.media);
 

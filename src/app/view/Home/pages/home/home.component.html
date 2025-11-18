@@ -1,14 +1,58 @@
 <div class="d-flex flex-column p-3">
-  <!-- แก้ตรงนี้ -->
-  <app-create-user-post> </app-create-user-post>
+  <!-- ส่วนสร้างโพสต์ -->
+  <app-create-user-post></app-create-user-post>
 
+  <!-- ปุ่มเลือก For You / Following -->
   <app-follow-btn
     [choice1]="'For You'"
     [choice2]="'Following'"
+    (choiceChange)="onChoiceChanged($event)"
   ></app-follow-btn>
+  <!-- แนะนำกลุ่มใหม่ -->
+  <div class="mt-4">
+    <h5>แนะนำกลุ่มใหม่</h5>
+    <div class="d-flex gap-3 mt-2">
+      <div
+        *ngFor="let group of new_groups"
+        class="card p-2"
+        style="width: 150px; cursor: pointer"
+        (click)="goToGroup(group.id)"
+      >
+        <img
+          *ngIf="group.image_url"
+          [src]="group.image_url"
+          class="card-img-top rounded"
+          alt="{{ group.name }}"
+        />
+        <div class="card-body p-1">
+          <p class="card-title small mb-0 text-truncate">{{ group.name }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <!-- ตัวกรอง category เฉพาะ For You -->
+  <!-- home.component.html -->
+  <div class="d-flex gap-2 mt-3">
+    <button
+      *ngFor="let cat of categories"
+      class="btn d-flex align-items-center gap-2"
+      [ngStyle]="{
+        'background-color':
+          selectedCategory === cat.name ? cat.color : 'transparent',
+        color: selectedCategory === cat.name ? 'white' : cat.color,
+        'border-color': cat.color
+      }"
+      (click)="filterByCategory(cat.name)"
+    >
+      <i [class]="'bi ' + cat.icon"></i>
+      {{ cat.name }}
+    </button>
+  </div>
+
+  <!-- แสดงโพสต์ -->
   <div class="content mt-3">
-    <ng-container *ngFor="let post of user_post">
+    <ng-container *ngFor="let post of filtered_posts">
       <app-user-post
         [group_post]="post"
         type="user"

@@ -9,6 +9,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { UserPostComponent } from '../../../../shared/components/user-post/user-post.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   imports: [
@@ -21,39 +22,116 @@ import { UserPostComponent } from '../../../../shared/components/user-post/user-
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnDestroy, OnInit {
-  private modalService = inject(NgModalServiceService);
   private restapi = inject(RestApiService);
   private authen = inject(AuthenticationServiceService);
   private unsubscribe$ = new Subject<void>();
-  public user_post: any;
+  private router = inject(Router);
+  public choice: string = 'Discover'; // <-- ตั้งค่าเริ่มต้นเป็น Discover
+  public user_posts: any[] = [];
+  public filtered_posts: any[] = [];
+  public state: string = 'For You';
+  public Allgroups: any[] = [];
+  public new_groups: any[] = []; // สำหรับแนะนำกลุ่มใหม่
 
-  public get_user_post() {
-    const payload = {
-      user_id: this.authen.getUserId(),
-      visibility: 'PUBLIC',
-    };
+  // home.component.ts
+  public categories = [
+    { name: 'OTHER', color: '#6c757d', icon: 'bi-list' },
+    { name: 'BEACH', color: '#0dcaf0', icon: 'bi-sun' },
+    { name: 'MOUNTAIN', color: '#198754', icon: 'bi-geo-alt' },
+    { name: 'FOREST', color: '#20c997', icon: 'bi-tree' },
+    { name: 'TOURIST_SPOT', color: '#ffc107', icon: 'bi-camera' },
+  ];
 
-    this.restapi
-      .post('post/user_posts/', payload)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((response) => {
-        this.user_post = response.message;
-        console.log('User Post Data:', this.user_post);
-      });
-  }
-  public handlePostUpdated(event: any) {
-    console.log('Post updated event received:', event);
+  public selectedCategory: string = '';
 
-    // รีโหลดโพสต์ทั้งหมดใหม่
-    this.get_user_post();
-  }
+  public selected_category: string | null = null;
+
   ngOnInit(): void {
-    this.get_user_post();
+    this.loadPosts(); // โหลดโพสต์
+    this.LoadAllGroup(); // โหลดกลุ่ม
+  }
+  goToGroup(groupId: number) {
+    this.router.navigate(['/workspace/group'], {
+      queryParams: { id: groupId, choice: 'Discover' },
+    });
   }
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
-    console.log('ProfileComponent destroyed');
+  }
+  public LoadAllGroup() {
+    const user_id = { user_id: this.authen.getUserId() };
+    this.restapi
+      .post('group/get_groups/', user_id)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (response: any) => {
+          this.Allgroups = response?.all_groups || [];
+          console.log('📂 All Groups:', this.Allgroups);
+
+          // เลือกกลุ่มใหม่ is_new = true สูงสุด 3
+          this.new_groups = this.Allgroups.filter((g) => g.is_new).slice(0, 3);
+        },
+        error: (err) => console.error('❌ Load group error:', err),
+      });
+  }
+
+  // โหลดโพสต์ตาม state
+  loadPosts() {
+    const userId = this.authen.getUserId();
+
+    if (this.state === 'Following') {
+      // API Following
+      const payload = { user_id: userId, visibility: 'PUBLIC' };
+      this.restapi
+        .post('home/get_post_friends/', payload)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((res: any) => {
+          this.user_posts = res.message;
+          this.filtered_posts = this.user_posts;
+        });
+    } else {
+      // API For You (category)
+      const payload = { category: this.selected_category || null };
+      this.restapi
+        .post('home/get_post_catagory/', payload)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((res: any) => {
+          this.user_posts = res.message;
+          this.applyFilters();
+        });
+    }
+  }
+
+  // filter สำหรับ For You
+  applyFilters() {
+    if (this.state === 'For You' && this.selected_category) {
+      this.filtered_posts = this.user_posts.filter(
+        (post) => post.category === this.selected_category
+      );
+    } else {
+      this.filtered_posts = this.user_posts;
+    }
+  }
+
+  // home.component.ts
+  filterByCategory(catName: string) {
+    this.selectedCategory = catName;
+    // ทำ filter โพสต์ที่นี่
+    this.filtered_posts = this.user_posts.filter(
+      (p: any) => catName === 'OTHER' || p.category === catName
+    );
+  }
+
+  onChoiceChanged(newChoice: string) {
+    this.state = newChoice;
+    this.selected_category = null; // reset category
+    this.loadPosts();
+  }
+
+  handlePostUpdated(event: any) {
+    console.log('Post updated:', event);
+    this.loadPosts();
   }
 }

@@ -4,7 +4,7 @@
   class="d-flex flex-column p-3 rounded shadow-sm bg-white"
 >
   <!-- ส่วนบน -->
-  <div class="d-flex align-items-center gap-2">
+  <div class="d-flex align-items-center gap-2 mb-2">
     <img
       class="rounded-circle"
       [src]="userImage"
@@ -22,7 +22,14 @@
     />
   </div>
 
-  <!-- ส่วนล่าง -->
+  <!-- เลือก category -->
+  <div class="mb-2">
+    <select formControlName="category" class="form-select">
+      <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+    </select>
+  </div>
+
+  <!-- ส่วนล่าง: upload + submit -->
   <div class="d-flex justify-content-end align-items-center p-2 gap-2">
     <input
       type="file"
@@ -31,7 +38,6 @@
       hidden
       (change)="onImageSelected($event)"
     />
-
     <i
       class="bi bi-image-fill text-primary mx-2"
       style="font-size: 40px; cursor: pointer"

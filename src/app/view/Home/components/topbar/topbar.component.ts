@@ -27,6 +27,7 @@ export class TopbarComponent implements OnDestroy, OnInit {
   public user: any;
   public searchform = new FormGroup({ username: new FormControl('') });
   public userMenuOpen = false;
+  public searchResults: any;
 
   toggleUserMenu() {
     this.userMenuOpen = !this.userMenuOpen;
@@ -63,14 +64,26 @@ export class TopbarComponent implements OnDestroy, OnInit {
   }
 
   public search_user(username: string) {
-    const payload = { username: username || '' };
+    const payload = { name: username || '' };
     this.restapi
-      .post('friends/search_user/', payload)
+      .post('home/search_group_user/', payload)
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((response) => {
-        this.user = response.message; // เก็บ array ของ user
-        console.log(this.user);
+      .subscribe((response: any) => {
+        // แยก type
+        this.searchResults = response.message.map((item: any) => ({
+          ...item,
+          label: item.type === 'user' ? 'User' : 'Group',
+        }));
+        console.log(this.searchResults);
       });
+  }
+
+  public selectUser(item: any) {
+    if (item.type === 'user') {
+      this.router.navigate(['/workspace/profile', item.id]);
+    } else {
+      this.router.navigate(['/workspace/group']);
+    }
   }
 
   isMenuOpen = false;
@@ -78,8 +91,10 @@ export class TopbarComponent implements OnDestroy, OnInit {
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
   }
-  selectUser(user: any) {
-    this.router.navigate(['/workspace/profile/', user.id]);
+  // ใน TopbarComponent
+  public getImageUrl(url: string | null) {
+    if (!url) return 'assets/default-avatar.png'; // default avatar
+    return `http://localhost:8000${url}`; // เพิ่ม domain/backend path
   }
 
   public navigateToProfile() {

@@ -5,25 +5,28 @@
       Recommended Travelers
     </h4>
 
-    <div
-      class="d-flex justify-content-between align-items-center gap-2 traveler-item"
-    >
-      <div class="d-flex align-items-center gap-2">
-        <img
-          class="rounded-circle img-fluid traveler-img"
-          width="40"
-          height="40"
-          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face"
-          alt="User Avatar"
-        />
-
-        <div class="d-flex flex-column">
-          John Doe
-          <small class="text-muted">johndoe</small>
+    <ng-container *ngFor="let user of recommendedUsers | slice : 0 : 3">
+      <div
+        class="d-flex justify-content-between align-items-center gap-2 traveler-item"
+      >
+        <div class="d-flex align-items-center gap-2">
+          <img
+            class="rounded-circle traveler-img"
+            [src]="user.image_url || 'https://via.placeholder.com/40'"
+            alt="{{ user.username }}"
+          />
+          <div class="d-flex flex-column">
+            {{ user.username }}
+          </div>
         </div>
-      </div>
 
-      <button class="btn btn-sm btn-travel-follow">Follow</button>
-    </div>
+        <button
+          class="btn btn-sm btn-travel-follow"
+          (click)="followUser(user.id)"
+        >
+          Follow
+        </button>
+      </div>
+    </ng-container>
   </ol>
 </div>
