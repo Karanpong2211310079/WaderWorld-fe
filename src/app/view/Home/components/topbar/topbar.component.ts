@@ -96,6 +96,13 @@ export class TopbarComponent implements OnDestroy, OnInit {
     if (!url) return 'assets/default-avatar.png'; // default avatar
     return `http://localhost:8000${url}`; // เพิ่ม domain/backend path
   }
+  openGoogleMaps() {
+    window.open('https://www.google.com/maps', '_blank'); // เปิดในแท็บใหม่
+  }
+
+  public Navigateairline() {
+    this.router.navigate(['/workspace/Airline']);
+  }
 
   public navigateToProfile() {
     this.router.navigate(['/workspace/profile']);

@@ -67,8 +67,13 @@
     </div>
 
     <!-- Right side: Bookmark -->
-    <div style="cursor: pointer">
-      <i class="bi bi-bookmark"></i>
+    <div style="cursor: pointer" (click)="toggleBookmark()">
+      <i
+        class="bi"
+        [ngClass]="
+          user_bookmarked ? 'bi-bookmark-fill text-primary' : 'bi-bookmark'
+        "
+      ></i>
     </div>
   </div>
 </div>

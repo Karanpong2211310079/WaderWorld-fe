@@ -55,8 +55,11 @@
 
     <!-- Right: Icons + Avatar -->
     <div class="d-flex align-items-center gap-4">
-      <i class="bi bi-geo-alt travel-icon"></i>
-      <i class="bi bi-airplane-fill travel-icon"></i>
+      <i class="bi bi-geo-alt travel-icon" (click)="openGoogleMaps()"></i>
+      <i
+        class="bi bi-airplane-fill travel-icon"
+        (click)="Navigateairline()"
+      ></i>
       <i class="bi bi-camera-fill travel-icon"></i>
 
       <button class="btn btn-outline-danger logout-btn" (click)="Logout_btn()">

@@ -35,6 +35,7 @@ export class UserPostComponent {
   private router = inject(Router);
   public response: string = '';
   public user_liked: boolean = false; // เก็บสถานะว่า user กดไลค์หรือไม่
+  public user_bookmarked: boolean = false; // สถานะ bookmark
 
   @Input() group_post: any; // ไม่ใช่ any[]
   @Output() postUpdated = new EventEmitter<any>(); // ส่งกลับไป parent
@@ -44,6 +45,9 @@ export class UserPostComponent {
     this.check_like(this.group_post.id).then((liked) => {
       this.user_liked = liked;
       console.log('User liked status on init:', this.user_liked);
+    });
+    this.checkBookmark(this.group_post.id).then((bookmarked) => {
+      this.user_bookmarked = bookmarked;
     });
   }
   ngOnDestroy(): void {
@@ -164,5 +168,40 @@ export class UserPostComponent {
         headerClass: 'bg-danger',
       }
     );
+  }
+  public toggleBookmark() {
+    const payload = {
+      user_id: this.authen.getUserId(),
+      post_id: this.group_post.id,
+    };
+
+    this.restapi
+      .post('post/bookmark/create/', payload) // ใช้ API toggle ของ Django
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (res: any) => {
+          this.user_bookmarked = res.bookmarked;
+          console.log('Bookmark toggled:', this.user_bookmarked);
+        },
+        error: (err) => console.error('Error toggling bookmark:', err),
+      });
+  }
+
+  // check bookmark status
+  public async checkBookmark(post_id: number): Promise<boolean> {
+    const payload = {
+      user_id: this.authen.getUserId(),
+      post_id: post_id,
+    };
+
+    try {
+      const res: any = await firstValueFrom(
+        this.restapi.post('post/bookmark/check/', payload)
+      );
+      return res.bookmarked || false;
+    } catch (err) {
+      console.error('Error checking bookmark:', err);
+      return false;
+    }
   }
 }

@@ -10,6 +10,8 @@ import { BookmarkComponent } from './pages/bookmark/bookmark.component';
 import { FriendsComponent } from './pages/friends/friends.component';
 import { GroupPostListComponent } from '../../shared/components/group-post-list/group-post-list.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { GooglemapComponent } from './pages/googlemap/googlemap.component';
+import { AirlineComponent } from './pages/airline/airline.component';
 export const workspaceRoutes: Routes = [
   {
     path: '',
@@ -55,6 +57,14 @@ export const workspaceRoutes: Routes = [
       {
         path: 'Friends',
         component: FriendsComponent,
+      },
+      {
+        path: 'google-map',
+        component: GooglemapComponent,
+      },
+      {
+        path: 'Airline',
+        component: AirlineComponent,
       },
     ],
   },
