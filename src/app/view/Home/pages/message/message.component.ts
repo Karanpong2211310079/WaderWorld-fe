@@ -27,46 +27,55 @@ export class MessageComponent implements OnInit, OnDestroy {
   @ViewChild('chatContainer') chatContainer!: ElementRef;
 
   public id: any = this.authen.getUserId();
-  public message: any[] = [];
-  public chatroom_messages: any[] = [];
+  public message: any[] = []; // chatrooms ดั้งเดิม
+  public filteredMessage: any[] = []; // chatrooms หลัง filter
+  public chatroom_messages: any[] = []; // ข้อความในห้อง
   public sendMessageForm = new FormControl('');
+  public searchControl = new FormControl('');
   public isLoading = false;
   public selectedChatroom: any = null;
-  private refreshInterval: any = null; // 🕐 สำหรับเก็บ setInterval id
+  private refreshInterval: any = null;
 
   ngOnInit(): void {
     this.getChatroomWithLastMessage(this.id);
+
+    // 🔍 Search filter ใน client-side
+    this.searchControl.valueChanges.subscribe((term: string | null) => {
+      const lowerTerm = (term ?? '').toLowerCase();
+      this.filteredMessage = this.message.filter(
+        (chatroom) =>
+          chatroom.OtherUsername.toLowerCase().includes(lowerTerm) ||
+          (chatroom.LastMessage?.toLowerCase().includes(lowerTerm) ?? false)
+      );
+    });
   }
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
-    if (this.refreshInterval) clearInterval(this.refreshInterval); // 🧹 ล้าง interval ตอนออก
+    if (this.refreshInterval) clearInterval(this.refreshInterval);
   }
 
-  // ✅ ดึงรายการห้องทั้งหมด
-  public getChatroomWithLastMessage(user_id: any) {
+  // ดึงรายการ chatrooms
+  getChatroomWithLastMessage(user_id: any) {
     const payload = { user_id: parseInt(user_id) };
-    console.log('📦 Payload for Chatrooms:', payload);
-
     this.restapi
       .post('message/get_all_messages/', payload)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (response: any) => {
-          this.message = response?.messages || [];
-          console.log('💬 Chatrooms with Messages:', this.message);
+          this.message = response?.chatrooms || [];
+          this.filteredMessage = [...this.message]; // สำหรับ filter
         },
         error: (err) => console.error('❌ Chatroom load error:', err),
       });
   }
 
-  // ✅ เลือกห้อง
-  public selectChatroom(chatroom: any) {
+  // เลือกห้อง
+  selectChatroom(chatroom: any) {
     this.selectedChatroom = chatroom;
     this.getChatroomMessage(chatroom.chatroomId);
 
-    // 🕒 ตั้งให้รีเฟรชทุก 2 วินาที
     if (this.refreshInterval) clearInterval(this.refreshInterval);
     this.refreshInterval = setInterval(() => {
       if (this.selectedChatroom) {
@@ -75,29 +84,23 @@ export class MessageComponent implements OnInit, OnDestroy {
     }, 2000);
   }
 
-  // ✅ ดึงข้อความในห้อง
-  public getChatroomMessage(chatroom_id: number) {
-    const payload = {
-      user_id: parseInt(this.id),
-      chatroom_id: chatroom_id,
-    };
-    console.log('📦 Payload for Chatroom Messages:', payload);
+  // ดึงข้อความในห้อง
+  getChatroomMessage(chatroom_id: number) {
+    const payload = { user_id: parseInt(this.id), chatroom_id };
     this.restapi
       .post('message/get_chatroom_message/', payload)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (response: any) => {
           this.chatroom_messages = response?.messages || [];
-          console.log('📨 Messages:', this.chatroom_messages);
-
-          // auto scroll ลงข้อความล่าสุด
           setTimeout(() => this.scrollToBottom(), 100);
         },
+        error: (err) => console.error('❌ Chatroom message error:', err),
       });
   }
 
-  // ✅ ส่งข้อความ
-  public sendMessage() {
+  // ส่งข้อความ
+  sendMessage() {
     const content = this.sendMessageForm.value?.trim();
     if (!this.selectedChatroom || !content) return;
 
@@ -105,11 +108,8 @@ export class MessageComponent implements OnInit, OnDestroy {
     const payload = {
       chatroom_id: this.selectedChatroom.chatroomId,
       sender_id: parseInt(this.id),
-      content: content,
+      content,
     };
-
-    console.log('📤 Sending Message:', payload);
-
     this.restapi
       .post('message/send_message/', payload)
       .pipe(takeUntil(this.unsubscribe$))
@@ -127,11 +127,20 @@ export class MessageComponent implements OnInit, OnDestroy {
       });
   }
 
-  // ✅ scroll อัตโนมัติ
+  // scroll อัตโนมัติ
   private scrollToBottom() {
     try {
       const element = this.chatContainer.nativeElement;
       element.scrollTop = element.scrollHeight;
     } catch {}
+  }
+
+  // trackBy สำหรับ ngFor
+  trackByChatroomId(index: number, chatroom: any) {
+    return chatroom.chatroom_id;
+  }
+
+  trackByMessageId(index: number, msg: any) {
+    return msg.id;
   }
 }

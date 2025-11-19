@@ -100,6 +100,9 @@ export class EditProfileComponent implements OnDestroy, OnInit {
       reader.readAsDataURL(file);
     }
   }
+  public closeModal() {
+    this.modalService.dismissModal(this.modalEl, 'cancle');
+  }
 
   ngOnDestroy(): void {}
 

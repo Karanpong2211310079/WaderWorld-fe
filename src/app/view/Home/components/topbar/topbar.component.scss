@@ -70,14 +70,26 @@
 }
 
 /* Avatar */
-.user-avatar {
-  cursor: pointer;
-  border: 2px solid #e8e8e8;
-  transition: 0.2s;
+/* Avatar ขนาดต่าง ๆ */
+.avatar-sm {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-.user-avatar:hover {
-  border-color: #bcd0ff;
+.avatar-md {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar-lg {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 /* User menu */

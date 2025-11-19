@@ -36,16 +36,12 @@
                 <img
                   *ngIf="item.type === 'user'"
                   [src]="getImageUrl(item.profile_image_url)"
-                  class="rounded-circle"
-                  width="30"
-                  height="30"
+                  class="avatar-sm"
                 />
                 <img
                   *ngIf="item.type === 'group'"
                   [src]="getImageUrl(item.image_url)"
-                  class="rounded-circle"
-                  width="30"
-                  height="30"
+                  class="avatar-sm"
                 />
 
                 <div>{{ item.username || item.name }}</div>
@@ -69,9 +65,7 @@
 
       <div class="position-relative">
         <img
-          class="rounded-circle img-fluid user-avatar"
-          width="40"
-          height="40"
+          class="avatar-md user-avatar"
           [src]="userImage"
           (click)="toggleUserMenu()"
         />

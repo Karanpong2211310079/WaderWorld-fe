@@ -62,12 +62,34 @@
   </div>
 
   <!-- พรีวิวรูป -->
-  <div *ngIf="selectedImage && !isUploading" class="mt-3 text-center">
+  <!-- พรีวิวรูป -->
+  <div
+    *ngIf="selectedImage && !isUploading"
+    class="mt-3 text-center position-relative"
+    style="display: inline-block"
+  >
     <img
       [src]="selectedImage"
       alt="Preview"
       class="rounded shadow-sm"
       style="max-height: 250px; width: auto"
     />
+
+    <!-- ปุ่มลบ -->
+    <button
+      type="button"
+      (click)="clearImage()"
+      class="btn btn-danger btn-sm position-absolute"
+      style="
+        top: 5px;
+        right: 5px;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        padding: 0;
+      "
+    >
+      ×
+    </button>
   </div>
 </form>

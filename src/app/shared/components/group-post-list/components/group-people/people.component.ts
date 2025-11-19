@@ -101,4 +101,7 @@ export class PeopleComponent implements OnDestroy, OnInit {
         error: (err) => this.toast.error('Error cancelling membership'),
       });
   }
+  public closeModal() {
+    this.modalService.dismissModal(this.modalEl, 'cancle');
+  }
 }

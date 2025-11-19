@@ -72,7 +72,7 @@ export class InviteComponent implements OnDestroy, OnInit {
         },
       });
   }
-  public CancleCreateGroup() {
+  public closeModal() {
     this.modalService.dismissModal(this.modalEl, 'cancle');
   }
   ngOnDestroy(): void {

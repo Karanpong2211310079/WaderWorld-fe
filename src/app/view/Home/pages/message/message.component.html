@@ -9,11 +9,11 @@
         type="text"
         class="form-control mb-3"
         placeholder="Search users..."
+        [formControl]="searchControl"
       />
-
       <div class="flex-grow-1 overflow-auto">
-        @for (chatroom of message; track chatroom.chatroom_id) {
         <div
+          *ngFor="let chatroom of filteredMessage; trackBy: trackByChatroomId"
           class="d-flex flex-row align-items-center mb-3 p-2 rounded"
           style="cursor: pointer"
           [class.bg-light]="
@@ -22,19 +22,18 @@
           (click)="selectChatroom(chatroom)"
         >
           <img
-            src="https://i.pravatar.cc/150?img=3"
+            [src]="chatroom.OtherImageUrl"
             alt="avatar"
             class="rounded-circle"
             style="width: 50px; height: 50px; object-fit: cover"
           />
           <div class="ms-3">
-            <h6 class="mb-0">{{ chatroom.otherUsername }}</h6>
+            <h6 class="mb-0">{{ chatroom.OtherUsername }}</h6>
             <small class="text-muted" style="font-size: 10px">{{
               chatroom.LastMessage || "No message yet"
             }}</small>
           </div>
         </div>
-        }
       </div>
     </div>
   </div>
@@ -49,7 +48,7 @@
       <div class="d-flex flex-row align-items-center mb-3">
         <div class="me-2"><i class="bi bi-chat-text fs-3"></i></div>
         <div>
-          <h5 class="mb-0">{{ selectedChatroom.otherUsername }}</h5>
+          <h5 class="mb-0">{{ selectedChatroom.OtherUsername }}</h5>
           <small class="text-muted">{{
             selectedChatroom.LastMessageTime
           }}</small>
@@ -61,8 +60,11 @@
         #chatContainer
         class="flex-grow-1 bg-light rounded p-2 mb-3 overflow-auto"
       >
-        @for (msg of chatroom_messages; track msg.id) {
-        <div class="mb-2" [ngClass]="msg.sender_id == id ? 'text-end' : ''">
+        <div
+          *ngFor="let msg of chatroom_messages; trackBy: trackByMessageId"
+          class="mb-2"
+          [ngClass]="msg.sender_id == id ? 'text-end' : ''"
+        >
           <span
             class="badge"
             [ngClass]="msg.sender_id == id ? 'bg-secondary' : 'bg-primary'"
@@ -70,15 +72,14 @@
             {{ msg.content }}
           </span>
         </div>
-        }
       </div>
 
       <!-- กล่องส่งข้อความ -->
       <div class="d-flex">
         <div class="input-group">
-          <span class="input-group-text bg-light">
-            <i class="bi bi-emoji-smile"></i>
-          </span>
+          <span class="input-group-text bg-light"
+            ><i class="bi bi-emoji-smile"></i
+          ></span>
           <input
             type="text"
             class="form-control"
@@ -97,7 +98,6 @@
       </div>
     </div>
 
-    <!-- เมื่อยังไม่เลือกห้อง -->
     <ng-template #noChatroom>
       <div
         class="d-flex flex-column align-items-center justify-content-center h-100 text-muted"

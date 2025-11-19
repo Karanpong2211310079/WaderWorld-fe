@@ -31,12 +31,14 @@
           <td>{{ item.member_count }}</td>
           <td>{{ calculation_time(item.created_at) }}</td>
           <td>
-            <button class="btn btn-outline-danger btn-sm">
-              <i class="bi bi-trash"></i>
-            </button>
-            <button class="btn btn-outline-primary btn-sm">
-              <i class="bi bi-pencil-square"></i>
-            </button>
+            <div class="d-flex gap-1">
+              <button class="btn btn-outline-danger btn-sm">
+                <i class="bi bi-trash"></i>
+              </button>
+              <button class="btn btn-outline-primary btn-sm">
+                <i class="bi bi-pencil-square"></i>
+              </button>
+            </div>
           </td>
         </tr>
       </tbody>

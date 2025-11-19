@@ -1,4 +1,19 @@
 <div class="people-container p-3">
+  <button
+    type="button"
+    (click)="closeModal()"
+    class="btn btn-danger btn-sm position-absolute"
+    style="
+      top: 8px;
+      right: 8px;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      padding: 0;
+    "
+  >
+    ×
+  </button>
   <h5 class="mb-2">Approved Members</h5>
   <ul class="list-group mb-4">
     <li

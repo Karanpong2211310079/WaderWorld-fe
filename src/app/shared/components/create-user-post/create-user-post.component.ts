@@ -57,6 +57,16 @@ export class CreateUserPostComponent implements OnDestroy, OnInit {
     ) as HTMLInputElement;
     fileInput?.click();
   }
+  clearImage() {
+    this.selectedImage = null;
+    this.form.patchValue({ media: null });
+
+    // เคลียร์ value ใน input file จริง ๆ
+    const fileInput = document.getElementById(
+      'imageUpload'
+    ) as HTMLInputElement;
+    if (fileInput) fileInput.value = '';
+  }
 
   onImageSelected(event: Event) {
     const input = event.target as HTMLInputElement;

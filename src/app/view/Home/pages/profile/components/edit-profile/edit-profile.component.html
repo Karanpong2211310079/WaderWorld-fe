@@ -1,5 +1,20 @@
 <div class="d-flex flex-column p-3 gap-3" [formGroup]="userForm">
-  <h3>edit profile</h3>
+  <button
+    type="button"
+    (click)="closeModal()"
+    class="btn btn-danger btn-sm position-absolute"
+    style="
+      top: 8px;
+      right: 8px;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      padding: 0;
+    "
+  >
+    ×
+  </button>
+  <h3>Edit profile</h3>
   <span class="font-weight-bold text-muted">Profile picture</span>
 
   <div
