@@ -24,8 +24,8 @@
       ></i>
 
       <ul class="post-menu" [class.show]="menuOpen">
-        <li (click)="editPost()">Edit Post</li>
-        <li (click)="deletePost()">Delete Post</li>
+        <li (click)="editPost(group_post)">Edit Post</li>
+        <li (click)="deletePost(group_post.id)">Delete Post</li>
       </ul>
     </div>
   </div>

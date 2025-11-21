@@ -18,6 +18,7 @@ import { EventEmitter, Output } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { firstValueFrom } from 'rxjs';
+import { EditPostComponent } from './components/edit-post/edit-post.component';
 @Component({
   selector: 'app-post',
   imports: [CommonModule],
@@ -75,16 +76,6 @@ export class PostComponent implements OnDestroy, OnInit {
     this.menuOpen = !this.menuOpen;
   }
 
-  editPost() {
-    console.log('Edit Post clicked');
-    this.menuOpen = false;
-  }
-
-  deletePost() {
-    console.log('Delete Post clicked');
-    this.menuOpen = false;
-  }
-
   public like_post() {
     this.user_liked = !this.user_liked; // สลับสถานะไลค์ก่อนส่งคำขอ
     const payload = {
@@ -117,6 +108,24 @@ export class PostComponent implements OnDestroy, OnInit {
       console.error('Error checking like status:', err);
       return false;
     }
+  }
+  deletePost(post_id: any) {
+    if (!confirm('Are you sure you want to delete this post?')) return;
+
+    const postId = post_id; // id ของโพสต์
+    const userId = this.authen.getUserId(); // id ของผู้ใช้
+    console.log(post_id);
+    this.restapi
+      .post('group/group_post/delete/', { post_id: postId, user_id: userId })
+      .subscribe({
+        next: (res: any) => {
+          alert(res.detail || 'Post deleted successfully');
+        },
+        error: (err) => {
+          console.error(err);
+          alert(err.error.detail || 'Error deleting post');
+        },
+      });
   }
 
   // public check_like(post_id: any): void {
@@ -151,6 +160,27 @@ export class PostComponent implements OnDestroy, OnInit {
       {
         componentRef: CommentsComponent,
         value: this.group_post,
+        title: {
+          text: 'PAGE.WORKSPACE.SETTINGS.UPDATE_ROLEPERMISSION.TITLE',
+        },
+        footer: false,
+        headerClass: 'bg-danger',
+      }
+    );
+  }
+  public editPost(group_post: any) {
+    this.modalService.openTemplateModal(
+      'Edit Profile',
+      {
+        autoCloseRoutingChange: true,
+        backdrop: 'static',
+        keyboard: false,
+        size: 'lg',
+        scrollable: false,
+      },
+      {
+        componentRef: EditPostComponent,
+        value: group_post,
         title: {
           text: 'PAGE.WORKSPACE.SETTINGS.UPDATE_ROLEPERMISSION.TITLE',
         },

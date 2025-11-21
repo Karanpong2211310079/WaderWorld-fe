@@ -1,0 +1,54 @@
+<div class="edit-post-container">
+  <h2>Edit Post</h2>
+  <form
+    [formGroup]="editPostForm"
+    (ngSubmit)="submit()"
+    enctype="multipart/form-data"
+  >
+    <div class="form-group">
+      <label for="content">Content</label>
+      <textarea
+        id="content"
+        formControlName="content"
+        rows="4"
+        placeholder="Edit your post..."
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="media">Media (optional)</label>
+      <input
+        type="file"
+        id="media"
+        (change)="onFileChange($event)"
+        accept="image/*"
+      />
+    </div>
+
+    <!-- media preview -->
+    <div class="form-group" *ngIf="mediaPreview">
+      <label>Current Media:</label>
+      <img [src]="mediaPreview" alt="Media Preview" class="media-preview" />
+    </div>
+
+    <div class="form-group">
+      <label for="category">Category</label>
+      <select id="category" formControlName="category">
+        <option *ngFor="let c of categories" [value]="c.value">
+          {{ c.label }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="visibility">Visibility</label>
+      <select id="visibility" formControlName="visibility">
+        <option *ngFor="let v of visibilities" [value]="v.value">
+          {{ v.label }}
+        </option>
+      </select>
+    </div>
+
+    <button type="submit">Update Post</button>
+  </form>
+</div>
