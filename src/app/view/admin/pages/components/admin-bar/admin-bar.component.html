@@ -1,18 +1,42 @@
-<div class="container">
-  <div class="content-list">
-    <ul>
-      <li>
-        <i class="fas fa-users-cog"></i>
-        <a [routerLink]="'manage-user'">Manage Users</a>
-      </li>
-      <li>
-        <i class="fas fa-edit"></i>
-        <a [routerLink]="'manage-post'">Manage Posts</a>
-      </li>
-      <li>
-        <i class="fas fa-object-group"></i>
-        <a [routerLink]="'manage-group'">Manage Groups</a>
-      </li>
-    </ul>
-  </div>
+<div class="sidebar-card shadow-sm rounded p-3 bg-white">
+  <ul class="list-unstyled">
+    <li
+      class="sidebar-item d-flex align-items-center gap-2"
+      routerLinkActive="active"
+    >
+      <i class="bi bi-gear fs-5 text-primary"></i>
+      <a
+        [routerLink]="'manage-user'"
+        class="text-decoration-none text-dark flex-grow-1"
+      >
+        Manage Users
+      </a>
+    </li>
+
+    <li
+      class="sidebar-item d-flex align-items-center gap-2"
+      routerLinkActive="active"
+    >
+      <i class="bi bi-pencil-square fs-5 text-primary"></i>
+      <a
+        [routerLink]="'manage-post'"
+        class="text-decoration-none text-dark flex-grow-1"
+      >
+        Manage Posts
+      </a>
+    </li>
+
+    <li
+      class="sidebar-item d-flex align-items-center gap-2"
+      routerLinkActive="active"
+    >
+      <i class="bi bi-collection fs-5 text-primary"></i>
+      <a
+        [routerLink]="'manage-group'"
+        class="text-decoration-none text-dark flex-grow-1"
+      >
+        Manage Groups
+      </a>
+    </li>
+  </ul>
 </div>

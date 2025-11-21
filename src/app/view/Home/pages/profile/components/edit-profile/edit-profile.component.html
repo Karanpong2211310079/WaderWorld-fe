@@ -1,0 +1,81 @@
+<div class="d-flex flex-column p-3 gap-3" [formGroup]="userForm">
+  <button
+    type="button"
+    (click)="closeModal()"
+    class="btn btn-danger btn-sm position-absolute"
+    style="
+      top: 8px;
+      right: 8px;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      padding: 0;
+    "
+  >
+    ×
+  </button>
+  <h3>Edit profile</h3>
+  <span class="font-weight-bold text-muted">Profile picture</span>
+
+  <div
+    class="d-flex flex-column align-items-center bg-white mb-3 position-relative"
+  >
+    <!-- รูปโปรไฟล์ -->
+    <div class="avatar-wrapper position-relative">
+      <!-- Skeleton / Placeholder -->
+      <div
+        *ngIf="!userForm?.value?.image"
+        class="avatar-placeholder rounded-circle"
+      ></div>
+
+      <!-- Actual Image -->
+      <img
+        *ngIf="userForm?.value?.image"
+        [src]="getProfileImage()"
+        class="rounded-circle"
+        alt="avatar"
+        width="300"
+        height="300"
+        style="object-fit: cover"
+      />
+    </div>
+
+    <!-- ปุ่ม Choose File -->
+    <button class="btn btn-sm btn-secondary mt-2" (click)="fileInput.click()">
+      Change picture
+    </button>
+
+    <!-- input file แบบซ่อน -->
+    <input
+      type="file"
+      #fileInput
+      accept="image/*"
+      style="display: none"
+      (change)="onFileSelected($event)"
+    />
+  </div>
+
+  <label class="form-label">
+    <span class="font-weight-bold text-muted">Name</span>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Name"
+      formControlName="username"
+    />
+  </label>
+
+  <label class="form-label">
+    <span class="font-weight-bold text-muted">Bio</span>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Bio"
+      formControlName="bio"
+    />
+  </label>
+
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-primary" (click)="submitForm()">Save</button>
+  </div>
+</div>

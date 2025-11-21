@@ -1,0 +1,69 @@
+<div class="d-flex flex-column p-3 gap-1">
+  <div class="d-flex flex-column align-items-center bg-white rounded shadow-sm">
+    <h3>Friends</h3>
+  </div>
+  <app-follow-btn
+    [choice1]="Friend_Requests"
+    [choice2]="Friend"
+    (choiceChange)="onChoiceChanged($event)"
+  ></app-follow-btn>
+  @if (state == 'Friend Requests') { @if (Friend_Request_Data.length === 0) {
+  <div
+    class="d-flex flex-column align-items-center bg-white rounded shadow-sm p-3"
+  >
+    <h5>No Friend Requests</h5>
+  </div>
+  } @else { @for (item of Friend_Request_Data; track $index) {
+  <div
+    class="d-flex flex-row bg-white rounded shadow-sm mb-3 p-3 align-items-center gap-3"
+  >
+    <img
+      class="rounded"
+      style="width: 100px; height: 100px; object-fit: cover"
+      src=""
+      alt="img-cover"
+    />
+    <div class="d-flex flex-column flex-grow-1">
+      <h5 class="mb-1 fw-bold">{{ item.username }}</h5>
+      <p class="text-muted mb-2">Public · 30 members</p>
+    </div>
+    <div class="d-flex align-items-center">
+      <button class="btn btn-primary btn-md me-2" (click)="onConfirm(item.id)">
+        Confirm
+      </button>
+      <button class="btn btn-secondary btn-md" (click)="onDelete(item.id)">
+        Delete
+      </button>
+    </div>
+  </div>
+  } } } @if (state == 'Friend') { @for (item of AllFriends; track $index) {
+  <div
+    class="d-flex flex-row bg-white rounded shadow-sm mb-3 p-3 align-items-center"
+  >
+    <!-- Avatar -->
+    <img
+      class="rounded-circle"
+      [src]="item.image_url"
+      alt="avatar"
+      style="width: 80px; height: 80px; object-fit: cover"
+    />
+
+    <!-- User Info -->
+    <div class="d-flex flex-column flex-grow-1 ms-3">
+      <h5 class="mb-1 fw-bold">{{ item.username }}</h5>
+      <p class="text-muted mb-0" style="font-size: 0.875rem">
+        Public · 30 members
+      </p>
+    </div>
+
+    <!-- Message Button -->
+    <button
+      class="btn btn-outline-primary btn-sm"
+      (click)="goToMessage(item.id)"
+    >
+      <i class="bi bi-chat me-1"></i> Message
+    </button>
+  </div>
+
+  } }
+</div>

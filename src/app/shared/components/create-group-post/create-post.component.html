@@ -1,0 +1,88 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="onCreate()"
+  class="d-flex flex-column p-3 rounded shadow-sm bg-white"
+>
+  <!-- ส่วนบน -->
+  <div class="d-flex align-items-center gap-2">
+    <img
+      class="rounded-circle"
+      src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face"
+      alt="User Avatar"
+      width="50"
+      height="50"
+    />
+
+    <input
+      formControlName="content"
+      [placeholder]="placeholderText"
+      type="text"
+      class="flex-grow-1 border-0 bg-light rounded px-3 py-2"
+      style="min-width: 0"
+    />
+  </div>
+
+  <!-- ส่วนล่าง -->
+  <div class="d-flex justify-content-end align-items-center p-2 gap-2">
+    <input
+      type="file"
+      accept="image/*"
+      id="imageUpload"
+      hidden
+      (change)="onImageSelected($event)"
+    />
+
+    <i
+      class="bi bi-image-fill text-primary mx-2"
+      style="font-size: 40px; cursor: pointer"
+      (click)="triggerImageUpload()"
+    ></i>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="isUploading || form.invalid"
+    >
+      {{ isUploading ? "Uploading..." : "Create" }}
+    </button>
+  </div>
+
+  <!-- โหลดรูป -->
+  <div *ngIf="isUploading" class="text-center my-3">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2 text-secondary small">Uploading image...</p>
+  </div>
+
+  <!-- พรีวิวรูป -->
+  <div
+    *ngIf="selectedImage && !isUploading"
+    class="mt-3 text-center position-relative"
+    style="display: inline-block"
+  >
+    <img
+      [src]="selectedImage"
+      alt="Preview"
+      class="rounded shadow-sm"
+      style="max-height: 250px; width: auto"
+    />
+
+    <!-- ปุ่มลบรูป -->
+    <button
+      type="button"
+      (click)="clearImage()"
+      class="btn btn-danger btn-sm position-absolute"
+      style="
+        top: 8px;
+        right: 8px;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        padding: 0;
+      "
+    >
+      ×
+    </button>
+  </div>
+</form>

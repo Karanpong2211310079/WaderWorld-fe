@@ -1,50 +1,172 @@
-<div class="create-post-section">
-    <div class="top">
-        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face"
-             alt="User Avatar">
-        <input type="text" placeholder="What’s on your mind?">
-    </div>
-    <div class="down">
-        <i class="fas fa-image"></i>
-        <button>Create</button>
-    </div>
-</div>
+<div class="d-flex flex-column p-3 gap-3 position-relative">
+  <!-- Follow Button -->
+  <app-follow-btn
+    [choice1]="'Your Groups'"
+    [choice2]="'Discover'"
+    (choiceChange)="onChoiceChange($event)"
+  ></app-follow-btn>
 
-<div class="content-condition-wrapper">
-  <div class="content-condition">
-  @if (condition === 1) {
-    <h3 class="active" (click)="changeStateIndex(1)">Your groups</h3>
-    <h3 (click)="changeStateIndex(2)">Following</h3>
-  } @else {
-    <h3 (click)="changeStateIndex(1)">For you</h3>
-    <h3 class="active" (click)="changeStateIndex(2)">Discover</h3>
-  }
-</div>
+  <!-- Your Groups -->
+  @if (choice == 'Your Groups') { @for (item of Usergroups | orderByIdDesc;
+  track $index) {
+  <div
+    class="d-flex flex-row bg-white rounded shadow-sm mb-3 p-3 align-items-center gap-3"
+  >
+    <img
+      class="rounded"
+      style="width: 100px; height: 100px; object-fit: cover"
+      [src]="item.image_url"
+      alt="img-cover"
+    />
+    <div class="d-flex flex-column flex-grow-1">
+      <div class="d-flex align-items-center gap-2">
+        <h5 class="mb-1 fw-bold">{{ item.name }}</h5>
+        <!-- แสดง Rank 1–3 -->
+        <span
+          *ngIf="item.rank >= 1 && item.rank <= 3"
+          class="badge bg-warning text-dark"
+        >
+          {{
+            item.rank === 1
+              ? " 1# POPULAR"
+              : item.rank === 2
+              ? "2# TRENDING"
+              : item.rank === 3
+              ? "3# HOT"
+              : ""
+          }}
+        </span>
+        <span *ngIf="item.is_new" class="badge bg-success text-white">
+          NEW
+        </span>
+      </div>
+      <p class="text-muted mb-2 d-flex align-items-center gap-1">
+        <i class="bi bi-globe"></i>
+        <span>{{ item.type }} · {{ item.members_count }} members</span>
+      </p>
+      <div class="d-flex flex-wrap gap-2 mb-2">
+        <span
+          *ngFor="let cat of item.category.split(',')"
+          class="badge"
+          [ngClass]="{
+            'bg-info text-white': cat === 'BEACH',
+            'bg-success text-white': cat === 'MOUNTAIN',
+            'bg-dark text-white': cat === 'FOREST',
+            'bg-warning text-dark': cat === 'TOURIST_SPOT',
+            'bg-secondary text-white': cat === 'OTHER'
+          }"
+        >
+          {{
+            cat === "BEACH"
+              ? "BEACH"
+              : cat === "MOUNTAIN"
+              ? "MOUNTAIN"
+              : cat === "FOREST"
+              ? "FOREST"
+              : cat === "TOURIST_SPOT"
+              ? "TOURIST_SPOT"
+              : "อื่นๆ"
+          }}
+        </span>
+      </div>
 
-</div>
+      <button
+        class="btn btn-primary btn-sm w-100"
+        (click)="
+          item.status === 'APPROVED' ? NavigateToGroup($event, item.id) : null
+        "
+        [disabled]="item.status !== 'APPROVED'"
+      >
+        {{
+          item.status === "APPROVED"
+            ? "View Group"
+            : item.status === "PENDING"
+            ? "Pending"
+            : item.status === "REJECTED"
+            ? "Rejected"
+            : "Not Joined"
+        }}
+      </button>
+    </div>
+  </div>
+  } }
 
-<div class="group-card">
-    <img src="https://www.travelandleisure.com/thmb/RQ3JmT8V2y2fhwr7NY0cgUumcCE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/phuket-thailand-karst-formation-phuket0327-92bd3ce9266148dba74cba5e36c711e2.jpg" alt="">
-    <div class="group-detail">
-        <h3>Phuket</h3>
-        <h5>Public 30 members</h5>
-        <button>View group</button>
-    </div>
-</div>
-<div class="group-card">
-    <img src="https://www.travelandleisure.com/thmb/RQ3JmT8V2y2fhwr7NY0cgUumcCE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/phuket-thailand-karst-formation-phuket0327-92bd3ce9266148dba74cba5e36c711e2.jpg" alt="">
-    <div class="group-detail">
-        <h3>Phuket</h3>
-        <h5>Public 30 members</h5>
-        <button>View group</button>
-    </div>
-</div>
-<div class="group-card">
-    <img src="https://www.travelandleisure.com/thmb/RQ3JmT8V2y2fhwr7NY0cgUumcCE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/phuket-thailand-karst-formation-phuket0327-92bd3ce9266148dba74cba5e36c711e2.jpg" alt="">
-    <div class="group-detail">
-        <h3>Phuket</h3>
-        <h5>Public 30 members</h5>
-        <button>View group</button>
-    </div>
-</div>
+  <!-- Discover Groups -->
+  @if (choice == 'Discover') { @for (item of Allgroups; track $index) { @if
+  (item.status == 'NOT_JOINED' || item.status == 'REJECTED' || item.status ==
+  'PENDING') {
+  <div
+    class="d-flex flex-row bg-white rounded shadow-sm mb-3 p-3 align-items-center gap-3"
+  >
+    <img
+      class="rounded"
+      style="width: 100px; height: 100px; object-fit: cover"
+      [src]="item.image_url"
+      alt="img-cover"
+    />
+    <div class="d-flex flex-column flex-grow-1">
+      <div class="d-flex align-items-center gap-2">
+        <h5 class="mb-1 fw-bold">{{ item.name }}</h5>
+        <!-- แสดง Rank 1–3 -->
+        <span
+          *ngIf="item.rank >= 1 && item.rank <= 3"
+          class="badge bg-warning text-dark"
+        >
+          {{
+            item.rank === 1
+              ? "1# POPULAR"
+              : item.rank === 2
+              ? "2# TRENDING"
+              : item.rank === 3
+              ? "3# HOT"
+              : ""
+          }}
+        </span>
+        <!-- แสดง NEW -->
+        <span *ngIf="item.is_new" class="badge bg-success text-white">
+          NEW
+        </span>
+      </div>
 
+      <p class="text-muted mb-2 d-flex align-items-center gap-1">
+        <i
+          class="bi"
+          [ngClass]="{
+            'bi-globe': item.type === 'PUBLIC',
+            'bi-lock-fill': item.type === 'PRIVATE'
+          }"
+        ></i>
+        <span>{{ item.type }} · {{ item.members_count }} members</span>
+      </p>
+
+      <!-- ปุ่ม Join / Pending / Rejected / View -->
+      <button
+        class="btn btn-sm w-100"
+        [class.btn-success]="item.status === 'APPROVED'"
+        [class.btn-warning]="item.status === 'PENDING'"
+        [class.btn-danger]="item.status === 'REJECTED'"
+        [class.btn-primary]="item.status === 'NOT_JOINED'"
+        (click)="RequestJoined($event, item.id)"
+        [disabled]="item.status === 'APPROVED'"
+      >
+        {{
+          item.status === "APPROVED"
+            ? "Joined"
+            : item.status === "PENDING"
+            ? "Pending"
+            : item.status === "REJECTED"
+            ? "Rejected"
+            : "Join"
+        }}
+      </button>
+    </div>
+  </div>
+  } } }
+
+  <!-- Floating Create Button -->
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-primary" (click)="openCreateGroup()">
+      <i class="bi bi-plus-lg"></i> Create Group
+    </button>
+  </div>
+</div>

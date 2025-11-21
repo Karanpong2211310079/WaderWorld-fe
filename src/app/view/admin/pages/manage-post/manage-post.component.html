@@ -1,1 +1,83 @@
-<p>manage-post works!</p>
+<div class="container">
+  <div class="table-card mt-3">
+    <h2>Manage Posts</h2>
+    <app-follow-btn
+      [choice1]="User_state"
+      [choice2]="Group_state"
+      (choiceChange)="onChoiceChanged($event)"
+    >
+    </app-follow-btn>
+    <table class="table table-bordered table-hover mb-0 align-middle">
+      <thead class="thead-light">
+        <tr class="head-table">
+          <th>ID</th>
+          <th *ngIf="state === 'User'">Poster</th>
+          <th *ngIf="state === 'Group'">Group</th>
+          <th>Content</th>
+          <th>Like</th>
+          <th>Comment</th>
+          <th>Create at</th>
+          <th *ngIf="state === 'User'">Visibility</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- User Posts -->
+        <tr
+          *ngFor="let item of UserAllPosts; let i = index"
+          [hidden]="state !== 'User'"
+        >
+          <td>{{ i + 1 }}</td>
+          <td>{{ item.username }}</td>
+          <td>{{ item.content }}</td>
+          <td>0</td>
+          <td>0</td>
+          <td>{{ calculation_time(item.created_at) }}</td>
+          <td>{{ item.visibility }}</td>
+          <td>
+            <button
+              class="btn btn-outline-danger btn-sm"
+              (click)="deleteUserPost(item.id)"
+            >
+              <i class="bi bi-trash"></i>
+            </button>
+            <button
+              class="btn btn-outline-primary btn-sm"
+              (click)="inspect_user_post(item)"
+            >
+              <i class="bi bi-eye"></i>
+            </button>
+          </td>
+        </tr>
+
+        <!-- Group Posts -->
+        <tr
+          *ngFor="let item of GroupAllPosts; let i = index"
+          [hidden]="state !== 'Group'"
+        >
+          <td>{{ i + 1 }}</td>
+          <td>{{ item.groupname }}</td>
+          <td>{{ item.username }}</td>
+          <td>{{ item.content }}</td>
+          <td>{{ item.like_count }}</td>
+          <td>{{ item.comment_count }}</td>
+          <td>{{ calculation_time(item.created_at) }}</td>
+          <td>
+            <button
+              class="btn btn-outline-danger btn-sm"
+              (click)="deleteGroupPost(item.id)"
+            >
+              <i class="bi bi-trash"></i>
+            </button>
+            <button
+              class="btn btn-outline-primary btn-sm"
+              (click)="inspect_grop_post(item)"
+            >
+              <i class="bi bi-eye"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

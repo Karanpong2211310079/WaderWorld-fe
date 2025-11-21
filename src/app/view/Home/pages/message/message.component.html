@@ -1,140 +1,110 @@
-<div class="chat-container">
-  <!-- Sidebar -->
-  <div class="sidebar" [class.mobile-open]="isMobileSidebarOpen">
-    <!-- Header -->
-    <div class="sidebar-header">
-      <button class="mobile-back-btn" (click)="closeMobileSidebar()">
-        <i class="fas fa-arrow-left"></i>
-      </button>
-      <div class="header-top">
-        <h1>Messages</h1>
-        <div class="user-avatar">
-          <span>JD</span>
-        </div>
-      </div>
-      
-      <!-- Search -->
-      <div class="search-container">
-        <i class="fas fa-search search-icon"></i>
-        <input
-          type="text"
-          placeholder="Search conversations..."
-          [(ngModel)]="searchTerm"
-          class="search-input"
-        />
-      </div>
-    </div>
-
-    <!-- Chat List -->
-    <div class="chat-list">
-      <div
-        *ngFor="let chat of filteredChats"
-        (click)="selectChat(chat)"
-        class="chat-item"
-        [class.active]="selectedChat?.id === chat.id"
-      >
-        <div class="chat-avatar-container">
-          <div class="chat-avatar">
-            <span>{{ getInitials(chat.name) }}</span>
+<div
+  class="d-flex flex-row p-3"
+  style="min-height: 100vh; background-color: #f0f2f5"
+>
+  <!-- 🧩 รายชื่อแชต -->
+  <div class="col-lg-4 col-md-5 col-sm-12 pe-3">
+    <div class="d-flex flex-column h-100 bg-white rounded shadow-sm p-3">
+      <input
+        type="text"
+        class="form-control mb-3"
+        placeholder="Search users..."
+        [formControl]="searchControl"
+      />
+      <div class="flex-grow-1 overflow-auto">
+        <div
+          *ngFor="let chatroom of filteredMessage; trackBy: trackByChatroomId"
+          class="d-flex flex-row align-items-center mb-3 p-2 rounded"
+          style="cursor: pointer"
+          [class.bg-light]="
+            selectedChatroom?.chatroom_id === chatroom.chatroom_id
+          "
+          (click)="selectChatroom(chatroom)"
+        >
+          <img
+            [src]="chatroom.OtherImageUrl"
+            alt="avatar"
+            class="rounded-circle"
+            style="width: 50px; height: 50px; object-fit: cover"
+          />
+          <div class="ms-3">
+            <h6 class="mb-0">{{ chatroom.OtherUsername }}</h6>
+            <small class="text-muted" style="font-size: 10px">{{
+              chatroom.LastMessage || "No message yet"
+            }}</small>
           </div>
-          <div *ngIf="chat.online" class="online-indicator"></div>
-        </div>
-        
-        <div class="chat-info">
-          <div class="chat-header">
-            <h3>{{ chat.name }}</h3>
-            <span class="time">{{ chat.time }}</span>
-          </div>
-          <p class="last-message">{{ chat.lastMessage }}</p>
-        </div>
-        
-        <div *ngIf="chat.unread > 0" class="unread-badge">
-          {{ chat.unread }}
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Main Chat Area -->
-  <div class="main-chat">
-    <!-- Chat Header -->
-    <div class="chat-header-bar">
-      <div class="chat-user-info">
-        <button class="mobile-menu-btn" (click)="openMobileSidebar()">
-          <i class="fas fa-bars"></i>
-        </button>
-        <div class="chat-user-avatar">
-          <span>{{ getInitials(selectedChat?.name || '') }}</span>
-        </div>
-        <div class="chat-user-details">
-          <h2>{{ selectedChat?.name }}</h2>
-          <p class="status">Online</p>
+  <!-- 💬 กล่องข้อความ -->
+  <div class="col-lg-8 col-md-7 col-sm-12">
+    <div
+      class="d-flex flex-column h-100 bg-white rounded shadow-sm p-3"
+      *ngIf="selectedChatroom; else noChatroom"
+    >
+      <!-- ส่วนหัว -->
+      <div class="d-flex flex-row align-items-center mb-3">
+        <div class="me-2"><i class="bi bi-chat-text fs-3"></i></div>
+        <div>
+          <h5 class="mb-0">{{ selectedChatroom.OtherUsername }}</h5>
+          <small class="text-muted">{{
+            selectedChatroom.LastMessageTime
+          }}</small>
         </div>
       </div>
-      
-      <div class="chat-actions">
-        <button class="action-btn">
-          <i class="fas fa-phone"></i>
-        </button>
-        <button class="action-btn">
-          <i class="fas fa-video"></i>
-        </button>
-        <button class="action-btn">
-          <i class="fas fa-ellipsis-v"></i>
-        </button>
-      </div>
-    </div>
 
-    <!-- Messages Area -->
-    <div class="messages-container" #messagesContainer>
+      <!-- แสดงข้อความ -->
       <div
-        *ngFor="let message of messages"
-        class="message"
-        [class.sent]="message.sender === 'me'"
-        [class.received]="message.sender === 'other'"
+        #chatContainer
+        class="flex-grow-1 bg-light rounded p-2 mb-3 overflow-auto"
       >
-        <div class="message-bubble">
-          <p>{{ message.text }}</p>
-          <span class="message-time">{{ message.time }}</span>
+        <div
+          *ngFor="let msg of chatroom_messages; trackBy: trackByMessageId"
+          class="mb-2"
+          [ngClass]="msg.sender_id == id ? 'text-end' : ''"
+        >
+          <span
+            class="badge"
+            [ngClass]="msg.sender_id == id ? 'bg-secondary' : 'bg-primary'"
+          >
+            {{ msg.content }}
+          </span>
         </div>
       </div>
-    </div>
 
-    <!-- Input Area -->
-    <div class="input-area">
-      <div class="input-container">
-        <button class="attachment-btn">
-          <i class="fas fa-paperclip"></i>
-        </button>
-        <button class="image-btn">
-          <i class="fas fa-image"></i>
-        </button>
-        
-        <div class="message-input-wrapper">
+      <!-- กล่องส่งข้อความ -->
+      <div class="d-flex">
+        <div class="input-group">
+          <span class="input-group-text bg-light"
+            ><i class="bi bi-emoji-smile"></i
+          ></span>
           <input
             type="text"
-            [(ngModel)]="currentMessage"
-            (keydown.enter)="sendMessage()"
+            class="form-control"
             placeholder="Type a message..."
-            class="message-input"
+            [formControl]="sendMessageForm"
           />
-          <button class="emoji-btn">
-            <i class="fas fa-smile"></i>
+          <button
+            class="btn btn-primary"
+            type="button"
+            (click)="sendMessage()"
+            [disabled]="isLoading"
+          >
+            <i class="bi bi-arrow-right-square-fill"></i>
           </button>
         </div>
-        
-        <button
-          (click)="sendMessage()"
-          [disabled]="!currentMessage.trim()"
-          class="send-btn"
-        >
-          <i class="fas fa-paper-plane"></i>
-        </button>
-      </div>
-      
-      <div class="input-hint">
-        <p>Press Enter to send • Shift + Enter for new line</p>
       </div>
     </div>
+
+    <ng-template #noChatroom>
+      <div
+        class="d-flex flex-column align-items-center justify-content-center h-100 text-muted"
+      >
+        <i class="bi bi-chat-dots fs-1 mb-3"></i>
+        <p>Select a chatroom to start messaging</p>
+      </div>
+    </ng-template>
   </div>
 </div>
