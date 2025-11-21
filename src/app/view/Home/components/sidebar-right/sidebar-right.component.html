@@ -20,11 +20,8 @@
           </div>
         </div>
 
-        <button
-          class="btn btn-sm btn-travel-follow"
-          (click)="followUser(user.id)"
-        >
-          Follow
+        <button class="btn btn-sm btn-travel-follow" (click)="followUser(user)">
+          {{ user.isRequested ? "Requested" : "Follow" }}
         </button>
       </div>
     </ng-container>

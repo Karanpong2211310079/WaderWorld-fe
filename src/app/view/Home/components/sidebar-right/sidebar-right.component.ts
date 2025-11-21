@@ -3,6 +3,7 @@ import { RestApiService } from '../../../../core/service/rest-api-service/rest-a
 import { Subject, takeUntil } from 'rxjs';
 import { AuthenticationServiceService } from '../../../../core/service/authentication-service/authentication-service.service';
 import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-sidebar-right',
   imports: [CommonModule],
@@ -29,25 +30,41 @@ export class SidebarRightComponent implements OnInit, OnDestroy {
     const payload = {
       user_id: this.authen.getUserId(),
     };
+
     this.restapi
-      .post('home/user_recommend/', payload) // เรียก API
+      .post('home/user_recommend/', payload)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (res: any) => {
-          this.recommendedUsers = res.message || []; // สมมติ response มี field 'users'
+          // เพิ่ม isRequested ให้แต่ละ user เริ่มต้นเป็น false
+          this.recommendedUsers = (res.message || []).map((user: any) => ({
+            ...user,
+            isRequested: false,
+          }));
         },
         error: (err) => console.error('❌ Load recommended users error:', err),
       });
   }
 
-  followUser(userId: number) {
-    // ตัวอย่างเรียก API follow user
+  followUser(user: any) {
+    user.isRequested = true; // เปลี่ยนสถานะทันทีใน UI
+
+    const payload = {
+      user_id: this.authen.getUserId(),
+      friend_id: user.id,
+    };
+
+    console.log('Follow payload:', payload);
+
     this.restapi
-      .post('follow_user/', { user_id: userId })
+      .post('friends/add/', payload)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
-        next: (res) => console.log('✅ Followed user:', userId),
-        error: (err) => console.error('❌ Follow user error:', err),
+        next: (res) => console.log('✅ Followed user:', user.id),
+        error: (err) => {
+          console.error('❌ Follow user error:', err);
+          user.isRequested = false; // ถ้าผิดพลาดกลับสถานะ
+        },
       });
   }
 }

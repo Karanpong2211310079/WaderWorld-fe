@@ -78,12 +78,14 @@
           <li class="menu-item" (click)="navigateToProfile(); closeUserMenu()">
             <i class="bi bi-person"></i> Profile
           </li>
+          @if (is_admin) {
           <li
             class="menu-item"
             (click)="navigateToDashboard(); closeUserMenu()"
           >
             <i class="bi bi-speedometer2"></i> Dashboard
           </li>
+          }
         </ul>
       </div>
     </div>

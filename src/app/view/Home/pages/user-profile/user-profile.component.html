@@ -34,12 +34,27 @@
       </div>
     </div>
     <div class="mt-3">
-      <button *ngIf="!is_friend" class="btn btn-primary w-100">
-        Add Friend
+      <!-- FOLLOW -->
+      <button
+        *ngIf="friendStatus === 'FOLLOW'"
+        class="btn btn-primary w-100"
+        (click)="followUser()"
+      >
+        Follow
       </button>
 
+      <!-- REQUESTED -->
       <button
-        *ngIf="is_friend"
+        *ngIf="friendStatus === 'REQUESTED'"
+        class="btn btn-warning w-100"
+        disabled
+      >
+        Requested
+      </button>
+
+      <!-- FRIEND -->
+      <button
+        *ngIf="friendStatus === 'FRIEND'"
         class="btn btn-success w-100"
         (click)="goToMessage(user_data.id)"
       >

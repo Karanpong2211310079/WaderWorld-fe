@@ -63,6 +63,24 @@ export class AuthenticationServiceService {
       return null;
     }
   }
+  // === GET USER ROLE FROM TOKEN ===
+  getUserRole(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      const cleanToken = token.replace('Bearer ', '');
+      const decoded: any = jwtDecode(cleanToken);
+
+      // role ที่ embed ไว้ใน token
+      const role = decoded.role;
+
+      return role ? role.toString() : null;
+    } catch (e) {
+      console.error('Invalid token:', e);
+      return null;
+    }
+  }
 
   // === ตรวจสอบว่า Token หมดอายุหรือยัง ===
   isTokenExpired(): boolean {

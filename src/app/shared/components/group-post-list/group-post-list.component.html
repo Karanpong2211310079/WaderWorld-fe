@@ -96,12 +96,14 @@
       <button class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium">
         About
       </button>
+      @if (is_admin_group) {
       <button
         class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium"
         (click)="PeopleGroup()"
       >
         People
       </button>
+      }
       <button class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium">
         Chats
       </button>

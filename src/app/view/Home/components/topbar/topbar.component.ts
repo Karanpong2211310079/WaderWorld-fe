@@ -28,6 +28,7 @@ export class TopbarComponent implements OnDestroy, OnInit {
   public searchform = new FormGroup({ username: new FormControl('') });
   public userMenuOpen = false;
   public searchResults: any;
+  is_admin: boolean = false;
 
   toggleUserMenu() {
     this.userMenuOpen = !this.userMenuOpen;
@@ -49,6 +50,15 @@ export class TopbarComponent implements OnDestroy, OnInit {
       console.log('Profile image:', imgUrl);
       this.userImage = imgUrl; // เก็บไว้ใช้ใน template
     });
+    this.CheckRoleUser();
+  }
+  private CheckRoleUser() {
+    const role = this.authen.getUserRole();
+    if (role == 'Admin') {
+      this.is_admin = true;
+    } else {
+      this.is_admin = false;
+    }
   }
 
   ngOnDestroy(): void {

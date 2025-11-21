@@ -25,6 +25,8 @@ export class UserProfileComponent implements OnDestroy, OnInit {
   public user_data: any;
   public user_post: any;
   public is_friend: boolean = false;
+  public isRequested: boolean = false;
+  public friendStatus: 'FOLLOW' | 'REQUESTED' | 'FRIEND' = 'FOLLOW';
 
   public get_user_profile() {
     const payload = {
@@ -55,20 +57,7 @@ export class UserProfileComponent implements OnDestroy, OnInit {
         console.log('User Post Data:', this.user_post);
       });
   }
-  public check_friend() {
-    const payload = {
-      user_id: this.authen.getUserId(), // user ที่ล็อกอิน
-      friend_id: this.id, // user ที่เรากำลังดูโปรไฟล์
-    };
 
-    this.restapi
-      .post('friends/check_friend/', payload)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((response) => {
-        this.is_friend = response.message.is_friend;
-        console.log('Friend status:', this.is_friend);
-      });
-  }
   public handlePostUpdated(event: any) {
     console.log('Post updated event received:', event);
 
@@ -103,6 +92,53 @@ export class UserProfileComponent implements OnDestroy, OnInit {
           });
         },
         error: (err) => console.error('Error creating/getting chatroom:', err),
+      });
+  }
+
+  public check_friend() {
+    const payload = {
+      user_id: this.authen.getUserId(),
+      friend_id: this.id,
+    };
+
+    this.restapi
+      .post('friends/check_friend/', payload)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((response) => {
+        const status = response.message.status;
+        const isFriend = response.message.is_friend;
+        console.log(response);
+
+        if (isFriend && status == 'ACCEPTED') {
+          this.friendStatus = 'FRIEND'; // เป็นเพื่อนแล้ว → Message
+        } else if (status === 'PENDING') {
+          this.friendStatus = 'REQUESTED'; // รออนุมัติ → Requested
+        } else {
+          this.friendStatus = 'FOLLOW'; // ยังไม่ส่งคำขอ → Follow
+        }
+
+        console.log('Friend status:', this.friendStatus);
+      });
+  }
+
+  public followUser() {
+    // กดแล้วเปลี่ยนเป็น REQUESTED ทันที
+    this.friendStatus = 'REQUESTED';
+
+    const payload = {
+      user_id: this.authen.getUserId(),
+      friend_id: this.id,
+    };
+
+    this.restapi
+      .post('friends/add/', payload)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: () => console.log('✅ Follow request sent'),
+        error: (err) => {
+          console.error('❌ Follow user error:', err);
+          this.friendStatus = 'FOLLOW'; // ถ้า error กลับสถานะเดิม
+        },
       });
   }
 

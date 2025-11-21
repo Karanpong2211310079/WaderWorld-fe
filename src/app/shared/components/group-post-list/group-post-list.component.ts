@@ -31,6 +31,7 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
   private modalService = inject(NgModalServiceService);
   private toast = inject(ToastService);
   private router = inject(Router);
+  public is_admin_group: boolean = false;
 
   public type: string = 'group';
 
@@ -43,6 +44,7 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.LoadGroupData();
+    this.check_role_group();
   }
 
   public LoadGroupData() {
@@ -98,6 +100,32 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
         headerClass: 'bg-danger',
       }
     );
+  }
+
+  public check_role_group() {
+    const group_id = this.route.snapshot.paramMap.get('id');
+    const user_id = this.authen.getUserId();
+
+    const Payload = {
+      group_id: group_id,
+      user_id: user_id,
+    };
+
+    this.restapi
+      .post('group/check_user_role/', Payload)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (response: any) => {
+          const role = response.role;
+          if (role == 'ADMIN') {
+            this.is_admin_group = true;
+          } else {
+            this.is_admin_group = false;
+          }
+          console.log(this.is_admin_group);
+        },
+        error: (err) => this.toast.error(''),
+      });
   }
   public PeopleGroup() {
     const group_id = this.route.snapshot.paramMap.get('id');
