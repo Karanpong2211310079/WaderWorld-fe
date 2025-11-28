@@ -14,7 +14,7 @@ export class AirlineComponent {
       name: 'Thai Airways',
       description: 'Thailand national airline',
       image: 'assets/images/1.png',
-      link: 'https://commons.wikimedia.org/wiki/File:Thai_Airways_logo.svg',
+      link: 'https://www.thaiairways.com/en-th/',
     },
   ];
 }

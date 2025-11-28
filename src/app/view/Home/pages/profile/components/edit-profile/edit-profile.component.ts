@@ -43,7 +43,7 @@ export class EditProfileComponent implements OnDestroy, OnInit {
       user_id: [this.value.value.id],
       username: [this.value.value.username || ''],
       bio: [this.value.value.bio || ''],
-      image: [this.value.value.image_url], // สำหรับอัปโหลดรูปใหม่
+      image: [this.value.value.image_url || ''],
     });
   }
   public submitForm() {
@@ -82,6 +82,13 @@ export class EditProfileComponent implements OnDestroy, OnInit {
     if (image instanceof File && this.imagePreview) {
       return this.imagePreview;
     }
+
+    // ถ้าเป็น URL เดิม → return URL
+    if (typeof image === 'string') {
+      return image;
+    }
+
+    return ''; // fallback
   }
 
   public onFileSelected(event: Event) {

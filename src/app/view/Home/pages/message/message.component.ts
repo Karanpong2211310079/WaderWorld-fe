@@ -143,4 +143,13 @@ export class MessageComponent implements OnInit, OnDestroy {
   trackByMessageId(index: number, msg: any) {
     return msg.id;
   }
+  isSidebarOpen = false;
+
+  openSidebar() {
+    this.isSidebarOpen = true;
+  }
+
+  closeSidebar() {
+    this.isSidebarOpen = false;
+  }
 }
