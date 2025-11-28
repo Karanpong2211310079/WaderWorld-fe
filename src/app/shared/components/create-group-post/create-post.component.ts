@@ -28,6 +28,7 @@ export class CreatePostComponent {
   private toast = inject(ToastService);
   private authen = inject(AuthenticationServiceService);
   private unsubscribe$ = new Subject<void>();
+  public userImage: any;
 
   private user_id = this.authen.getUserId();
   public form = new FormGroup({
@@ -42,7 +43,12 @@ export class CreatePostComponent {
     ]),
     media: new FormControl<File | null>(null),
   });
-
+  ngOnInit(): void {
+    this.authen.getProfile().subscribe((imgUrl) => {
+      console.log('Profile image:', imgUrl);
+      this.userImage = imgUrl; // เก็บไว้ใช้ใน template
+    });
+  }
   selectedImage: string | ArrayBuffer | null = null;
   isUploading: boolean = false;
 
