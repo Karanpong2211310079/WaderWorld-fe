@@ -19,6 +19,8 @@ import { Subject } from 'rxjs';
 import { RestApiService } from '../../../../../core/service/rest-api-service/rest-api.service';
 import { AuthenticationServiceService } from '../../../../../core/service/authentication-service/authentication-service.service';
 import { ToastService } from '../../../../../core/service/toast-service/toast.service';
+import { NgModalServiceService } from '../../../../../core/service/ng-modal-service/ng-modal-service.service';
+
 @Component({
   selector: 'app-edit-post',
   imports: [CommonModule, ReactiveFormsModule],
@@ -30,6 +32,7 @@ export class EditPostComponent {
   private fb = inject(FormBuilder);
   private authen = inject(AuthenticationServiceService);
   private toast = inject(ToastService);
+  private modalService = inject(NgModalServiceService);
 
   editPostForm: FormGroup;
   selectedFile: File | null = null;
@@ -74,23 +77,35 @@ export class EditPostComponent {
 
   submit() {
     const formValue = this.editPostForm.value;
-    console.log('Form value:', formValue);
+
     if (!formValue.post_id || isNaN(formValue.post_id)) {
       return this.toast.error('post_id is invalid!');
     }
 
     const formData = new FormData();
-    Object.keys(formValue).forEach((key) => {
-      if (key === 'media' && this.selectedFile) {
-        formData.append('media', this.selectedFile);
-      } else {
-        formData.append(key, formValue[key]);
-      }
-    });
+    formData.append('post_id', formValue.post_id.toString());
+    formData.append('user_id', formValue.user_id.toString());
+    formData.append('content', formValue.content || '');
+
+    // Append media เฉพาะเมื่อมีไฟล์ใหม่
+    if (this.selectedFile) {
+      formData.append('media', this.selectedFile);
+    }
+    // ถ้าอยากลบรูปเดิมให้ append 'media' = null
+    // else formData.append('media', null); // optional
 
     this.restapi.post('group/group_post/edit/', formData).subscribe({
-      next: (res) => this.toast.success(res.detail),
-      error: (err) => this.toast.error(err.error.detail || 'Error!'),
+      next: (res: any) => {
+        this.toast.success(res.detail);
+        this.modalService.closeModal(this.modalEl);
+      },
+      error: (err) => {
+        this.toast.error(err.error?.detail || 'Error!');
+      },
     });
+  }
+
+  public closeModal() {
+    this.modalService.dismissModal(this.modalEl, 'cancle');
   }
 }

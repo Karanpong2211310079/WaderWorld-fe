@@ -36,12 +36,15 @@ export class PostComponent implements OnDestroy, OnInit {
   public response: string = '';
   public user_liked: boolean = false; // เก็บสถานะว่า user กดไลค์หรือไม่
   public user_bookmarked: boolean = false; // สถานะ bookmark
+  like_count: number = 0; // แทนจำนวนไลค์
 
   @Input() group_post: any; // ไม่ใช่ any[]
   @Output() postUpdated = new EventEmitter<any>(); // ส่งกลับไป parent
 
   ngOnInit(): void {
     console.log('group_post', this.group_post);
+    this.like_count = this.group_post.like_count || 0;
+
     this.check_like(this.group_post.id).then((liked) => {
       this.user_liked = liked;
       console.log('User liked status on init:', this.user_liked);
@@ -49,6 +52,9 @@ export class PostComponent implements OnDestroy, OnInit {
     this.checkBookmark(this.group_post.id).then((bookmarked) => {
       this.user_bookmarked = bookmarked;
     });
+    if (this.group_post?.id) {
+      this.checkPostOwnership(this.group_post.id);
+    }
   }
   ngOnDestroy(): void {
     this.unsubscribe$.next();
@@ -77,19 +83,33 @@ export class PostComponent implements OnDestroy, OnInit {
   }
 
   public like_post() {
-    this.user_liked = !this.user_liked; // สลับสถานะไลค์ก่อนส่งคำขอ
+    // สลับสถานะก่อน เพื่อให้ UI ตอบสนองทันที
+    this.user_liked = !this.user_liked;
+    // ปรับจำนวน like count
+    this.like_count += this.user_liked ? 1 : -1;
+
     const payload = {
       user_id: this.authen.getUserId(),
       group_post_id: this.group_post.id,
     };
+
     this.restapi
       .post('group/create_group_like/', payload)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
-        next: (response: any) => {
-          this.response = response?.message;
+        next: (res: any) => {
+          // ถ้า backend error revert status กลับ
+          if (res.error) {
+            this.user_liked = !this.user_liked;
+            this.like_count += this.user_liked ? 1 : -1;
+          }
         },
-        error: (err) => console.error('Error liking/unliking post:', err),
+        error: (err) => {
+          console.error('Error toggling like:', err);
+          // revert status ถ้า error
+          this.user_liked = !this.user_liked;
+          this.like_count += this.user_liked ? 1 : -1;
+        },
       });
   }
   public async check_like(post_id: any): Promise<boolean> {
@@ -125,6 +145,21 @@ export class PostComponent implements OnDestroy, OnInit {
           console.error(err);
           alert(err.error.detail || 'Error deleting post');
         },
+      });
+  }
+  ownerStatus: { [postId: number]: boolean } = {};
+
+  public checkPostOwnership(post_id: number) {
+    const payload = {
+      user_id: this.authen.getUserId(),
+      post_id: post_id,
+    };
+
+    this.restapi
+      .post('group/check_user_own_post_group/', payload)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((res: any) => {
+        this.ownerStatus[post_id] = res?.is_owner === true;
       });
   }
 

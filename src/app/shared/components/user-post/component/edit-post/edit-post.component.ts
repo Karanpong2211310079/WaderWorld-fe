@@ -19,6 +19,7 @@ import { Subject } from 'rxjs';
 import { RestApiService } from '../../../../../core/service/rest-api-service/rest-api.service';
 import { AuthenticationServiceService } from '../../../../../core/service/authentication-service/authentication-service.service';
 import { ToastService } from '../../../../../core/service/toast-service/toast.service';
+import { NgModalServiceService } from '../../../../../core/service/ng-modal-service/ng-modal-service.service';
 @Component({
   selector: 'app-edit-post',
   standalone: true,
@@ -33,7 +34,7 @@ export class EditPostComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
   private authen = inject(AuthenticationServiceService);
   private toast = inject(ToastService);
-
+  private modalService = inject(NgModalServiceService);
   editPostForm: FormGroup;
   selectedFile: File | null = null;
   mediaPreview: string | null = null;
@@ -120,10 +121,14 @@ export class EditPostComponent implements OnInit, OnDestroy {
     this.restapi.post('post/edit_post/', formData).subscribe({
       next: (res: any) => {
         this.toast.success(res.detail);
+        this.modalService.closeModal(this.modalEl);
       },
       error: (err) => {
         this.toast.error(err.error.detail || 'Error!');
       },
     });
+  }
+  public closeModal() {
+    this.modalService.dismissModal(this.modalEl, 'cancle');
   }
 }
