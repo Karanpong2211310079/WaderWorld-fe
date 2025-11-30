@@ -57,7 +57,6 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
       .subscribe({
         next: (response: any) => {
           this.group_data = response?.message || [];
-          console.log('📂 Group Posts:', this.group_data);
         },
         error: (err) => console.error('❌ Load group posts error:', err),
       });

@@ -23,6 +23,7 @@ export class CommentsComponent {
   private authen = inject(AuthenticationServiceService);
   private unsubscribe$ = new Subject<void>();
   public modalService = inject(NgModalServiceService);
+  public userImage: any;
 
   public group_post: any;
   commentForm = new FormGroup({
@@ -105,6 +106,11 @@ export class CommentsComponent {
     this.group_post = this.value.value;
     console.log('data', this.group_post);
     this.Loadcomments();
+
+    this.authen.getProfile().subscribe((imgUrl) => {
+      console.log('Profile image:', imgUrl);
+      this.userImage = imgUrl; // เก็บไว้ใช้ใน template
+    });
   }
   constructor(
     @Inject('modalEl') public modalEl: NgbModalRef, // modal reference

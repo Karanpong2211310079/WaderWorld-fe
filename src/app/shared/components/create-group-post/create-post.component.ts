@@ -45,7 +45,6 @@ export class CreatePostComponent {
   });
   ngOnInit(): void {
     this.authen.getProfile().subscribe((imgUrl) => {
-      console.log('Profile image:', imgUrl);
       this.userImage = imgUrl; // เก็บไว้ใช้ใน template
     });
   }
@@ -102,19 +101,16 @@ export class CreatePostComponent {
       formData.append('content', this.form.value.content);
     if (this.form.value.media) formData.append('media', this.form.value.media);
 
-    console.log('📦 FormData Payload:', formData);
-
     this.restapi
       .post(apiUrl, formData)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: () => {
-          this.toast.success('โพสต์สำเร็จ!');
+          this.toast.success('Post successful!');
           this.resetForm();
         },
         error: (err) => {
-          console.error('❌ Error:', err);
-          this.toast.error('เกิดข้อผิดพลาดในการโพสต์');
+          this.toast.error('An error occurred while posting');
         },
       });
   }

@@ -12,23 +12,19 @@ import { Observable, tap } from 'rxjs';
 import { ToastService } from '../service/toast-service/toast.service';
 @Injectable()
 export class ToastInterceptor implements HttpInterceptor {
-  constructor(private toastr: ToastService) {
-    console.log('ToastInterceptor initialized');
-  }
+  constructor(private toastr: ToastService) {}
 
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     // แสดง info ทันทีเมื่อมี request
-    console.log('Intercepted request:', req.url);
 
     return next.handle(req).pipe(
       tap({
         next: (event) => {
           if (event instanceof HttpResponse) {
             const body = event.body as any;
-            console.log('HTTP RESPONSE BODY:', body);
             const msg =
               typeof body?.message === 'string'
                 ? body.message
@@ -39,9 +35,6 @@ export class ToastInterceptor implements HttpInterceptor {
           }
         },
         error: (error: HttpErrorResponse) => {
-          console.error('HTTP ERROR:', error);
-          console.error('HTTP ERROR BODY:', error.error);
-
           const errMsg =
             typeof error.error?.message === 'string'
               ? error.error.message

@@ -107,12 +107,11 @@ export class CreateUserPostComponent implements OnDestroy, OnInit {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: () => {
-          this.toast.success('โพสต์สำเร็จ!');
+          this.toast.success('Post successful!');
           this.resetForm();
         },
         error: (err) => {
-          console.error('❌ Error:', err.error); // แสดง error Django จริง
-          this.toast.error('เกิดข้อผิดพลาดในการโพสต์');
+          this.toast.error('An error occurred while posting');
         },
       });
   }
@@ -128,7 +127,6 @@ export class CreateUserPostComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.authen.getProfile().subscribe((imgUrl) => {
-      console.log('Profile image:', imgUrl);
       this.userImage = imgUrl; // เก็บไว้ใช้ใน template
     });
   }
