@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 })
 export class FriendsComponent implements OnInit, OnDestroy {
   public Friend_Requests: string = 'Friend Requests';
-  public Friend: string = 'Friend';
+  public Friend: string = 'Your Friends';
   public Friend_Request_Data: any[] = [];
   public AllFriends: any[] = [];
 
