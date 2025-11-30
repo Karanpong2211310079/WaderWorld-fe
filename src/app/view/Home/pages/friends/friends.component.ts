@@ -8,6 +8,8 @@ import { ToastService } from '../../../../core/service/toast-service/toast.servi
 import { NgModalServiceService } from '../../../../core/service/ng-modal-service/ng-modal-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-friends',
   imports: [FollowBtnComponent],
@@ -95,28 +97,29 @@ export class FriendsComponent implements OnInit, OnDestroy {
   public onDelete(friendId: number) {
     const payload = this.setPayload(friendId);
 
-    this.modalService
-      .openConfirm(
-        'Confirm Deletion',
-        'Are you sure you want to delete this friend?',
-        'Yes, Delete',
-        'Cancel'
-      )
-      .then((confirmed) => {
-        if (confirmed) {
-          this.restApi
-            .post('friends/decline/', payload)
-            .pipe(takeUntil(this.unsubscribe$))
-            .subscribe((response) => {
-              if (response.status === 'success') {
-                this.toast.success('Deleted friend successfully');
-                this.getFriends();
-              } else {
-                this.toast.error('Failed to delete friend');
-              }
-            });
-        }
-      });
+    Swal.fire({
+      title: 'Confirm Deletion',
+      text: 'Are you sure you want to delete this friend?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Delete',
+      cancelButtonText: 'Cancel',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.restApi
+          .post('friends/decline/', payload)
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe((response) => {
+            if (response.status === 'success') {
+              Swal.fire('Deleted!', 'Deleted friend successfully', 'success');
+              this.getFriends();
+            } else {
+              Swal.fire('Error!', 'Failed to delete friend', 'error');
+            }
+          });
+      }
+    });
   }
 
   public onConfirm(friendId: number) {
@@ -129,6 +132,7 @@ export class FriendsComponent implements OnInit, OnDestroy {
         if (response.status === 'success') {
           this.toast.success('Accepted friend request successfully');
           this.getFriendRequests();
+          this.getFriends();
         } else {
           this.toast.error('Failed to accept friend request');
         }
