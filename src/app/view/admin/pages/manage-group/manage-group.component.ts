@@ -7,6 +7,7 @@ import { RestApiService } from '../../../../core/service/rest-api-service/rest-a
 import { Subject, takeUntil } from 'rxjs';
 import { PostDataModalComponent } from '../components/post-data-modal/post-data-modal.component';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-manage-group',
   imports: [CommonModule],
@@ -32,6 +33,44 @@ export class ManageGroupComponent implements OnDestroy, OnInit {
         console.log('data', this.Group_Data);
       });
   }
+
+  public deleteGroup(groupId: number) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // เรียก API ลบกลุ่ม
+        console.log('Deleting group with ID:', groupId);
+        this.restApi
+          .post('admin/delete_group/', { group_id: groupId }) // ส่ง JSON body
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe({
+            next: (res: any) => {
+              Swal.fire(
+                'Deleted!',
+                res.message || 'Group deleted successfully.',
+                'success'
+              );
+              this.getAllGroup(); // รีเฟรชตาราง
+            },
+            error: (err) => {
+              Swal.fire(
+                'Error!',
+                err.error?.error || 'Failed to delete group.',
+                'error'
+              );
+            },
+          });
+      }
+    });
+  }
+
   public calculation_time(timestamp: string): string {
     if (!timestamp) return '';
 

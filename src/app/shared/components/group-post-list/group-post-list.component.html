@@ -19,7 +19,7 @@
             >{{ group_data.members_count }} members</small
           >
         </div>
-        <div>
+        <div *ngIf="is_member">
           <i class="bi bi-gear-fill"></i>
         </div>
       </div>
@@ -65,8 +65,8 @@
       </div>
     </div>
 
-    <!-- ปุ่ม Joined + Invite -->
-    <div class="d-flex gap-2 mb-3 px-2">
+    <!-- ถ้าเป็นสมาชิก -->
+    <div *ngIf="is_member" class="d-flex gap-2 mb-3 px-2">
       <div ngbDropdown class="dropdown flex-fill">
         <button class="btn btn-light w-100" ngbDropdownToggle>Joined</button>
         <div ngbDropdownMenu class="w-100 p-0">
@@ -88,37 +88,47 @@
       </button>
     </div>
 
-    <!-- Tabs -->
-    <div class="d-flex justify-content-between my-2">
+    <!-- Tabs เฉพาะสมาชิก -->
+    <div *ngIf="is_member" class="d-flex justify-content-between my-2">
       <button class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium">
         You
       </button>
       <button class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium">
         About
       </button>
-      @if (is_admin_group) {
       <button
+        *ngIf="is_admin_group"
         class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium"
         (click)="PeopleGroup()"
       >
         People
       </button>
-      }
       <button class="btn btn-light rounded-pill flex-fill mx-1 py-2 fw-medium">
         Chats
+      </button>
+    </div>
+
+    <!-- ถ้าไม่เป็นสมาชิก -->
+    <div *ngIf="!is_member" class="d-flex justify-content-center my-3">
+      <button
+        class="btn btn-primary fw-semibold"
+        (click)="RequestJoined($event, group_data.id)"
+      >
+        Request to Join Group
       </button>
     </div>
   </div>
 </div>
 
-<!-- Create Post -->
+<!-- Create Post เฉพาะสมาชิก -->
 <app-create-post
+  *ngIf="is_member"
   [placeholderText]="'Create post in ' + group_data.name"
   [State]="'creategrouppost'"
   [group_id]="group_data.id"
 ></app-create-post>
 
-<!-- Posts List -->
+<!-- Posts List เฉพาะสมาชิก -->
 <ng-container *ngFor="let post of group_data.posts">
   <app-post
     [group_post]="post"
