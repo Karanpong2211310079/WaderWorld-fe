@@ -6,7 +6,7 @@
           class="rounded-circle img-fluid"
           width="50"
           height="50"
-          [src]="post.user_profile_image_url"
+          src="{{ post.profile_image_url }}"
           alt="profile-img"
         />
         <button
@@ -43,7 +43,7 @@
   @for (item of post.comments; track $index) {
   <div class="d-flex align-items-start border rounded p-3 mb-3">
     <img
-      [src]="item.user_profile_image_url"
+      [src]="item.profile_image_url"
       class="rounded-circle me-3"
       width="50"
       height="50"

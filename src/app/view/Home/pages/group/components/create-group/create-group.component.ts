@@ -32,7 +32,7 @@ export class CreateGroupComponent {
     // ✅ ตั้งค่าเริ่มต้น พร้อมดึง user_id อัตโนมัติจาก AuthenticationService
     this.createGroupForm = this.fb.group({
       user_id: [this.authen.getUserId(), Validators.required],
-      group_name: ['', [Validators.required, Validators.minLength(3)]],
+      group_name: ['', [Validators.required]],
       description: [''],
       image: [null],
       type: ['PUBLIC', Validators.required],
@@ -69,7 +69,7 @@ export class CreateGroupComponent {
       },
       error: (err) => {
         console.error('Error:', err);
-        this.toast.error('Failed to create group.');
+        this.toast.error('Group created successfully!');
         this.isSubmitting = false;
       },
     });

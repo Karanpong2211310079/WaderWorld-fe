@@ -1,7 +1,7 @@
 <div class="card-body p-5">
   <h2 class="text-center mb-4 fw-bold text-primary">🛠️ Create New Group</h2>
 
-  <form [formGroup]="createGroupForm" (ngSubmit)="submitForm()">
+  <form [formGroup]="createGroupForm">
     <!-- Group Name -->
     <div class="mb-3">
       <label class="form-label fw-semibold">Group Name</label>
@@ -66,8 +66,9 @@
     <!-- Submit -->
     <div class="d-flex gap-2">
       <button
-        type="submit"
+        type="button"
         class="btn btn-primary w-100 py-2 fs-5 fw-semibold"
+        (click)="submitForm()"
         [disabled]="isSubmitting"
       >
         <span *ngIf="!isSubmitting">Create Group</span>
@@ -76,17 +77,14 @@
           Creating...
         </span>
       </button>
+
       <button
-        type="submit"
+        type="button"
         class="btn btn-danger w-100 py-2 fs-5 fw-semibold"
-        [disabled]="isSubmitting"
         (click)="CancleCreateGroup()"
+        [disabled]="isSubmitting"
       >
-        <span *ngIf="!isSubmitting">Cancle</span>
-        <span *ngIf="isSubmitting">
-          <div class="spinner-border spinner-border-sm me-2"></div>
-          Creating...
-        </span>
+        Cancel
       </button>
     </div>
   </form>
