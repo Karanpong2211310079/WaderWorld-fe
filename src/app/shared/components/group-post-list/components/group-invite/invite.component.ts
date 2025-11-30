@@ -56,8 +56,6 @@ export class InviteComponent implements OnDestroy, OnInit {
       new_member: friend.friend_info.id, // id ของเพื่อนที่จะ invite
     };
 
-    console.log('Inviting Friend with payload:', payload);
-
     this.restapi
       .post('group/create_group_invite/', payload)
       .pipe(takeUntil(this.unsubscribe$))

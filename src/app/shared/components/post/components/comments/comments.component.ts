@@ -25,6 +25,7 @@ export class CommentsComponent implements OnDestroy, OnInit {
   private unsubscribe$ = new Subject<void>();
   public group_post: any;
   public modalService = inject(NgModalServiceService);
+  public userImage: any;
   commentForm = new FormGroup({
     comment: new FormControl('', [
       Validators.required, // ต้องกรอก
@@ -104,6 +105,10 @@ export class CommentsComponent implements OnDestroy, OnInit {
   ngOnInit(): void {
     this.group_post = this.value.value;
     console.log(this.group_post.id);
+
+    this.authen.getProfile().subscribe((imgUrl) => {
+      this.userImage = imgUrl; // เก็บไว้ใช้ใน template
+    });
     this.Loadcomments();
   }
   constructor(

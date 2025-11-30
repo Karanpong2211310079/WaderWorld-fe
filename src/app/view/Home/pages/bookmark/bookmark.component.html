@@ -4,7 +4,7 @@
     class="d-flex flex-column align-items-center bg-white rounded shadow-sm p-3 mb-3"
   >
     <h3 class="mb-0">Bookmarks</h3>
-    <small class="text-muted">โพสต์ที่คุณบันทึกไว้</small>
+    <small class="text-muted">Posts you have saved</small>
   </div>
 
   <!-- Posts ปกติ -->
@@ -21,7 +21,7 @@
     </div>
   </div>
   <div *ngIf="postBookmarks.length === 0" class="text-center text-muted mb-4">
-    ไม่มี Post ที่บันทึกไว้
+    No saved posts
   </div>
 
   <!-- Group Posts -->
@@ -38,6 +38,6 @@
     </div>
   </div>
   <div *ngIf="groupPostBookmarks.length === 0" class="text-center text-muted">
-    ไม่มี Group Post ที่บันทึกไว้
+    No saved group posts
   </div>
 </div>

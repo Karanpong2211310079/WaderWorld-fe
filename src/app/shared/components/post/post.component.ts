@@ -37,17 +37,16 @@ export class PostComponent implements OnDestroy, OnInit {
   public user_liked: boolean = false; // เก็บสถานะว่า user กดไลค์หรือไม่
   public user_bookmarked: boolean = false; // สถานะ bookmark
   like_count: number = 0; // แทนจำนวนไลค์
+  public userImage: any;
 
   @Input() group_post: any; // ไม่ใช่ any[]
   @Output() postUpdated = new EventEmitter<any>(); // ส่งกลับไป parent
 
   ngOnInit(): void {
-    console.log('group_post', this.group_post);
     this.like_count = this.group_post.like_count || 0;
 
     this.check_like(this.group_post.id).then((liked) => {
       this.user_liked = liked;
-      console.log('User liked status on init:', this.user_liked);
     });
     this.checkBookmark(this.group_post.id).then((bookmarked) => {
       this.user_bookmarked = bookmarked;
@@ -105,8 +104,6 @@ export class PostComponent implements OnDestroy, OnInit {
           }
         },
         error: (err) => {
-          console.error('Error toggling like:', err);
-          // revert status ถ้า error
           this.user_liked = !this.user_liked;
           this.like_count += this.user_liked ? 1 : -1;
         },
