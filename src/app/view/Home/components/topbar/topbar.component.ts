@@ -92,7 +92,7 @@ export class TopbarComponent implements OnDestroy, OnInit {
     if (item.type === 'user') {
       this.router.navigate(['/workspace/profile', item.id]);
     } else {
-      this.router.navigate(['/workspace/group']);
+      this.router.navigate([`/workspace/group/${item.id}`]);
     }
   }
 

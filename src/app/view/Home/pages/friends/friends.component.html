@@ -20,23 +20,17 @@
     <img
       class="rounded"
       style="width: 100px; height: 100px; object-fit: cover"
-      src=""
+      src="{{ item.profile_image }}"
       alt="img-cover"
     />
     <div class="d-flex flex-column flex-grow-1">
       <h5 class="mb-1 fw-bold">{{ item.username }}</h5>
     </div>
     <div class="d-flex align-items-center">
-      <button
-        class="btn btn-primary btn-md me-2"
-        (click)="onConfirm(item.friend_info.id)"
-      >
+      <button class="btn btn-primary btn-md me-2" (click)="onConfirm(item.id)">
         Confirm
       </button>
-      <button
-        class="btn btn-secondary btn-md"
-        (click)="onDelete(item.friend_info.id)"
-      >
+      <button class="btn btn-secondary btn-md" (click)="onDelete(item.id)">
         Delete
       </button>
     </div>

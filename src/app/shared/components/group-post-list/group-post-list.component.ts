@@ -32,7 +32,7 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
   private toast = inject(ToastService);
   private router = inject(Router);
   public is_admin_group: boolean = false;
-
+  public is_member: boolean = false;
   public type: string = 'group';
 
   ngOnDestroy(): void {
@@ -45,6 +45,61 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
   ngOnInit(): void {
     this.LoadGroupData();
     this.check_role_group();
+    this.check_user_in_group();
+  }
+  public check_user_in_group() {
+    // ดึง param จาก URL (string)
+    const group_id_str = this.route.snapshot.paramMap.get('id');
+
+    // แปลงเป็น number
+    const group_id = group_id_str ? parseInt(group_id_str, 10) : null;
+
+    // user_id จาก service ของคุณ (number | null)
+    const user_id = this.authen.getUserId();
+
+    // ตรวจสอบค่าที่ไม่ถูกต้อง
+    if (group_id === null || user_id === null) {
+      console.error('Invalid group_id or user_id:', group_id, user_id);
+      return;
+    }
+
+    // payload ทั้งคู่เป็น number
+    const Payload = {
+      group_id: group_id,
+      user_id: user_id,
+    };
+
+    console.log('Payload for checking user in group:', Payload);
+    // { group_id: 3, user_id: 3 } ✅
+
+    this.restapi
+      .post('group/check_user_in_group/', Payload)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (response: any) => {
+          this.is_member = response.in_group;
+          console.log('member', this.is_member);
+        },
+        error: (err) => this.toast.error('Error checking membership'),
+      });
+  }
+
+  public RequestJoined(event: Event, groupId: number) {
+    const payload = {
+      user_id: this.authen.getUserId(),
+      group_id: groupId,
+    };
+    this.restapi
+      .post('group/create_request_join/', payload)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (response: any) => {
+          console.log('✅ Join request sent:', response);
+          // รีโหลดหน้าใหม่
+          window.location.reload();
+        },
+        error: (err) => console.error('❌ Join request error:', err),
+      });
   }
 
   public LoadGroupData() {
@@ -74,7 +129,7 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
           this.router.navigate(['/workspace/group']);
           this.toast.success('failed to leave group');
         },
-        error: (err) => this.toast.error(''),
+        error: (err) => this.toast.error('failed to leave group'),
       });
   }
   public invite_people() {
@@ -123,9 +178,9 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
           }
           console.log(this.is_admin_group);
         },
-        error: (err) => this.toast.error(''),
       });
   }
+
   public PeopleGroup() {
     const group_id = this.route.snapshot.paramMap.get('id');
 

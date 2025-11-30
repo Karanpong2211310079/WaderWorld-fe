@@ -32,7 +32,6 @@ export class HomeComponent implements OnDestroy, OnInit {
   public state: string = 'For You';
   public Allgroups: any[] = [];
   public new_groups: any[] = []; // สำหรับแนะนำกลุ่มใหม่
-
   // home.component.ts
   public categories = [
     { name: 'OTHER', color: '#6c757d', icon: 'bi-list' },
@@ -51,7 +50,7 @@ export class HomeComponent implements OnDestroy, OnInit {
     this.LoadAllGroup(); // โหลดกลุ่ม
   }
   goToGroup(groupId: number) {
-    this.router.navigate(['/workspace/group'], {
+    this.router.navigate([`/workspace/group/${groupId}`], {
       queryParams: { id: groupId, choice: 'Discover' },
     });
   }
@@ -60,6 +59,7 @@ export class HomeComponent implements OnDestroy, OnInit {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
+
   public LoadAllGroup() {
     const user_id = { user_id: this.authen.getUserId() };
     this.restapi
