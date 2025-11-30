@@ -35,18 +35,20 @@
           <td>{{ calculation_time(item.created_at) }}</td>
           <td>{{ item.visibility }}</td>
           <td>
-            <button
-              class="btn btn-outline-danger btn-sm"
-              (click)="deleteUserPost(item.id)"
-            >
-              <i class="bi bi-trash"></i>
-            </button>
-            <button
-              class="btn btn-outline-primary btn-sm"
-              (click)="inspect_user_post(item)"
-            >
-              <i class="bi bi-eye"></i>
-            </button>
+            <div class="d-flex gap-1">
+              <button
+                class="btn btn-outline-danger btn-sm"
+                (click)="deleteUserPost(item.id)"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+              <button
+                class="btn btn-outline-primary btn-sm"
+                (click)="inspect_user_post(item)"
+              >
+                <i class="bi bi-eye"></i>
+              </button>
+            </div>
           </td>
         </tr>
 
@@ -63,18 +65,20 @@
           <td>{{ item.comment_count }}</td>
           <td>{{ calculation_time(item.created_at) }}</td>
           <td>
-            <button
-              class="btn btn-outline-danger btn-sm"
-              (click)="deleteGroupPost(item.id)"
-            >
-              <i class="bi bi-trash"></i>
-            </button>
-            <button
-              class="btn btn-outline-primary btn-sm"
-              (click)="inspect_grop_post(item)"
-            >
-              <i class="bi bi-eye"></i>
-            </button>
+            <div class="d-flex gap-1">
+              <button
+                class="btn btn-outline-danger btn-sm"
+                (click)="deleteGroupPost(item.id)"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+              <button
+                class="btn btn-outline-primary btn-sm"
+                (click)="inspect_grop_post(item)"
+              >
+                <i class="bi bi-eye"></i>
+              </button>
+            </div>
           </td>
         </tr>
       </tbody>

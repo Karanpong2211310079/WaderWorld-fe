@@ -37,19 +37,25 @@ export class UserPostComponent {
   public response: string = '';
   public user_liked: boolean = false; // เก็บสถานะว่า user กดไลค์หรือไม่
   public user_bookmarked: boolean = false; // สถานะ bookmark
+  public isPostOwner: boolean = false; // <--- NEW: สถานะความเป็นเจ้าของโพสต์
 
   @Input() group_post: any; // ไม่ใช่ any[]
   @Output() postUpdated = new EventEmitter<any>(); // ส่งกลับไป parent
 
+  public like_count: number = 0; // จำนวนไลค์ realtime
+
   ngOnInit(): void {
-    console.log('group_post', this.group_post);
+    this.like_count = this.group_post.like_count || 0; // init
+
     this.check_like(this.group_post.id).then((liked) => {
       this.user_liked = liked;
-      console.log('User liked status on init:', this.user_liked);
     });
     this.checkBookmark(this.group_post.id).then((bookmarked) => {
       this.user_bookmarked = bookmarked;
     });
+    if (this.group_post?.id) {
+      this.checkPostOwnership(this.group_post.id);
+    }
   }
   ngOnDestroy(): void {
     this.unsubscribe$.next();
@@ -77,7 +83,11 @@ export class UserPostComponent {
     this.menuOpen = !this.menuOpen;
   }
 
-  public like_post() {
+  public toggleLike() {
+    // update UI ทันที
+    this.user_liked = !this.user_liked;
+    this.like_count += this.user_liked ? 1 : -1;
+
     const payload = {
       user_id: this.authen.getUserId(),
       post_id: this.group_post.id,
@@ -88,17 +98,18 @@ export class UserPostComponent {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (response: any) => {
-          this.response = response?.message?.message;
-          this.user_liked = response?.message?.liked ?? false;
-          console.log('Post like status updated:', this.user_liked);
-
-          // ส่ง event ไป parent ว่าโพสต์อัปเดตแล้ว
-          this.postUpdated.emit({
-            post_id: this.group_post.id,
-            liked: this.user_liked,
-          });
+          if (response.error) {
+            // revert ถ้า backend error
+            this.user_liked = !this.user_liked;
+            this.like_count += this.user_liked ? 1 : -1;
+          }
         },
-        error: (err) => console.error('Error liking/unliking post:', err),
+        error: (err) => {
+          console.error('Error toggling like:', err);
+          // revert ถ้า error
+          this.user_liked = !this.user_liked;
+          this.like_count += this.user_liked ? 1 : -1;
+        },
       });
   }
   deletePost(post_id: any) {
@@ -233,5 +244,24 @@ export class UserPostComponent {
       console.error('Error checking bookmark:', err);
       return false;
     }
+  }
+  ownerStatus: { [postId: number]: boolean } = {};
+
+  public checkPostOwnership(post_id: number) {
+    const payload = {
+      user_id: this.authen.getUserId(),
+      post_id: post_id,
+    };
+
+    this.restapi
+      .post('post/check_own_post/', payload)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (res: any) => {
+          this.ownerStatus[post_id] = res?.is_owner === true;
+          console.log('Post', post_id, 'Owner:', this.ownerStatus[post_id]);
+        },
+        error: (err) => console.error('Error checking ownership:', err),
+      });
   }
 }

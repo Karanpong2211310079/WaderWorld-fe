@@ -1,5 +1,20 @@
 <div class="edit-post-container">
   <h2>Edit Post</h2>
+  <button
+    type="button"
+    (click)="closeModal()"
+    class="btn btn-danger btn-sm position-absolute"
+    style="
+      top: 8px;
+      right: 8px;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      padding: 0;
+    "
+  >
+    ×
+  </button>
   <form
     [formGroup]="editPostForm"
     (ngSubmit)="submit()"

@@ -121,6 +121,7 @@ export class FriendsComponent implements OnInit, OnDestroy {
 
   public onConfirm(friendId: number) {
     const payload = this.setPayload(friendId);
+    console.log(payload);
     this.restApi
       .post('friends/accept/', payload)
       .pipe(takeUntil(this.unsubscribe$))

@@ -28,6 +28,7 @@ export class CreatePostComponent {
   private toast = inject(ToastService);
   private authen = inject(AuthenticationServiceService);
   private unsubscribe$ = new Subject<void>();
+  public userImage: any;
 
   private user_id = this.authen.getUserId();
   public form = new FormGroup({
@@ -42,7 +43,11 @@ export class CreatePostComponent {
     ]),
     media: new FormControl<File | null>(null),
   });
-
+  ngOnInit(): void {
+    this.authen.getProfile().subscribe((imgUrl) => {
+      this.userImage = imgUrl; // เก็บไว้ใช้ใน template
+    });
+  }
   selectedImage: string | ArrayBuffer | null = null;
   isUploading: boolean = false;
 
@@ -96,19 +101,16 @@ export class CreatePostComponent {
       formData.append('content', this.form.value.content);
     if (this.form.value.media) formData.append('media', this.form.value.media);
 
-    console.log('📦 FormData Payload:', formData);
-
     this.restapi
       .post(apiUrl, formData)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: () => {
-          this.toast.success('โพสต์สำเร็จ!');
+          this.toast.success('Post successful!');
           this.resetForm();
         },
         error: (err) => {
-          console.error('❌ Error:', err);
-          this.toast.error('เกิดข้อผิดพลาดในการโพสต์');
+          this.toast.error('An error occurred while posting');
         },
       });
   }

@@ -15,9 +15,9 @@
         <small>วันที่ : {{ calculation_time(group_post.created_at) }}</small>
       </div>
     </div>
-    <div class="post-menu-wrapper">
+    <div class="post-menu-wrapper" *ngIf="ownerStatus[group_post.id]">
       <i
-        class="bi bi-list fs-4"
+        class="bi bi-three-dots-vertical fs-4"
         style="cursor: pointer"
         id="postMenuButton"
         (click)="toggleMenu()"
@@ -46,13 +46,17 @@
     <!-- Left side: Like + Comment -->
     <div class="d-flex align-items-center gap-3">
       <!-- Like -->
-      <div class="d-flex align-items-center gap-1" style="cursor: pointer">
+      <!-- Like -->
+      <div
+        class="d-flex align-items-center gap-1"
+        style="cursor: pointer"
+        (click)="like_post()"
+      >
         <i
           class="bi"
           [ngClass]="user_liked ? 'bi-heart-fill text-danger' : 'bi-heart'"
-          (click)="like_post()"
         ></i>
-        <span>{{ group_post.like_count }} likes</span>
+        <span>{{ like_count }} likes</span>
       </div>
 
       <!-- Comment -->

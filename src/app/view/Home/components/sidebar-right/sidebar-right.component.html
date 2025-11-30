@@ -1,9 +1,6 @@
 <div class="d-flex flex-column shadow-sm rounded m-3 bg-white travel-card">
   <ol class="list-unstyled p-3 gap-3 d-flex flex-column">
-    <h4 class="d-flex align-items-center gap-2 title">
-      <i class="bi bi-airplane-fill text-primary"></i>
-      Recommended Travelers
-    </h4>
+    <h4 class="d-flex align-items-center gap-2 title">Recommended Travelers</h4>
 
     <ng-container *ngFor="let user of recommendedUsers | slice : 0 : 3">
       <div

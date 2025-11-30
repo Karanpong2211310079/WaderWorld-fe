@@ -13,4 +13,9 @@ export const accountRoutes: Routes = [
     path: 'login',
     component: LoginComponent,
   },
+  {
+    path: '', // เส้นทางว่าง (root path)
+    redirectTo: 'login', // เปลี่ยนเส้นทางไปที่ 'auth'
+    pathMatch: 'full', // ต้องตรงกับเส้นทางทั้งหมด
+  },
 ];

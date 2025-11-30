@@ -1,8 +1,9 @@
 <div
   class="d-flex flex-row p-3"
+  style="height: 400px; overflow-y: auto"
   style="min-height: 100vh; background-color: #f0f2f5"
 >
-  <!-- 🧩 รายชื่อแชต -->
+  <!-- 🧩 Sidebar รายชื่อแชต -->
   <div class="col-lg-4 col-md-5 col-sm-12 pe-3">
     <div class="d-flex flex-column h-100 bg-white rounded shadow-sm p-3">
       <input
@@ -38,7 +39,7 @@
     </div>
   </div>
 
-  <!-- 💬 กล่องข้อความ -->
+  <!-- 💬 Main Chat -->
   <div class="col-lg-8 col-md-7 col-sm-12">
     <div
       class="d-flex flex-column h-100 bg-white rounded shadow-sm p-3"
@@ -55,10 +56,10 @@
         </div>
       </div>
 
-      <!-- แสดงข้อความ -->
+      <!-- ข้อความ -->
       <div
         #chatContainer
-        class="flex-grow-1 bg-light rounded p-2 mb-3 overflow-auto"
+        class="messages-container flex-grow-1 overflow-auto d-flex flex-column"
       >
         <div
           *ngFor="let msg of chatroom_messages; trackBy: trackByMessageId"
@@ -75,7 +76,7 @@
       </div>
 
       <!-- กล่องส่งข้อความ -->
-      <div class="d-flex">
+      <div class="mt-auto input-area">
         <div class="input-group">
           <span class="input-group-text bg-light"
             ><i class="bi bi-emoji-smile"></i
