@@ -122,6 +122,13 @@ export class GroupComponent implements OnDestroy, OnInit {
         error: (err) => console.error('❌ Join request error:', err),
       });
   }
+  checkType(event: any): string {
+    if (event === 'PUBLIC') {
+      return 'Public';
+    } else {
+      return 'Private';
+    }
+  }
 
   public onChoiceChange(choice: string) {
     this.choice = choice;
