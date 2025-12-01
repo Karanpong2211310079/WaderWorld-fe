@@ -18,7 +18,7 @@ import Swal from 'sweetalert2';
 })
 export class FriendsComponent implements OnInit, OnDestroy {
   public Friend_Requests: string = 'Friend Requests';
-  public Friend: string = 'Your Friends';
+  public Friend: string = 'Friend';
   public Friend_Request_Data: any[] = [];
   public AllFriends: any[] = [];
 

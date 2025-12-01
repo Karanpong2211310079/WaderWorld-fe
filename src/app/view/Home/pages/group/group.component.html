@@ -28,21 +28,21 @@
         >
           {{
             item.rank === 1
-              ? " 1# POPULAR"
+              ? " 1# Popular"
               : item.rank === 2
-              ? "2# TRENDING"
+              ? "2# Trending"
               : item.rank === 3
-              ? "3# HOT"
+              ? "3# Hot"
               : ""
           }}
         </span>
         <span *ngIf="item.is_new" class="badge bg-success text-white">
-          NEW
+          New
         </span>
       </div>
       <p class="text-muted mb-2 d-flex align-items-center gap-1">
         <i class="bi bi-globe"></i>
-        <span>{{ item.type }} · {{ item.members_count }} members</span>
+        <span>{{ item.type }} · {{ item.members_count }} Members</span>
       </p>
       <div class="d-flex flex-wrap gap-2 mb-2">
         <span
@@ -58,13 +58,13 @@
         >
           {{
             cat === "BEACH"
-              ? "BEACH"
+              ? "Beach"
               : cat === "MOUNTAIN"
-              ? "MOUNTAIN"
+              ? "Mountain"
               : cat === "FOREST"
-              ? "FOREST"
+              ? "Forest"
               : cat === "TOURIST_SPOT"
-              ? "TOURIST_SPOT"
+              ? "Tourist_Spot"
               : "Other"
           }}
         </span>
@@ -114,17 +114,17 @@
         >
           {{
             item.rank === 1
-              ? "1# POPULAR"
+              ? "1# Popular"
               : item.rank === 2
-              ? "2# TRENDING"
+              ? "2# Trending"
               : item.rank === 3
-              ? "3# HOT"
+              ? "3# Hot"
               : ""
           }}
         </span>
         <!-- แสดง NEW -->
         <span *ngIf="item.is_new" class="badge bg-success text-white">
-          NEW
+          New
         </span>
       </div>
 
@@ -136,7 +136,7 @@
             'bi-lock-fill': item.type === 'PRIVATE'
           }"
         ></i>
-        <span>{{ item.type }} · {{ item.members_count }} members</span>
+        <span>{{ item.type }} · {{ item.members_count }} Members</span>
       </p>
 
       <!-- ปุ่ม Join / Pending / Rejected / View -->

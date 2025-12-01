@@ -34,11 +34,11 @@ export class HomeComponent implements OnDestroy, OnInit {
   public new_groups: any[] = []; // สำหรับแนะนำกลุ่มใหม่
   // home.component.ts
   public categories = [
-    { name: 'OTHER', color: '#6c757d', icon: 'bi-list' },
-    { name: 'BEACH', color: '#0dcaf0', icon: 'bi-sun' },
-    { name: 'MOUNTAIN', color: '#198754', icon: 'bi-geo-alt' },
-    { name: 'FOREST', color: '#20c997', icon: 'bi-tree' },
-    { name: 'TOURIST_SPOT', color: '#ffc107', icon: 'bi-camera' },
+    { name: 'Other', color: '#6c757d', icon: 'bi-list' },
+    { name: 'Beach', color: '#0dcaf0', icon: 'bi-sun' },
+    { name: 'Mountain', color: '#198754', icon: 'bi-geo-alt' },
+    { name: 'Forest', color: '#20c997', icon: 'bi-tree' },
+    { name: 'Tourist_Spot', color: '#ffc107', icon: 'bi-camera' },
   ];
 
   public selectedCategory: string = '';
