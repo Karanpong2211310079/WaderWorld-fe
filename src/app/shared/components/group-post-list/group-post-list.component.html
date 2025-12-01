@@ -30,7 +30,9 @@
           <strong>Description:</strong>
           {{ group_data.description || "No description yet." }}
         </p>
-        <p class="mb-2"><strong>Privacy:</strong> {{ group_data.type }}</p>
+        <p class="mb-2">
+          <strong>Privacy:</strong> {{ checkType(group_data.type) }}
+        </p>
         <p class="mb-2">
           <strong>Created At:</strong>
           {{ group_data.created_at | date : "mediumDate" }}
