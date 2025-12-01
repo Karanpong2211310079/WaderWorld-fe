@@ -138,7 +138,9 @@
             'bi-lock-fill': item.type === 'PRIVATE'
           }"
         ></i>
-        <span>{{ item.type }} · {{ item.members_count }} members</span>
+        <span
+          >{{ checkType(item.type) }} · {{ item.members_count }} members</span
+        >
       </p>
 
       <!-- ปุ่ม Join / Pending / Rejected / View -->
