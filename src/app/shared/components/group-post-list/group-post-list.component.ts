@@ -40,6 +40,14 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
     this.unsubscribe$.complete();
   }
 
+  checkType(event: any): string {
+    if (event === 'PUBLIC') {
+      return 'Public';
+    } else {
+      return 'Private';
+    }
+  }
+
   public group_data: any = [];
 
   ngOnInit(): void {
