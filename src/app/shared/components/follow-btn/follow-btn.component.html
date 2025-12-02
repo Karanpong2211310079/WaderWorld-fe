@@ -1,0 +1,18 @@
+<div class="follow-btn-container">
+  <button
+    class="btn flex-grow-1"
+    [class.active]="currentChoice === choice1"
+    (click)="selectChoice(choice1)"
+  >
+    {{ choice1 }}
+    {{ Count }}
+  </button>
+  <button
+    class="btn flex-grow-1"
+    [class.active]="currentChoice === choice2"
+    (click)="selectChoice(choice2)"
+  >
+    {{ choice2 }}
+    {{ Count }}
+  </button>
+</div>

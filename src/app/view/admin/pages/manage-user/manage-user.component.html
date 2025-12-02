@@ -1,23 +1,43 @@
 <div class="container">
-    <h2>Manage Posts</h2>
-    <table>
+  <div class="table-card mt-3">
+    <h2>Manage Users</h2>
+    <table class="table table-bordered table-hover mb-0 align-middle">
+      <thead class="thead-light">
         <tr class="head-table">
-            <th>ID</th>
-            <th>Post owner</th>
-            <th>Post detail</th>
-            <th>Like</th>
-            <th>Comment</th>
-            <th>Create at</th>
-
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Bio</th>
+          <th>Create at</th>
+          <th>Action</th>
         </tr>
+      </thead>
+      <tbody>
+        @for (item of AllUsers; track $index) {
         <tr>
-            <td>1</td>
-            <td>Shinobi</td>
-            <td>Kalee</td>
-            <td>10</td>
-            <td>2</td>
-            <td>10/20/2025</td>
+          <td>{{ $index + 1 }}</td>
+          <td>{{ item.username }}</td>
+          <td>{{ item.email }}</td>
+          <td>{{ item.bio }}</td>
+          <td>{{ calculation_time(item.date_joined) }}</td>
+          <td>
+            <button
+              class="btn btn-outline-danger btn-sm"
+              (click)="delete_user(item.id)"
+            >
+              <i class="bi bi-trash"></i>
+            </button>
 
+            <button
+              class="btn btn-outline-primary btn-sm"
+              (click)="openEditUserModal(item)"
+            >
+              <i class="bi bi-pencil-square"></i>
+            </button>
+          </td>
         </tr>
+        }
+      </tbody>
     </table>
+  </div>
 </div>

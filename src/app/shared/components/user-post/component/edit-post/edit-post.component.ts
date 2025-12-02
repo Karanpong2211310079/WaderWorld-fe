@@ -40,11 +40,19 @@ export class EditPostComponent implements OnInit, OnDestroy {
   mediaPreview: string | null = null;
 
   categories = [
+<<<<<<< HEAD
     { value: 'BEACH', label: 'BEACH' },
     { value: 'MOUNTAIN', label: 'MOUNTAIN' },
     { value: 'FOREST', label: 'FOREST' },
     { value: 'TOURIST_SPOT', label: 'TOURIST_SPOT' },
     { value: 'OTHER', label: 'OTHER' },
+=======
+    { value: 'BEACH', label: 'Beach' },
+    { value: 'MOUNTAIN', label: 'Mountain' },
+    { value: 'FOREST', label: 'Forest' },
+    { value: 'TOURIST_SPOT', label: 'Tourist Spot' },
+    { value: 'OTHER', label: 'Other' },
+>>>>>>> c1ef62abceed379497e7e5005dd3275c161878f1
   ];
 
   visibilities = [
