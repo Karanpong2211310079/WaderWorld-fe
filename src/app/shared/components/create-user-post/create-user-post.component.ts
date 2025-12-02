@@ -121,6 +121,7 @@ export class CreateUserPostComponent implements OnDestroy, OnInit {
       user_id: this.authen.getUserId(), // keep current user_id
       content: '',
       media: null,
+      category: 'OTHER',
     });
     this.selectedImage = null;
   }

@@ -6,5 +6,6 @@
 /* ตั้งฟอนต์ทั้งหน้า */
 html,
 body {
-  font-family: "Inter", "Poppins", sans-serif;
+  height: 100%;
+  overflow: hidden !important;
 }
