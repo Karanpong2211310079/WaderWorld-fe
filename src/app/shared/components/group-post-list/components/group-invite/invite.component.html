@@ -28,20 +28,20 @@
     }"
   >
     <div class="d-flex flex-column flex-grow-1">
-      <h5 class="mb-1 fw-bold">{{ item.friend_info.username }}</h5>
+      <h5 class="mb-1 fw-bold">{{ item.username }}</h5>
     </div>
 
     <button
-      class="btn btn-sm"
-      [ngClass]="{
-        'btn-light': !item.invited,
-        'btn-white text-success': item.invited
-      }"
-      (click)="inviteFriend(item)"
-      [disabled]="item.invited"
-    >
-      {{ item.invited ? "Invited" : "Invite" }}
-    </button>
+  class="btn btn-sm"
+  [ngClass]="{
+    'btn-primary text-white': !item.invited,
+    'btn-white text-success border-success': item.invited
+  }"
+  (click)="inviteFriend(item)"
+  [disabled]="item.invited"
+>
+  {{ item.invited ? "Invited" : "Invite" }}
+</button>
   </div>
   }
 </div>
