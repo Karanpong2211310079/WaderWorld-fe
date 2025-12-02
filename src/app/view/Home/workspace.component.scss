@@ -1,38 +1,30 @@
-.main-container {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 250px 1fr 250px;
-  gap: 1rem;
-  width: 100%;
- 
+/* ซ่อน scroll bar ของ Main Content */
+.order-1::-webkit-scrollbar {
+  display: none;
 }
 
-/* จอขนาดกลาง (เช่น Tablet) */
-@media screen and (max-width: 1024px) {
-  .main-container {
-    grid-template-columns:  1fr; /* ซ่อนฝั่งขวา */
+/* เคลื่อนไหวสติกเกอร์เล็ก ๆ */
+@keyframes floatSticker {
+  0%,
+  100% {
+    transform: translateY(0);
   }
-
-  .sidebar-right {
-    display: none;
-  }
-  .sidebar-left{
-    display: none;
+  50% {
+    transform: translateY(-10px);
   }
 }
 
-/* จอขนาดเล็ก (เช่น มือถือ) */
-@media screen and (max-width: 768px) {
-  .main-container {
-    grid-template-columns: 1fr;
-  }
+.main-content img {
+  animation: floatSticker 4s ease-in-out infinite;
+}
 
-  .sidebar-left,
-  .sidebar-right {
-    display: none;
+/* Mobile adjustments */
+@media (max-width: 767px) {
+  .main-content {
+    padding: 8px;
   }
-
-  .content-wrapper {
-    padding: 1rem;
+  .main-content > * {
+    max-width: 100%;
+    box-sizing: border-box;
   }
 }

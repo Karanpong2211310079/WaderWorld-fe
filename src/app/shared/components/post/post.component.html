@@ -1,0 +1,83 @@
+<div class="d-flex flex-column rounded shadow-sm p-3 bg-white mt-3">
+  <!-- Row: avatar + name left, icon right -->
+
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <div class="d-flex align-items-center gap-2">
+      <img
+        class="rounded-circle img-fluid"
+        width="50"
+        height="50"
+        [src]="group_post.user_profile_image_url"
+        alt="profile-img"
+      />
+      <div>
+        <h3 class="mb-0">{{ group_post.username }}</h3>
+        <small>Date : {{ calculation_time(group_post.created_at) }}</small>
+      </div>
+    </div>
+    <div class="post-menu-wrapper" *ngIf="ownerStatus[group_post.id]">
+      <i
+        class="bi bi-three-dots-vertical fs-4"
+        style="cursor: pointer"
+        id="postMenuButton"
+        (click)="toggleMenu()"
+      ></i>
+
+      <ul class="post-menu" [class.show]="menuOpen">
+        <li (click)="editPost(group_post)">Edit Post</li>
+        <li (click)="deletePost(group_post.id)">Delete Post</li>
+      </ul>
+    </div>
+  </div>
+  <div class="mb-3">
+    <p>
+      {{ group_post.content }}
+    </p>
+    <img
+      style="max-height: 400px; object-fit: cover; width: 100%"
+      class="img-fluid rounded"
+      [src]="group_post.media"
+      alt=""
+    />
+  </div>
+  <div
+    class="d-flex align-items-center justify-content-between mt-3 pt-2 border-top"
+  >
+    <!-- Left side: Like + Comment -->
+    <div class="d-flex align-items-center gap-3">
+      <!-- Like -->
+      <!-- Like -->
+      <div
+        class="d-flex align-items-center gap-1"
+        style="cursor: pointer"
+        (click)="like_post()"
+      >
+        <i
+          class="bi"
+          [ngClass]="user_liked ? 'bi-heart-fill text-danger' : 'bi-heart'"
+        ></i>
+        <span>{{ like_count }} likes</span>
+      </div>
+
+      <!-- Comment -->
+      <div
+        class="d-flex align-items-center gap-1"
+        style="cursor: pointer"
+        (click)="comment_modal()"
+      >
+        <i class="bi bi-chat"></i>
+        <span>{{ group_post.comment_count }} comment</span>
+      </div>
+    </div>
+
+    <!-- Right side: Bookmark -->
+    <div style="cursor: pointer" (click)="toggleBookmark()">
+      <i
+        class="bi"
+        [ngClass]="
+          user_bookmarked ? 'bi-bookmark-fill text-primary' : 'bi-bookmark'
+        "
+      ></i>
+    </div>
+  </div>
+</div>

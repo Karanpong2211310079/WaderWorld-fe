@@ -1,0 +1,19 @@
+.people-container {
+  h5 {
+    font-weight: bold;
+  }
+
+  .list-group-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    img {
+      object-fit: cover;
+    }
+
+    .btn-group button {
+      min-width: 70px;
+    }
+  }
+}

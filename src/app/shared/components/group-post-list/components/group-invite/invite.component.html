@@ -1,0 +1,47 @@
+<div class="card-body p-2 position-relative">
+  <h2 class="text-center mb-4 fw-bold text-primary">
+    Invite Friends
+    <!-- ปุ่มปิด modal ข้างบนขวา -->
+    <button
+      type="button"
+      (click)="closeModal()"
+      class="btn btn-danger btn-sm position-absolute"
+      style="
+        top: 8px;
+        right: 8px;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        padding: 0;
+      "
+    >
+      ×
+    </button>
+  </h2>
+
+  @for (item of Friends; track $index) {
+  <div
+    class="d-flex flex-row rounded shadow-sm mb-3 p-3 align-items-center gap-3"
+    [ngClass]="{
+      'bg-success text-white': item.invited,
+      'bg-white': !item.invited
+    }"
+  >
+    <div class="d-flex flex-column flex-grow-1">
+      <h5 class="mb-1 fw-bold">{{ item.username }}</h5>
+    </div>
+
+    <button
+  class="btn btn-sm"
+  [ngClass]="{
+    'btn-primary text-white': !item.invited,
+    'btn-white text-success border-success': item.invited
+  }"
+  (click)="inviteFriend(item)"
+  [disabled]="item.invited"
+>
+  {{ item.invited ? "Invited" : "Invite" }}
+</button>
+  </div>
+  }
+</div>

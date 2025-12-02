@@ -1,48 +1,26 @@
-.container {
-  background-color: #FFFFFF;
+.sidebar-item {
+  padding: 8px 10px;
   border-radius: 10px;
-  color: #222222;  /* เปลี่ยนเป็นสีเข้มอ่านง่าย */
-  font-family: 'Roboto', sans-serif;  
-  font-weight: bold;
-  font-size: 13px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  padding: 10px;
-  margin: 10px;
-  width: 95%;
-}
-
-.content-list ul {
-  list-style: none;
-  padding: 16px;
-  margin: 0;
-  color: #555555;
-}
-
-.content-list ul li {
-  padding: 8px 0;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
+  transition: 0.2s ease-in-out;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+
+  a.nav-link {
+    text-decoration: none;
+    color: #333;
+  }
 }
 
-.content-list ul li i {
-  margin-right: 10px;
-  margin-left: 15px;
-  font-size: 18px;
-  width: 24px;
-  text-align: center;
-  color: #444;
+.sidebar-item:hover {
+  background-color: #f0f0f0;
 }
 
-.content-list ul li:hover {
-  background-color: rgba(0, 0, 0, 0.05); /* สีเทาอ่อน โปร่งแสง */
-  border-radius: 5px;
+.sidebar-item.active {
+  background-color: #e7f1ff;
+  border-left: 4px solid #0d6efd;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.25);
 }
-a {
-  text-decoration: none;      /* ลบขีดเส้นใต้ */
-  color: inherit;             /* ใช้สีเดียวกับพ่อ */
-  outline: none;              /* ลบกรอบเมื่อโฟกัส */
-  background: transparent;    /* ลบสีพื้นหลัง */
+
+.sidebar-item.active a {
+  color: #0d6efd !important;
+  font-weight: 500;
 }
