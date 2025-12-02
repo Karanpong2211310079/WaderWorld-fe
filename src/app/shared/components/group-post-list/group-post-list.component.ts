@@ -135,7 +135,7 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
       .subscribe({
         next: (response: any) => {
           this.router.navigate(['/workspace/group']);
-          this.toast.success('failed to leave group');
+          this.toast.success('Left group successfully');
         },
         error: (err) => this.toast.error('failed to leave group'),
       });
