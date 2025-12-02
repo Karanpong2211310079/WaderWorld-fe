@@ -1,0 +1,13 @@
+.dropdown-menu {
+  transition: all 0.2s ease;
+  display: block; /* ต้องมีเพื่อใช้ transition */
+  opacity: 0;
+  transform: translateY(-5px);
+  visibility: hidden;
+}
+
+.dropdown-menu.show {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}

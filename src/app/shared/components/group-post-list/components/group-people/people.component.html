@@ -1,0 +1,84 @@
+<div class="people-container p-3">
+  <button
+    type="button"
+    (click)="closeModal()"
+    class="btn btn-danger btn-sm position-absolute"
+    style="
+      top: 8px;
+      right: 8px;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      padding: 0;
+    "
+  >
+    ×
+  </button>
+  <h5 class="mb-2">Approved Members</h5>
+  <ul class="list-group mb-4">
+    <li
+      class="list-group-item d-flex justify-content-between align-items-center"
+      *ngFor="let member of approvedMembers"
+    >
+      <div class="d-flex align-items-center">
+        <img
+          [src]="member.image"
+          class="rounded-circle me-2"
+          width="40"
+          height="40"
+          alt="avatar"
+        />
+        <div>
+          <span>{{ member.username }}</span>
+          <small class="text-muted">({{ member.role }})</small>
+        </div>
+      </div>
+      @if (member.role == "MEMBER") {
+      <div class="btn-group">
+        <button class="btn btn-danger btn-sm" (click)="rejectMember(member.id)">
+          Remove
+        </button>
+      </div>
+      }
+    </li>
+  </ul>
+
+  <h5 class="mb-2">Pending Members</h5>
+  <ul class="list-group">
+    <li
+      class="list-group-item d-flex justify-content-between align-items-center"
+      *ngFor="let member of pendingMembers"
+    >
+      <div class="d-flex align-items-center">
+        <img
+          [src]="member.image"
+          class="rounded-circle me-2"
+          width="40"
+          height="40"
+          alt="avatar"
+        />
+        <span>{{ member.username }}</span>
+      </div>
+
+      <div class="btn-group">
+        <ng-container *ngIf="!member.invited_by; else waitingApproval">
+          <button
+            class="btn btn-success btn-sm"
+            (click)="approveMember(member.id)"
+          >
+            Approve
+          </button>
+          <button
+            class="btn btn-danger btn-sm"
+            (click)="cancelMember(member.id)"
+          >
+            Cancel
+          </button>
+        </ng-container>
+        <ng-template #waitingApproval>
+          <span class="badge bg-warning text-dark">Invited</span>
+        </ng-template>
+      </div>
+    </li>
+  </ul>
+</div>

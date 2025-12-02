@@ -1,22 +1,91 @@
-<div class="topbar-container">
-  <div class="topbar-box">
-    <h2 class="logo"><a href="workspace">WanderWorld</a></h2>
+<div class="container-fluid bg-white shadow-sm">
+  <div class="d-flex justify-content-between align-items-center p-3">
+    <!-- Left: Brand + Search -->
+    <form
+      [formGroup]="searchform"
+      class="position-relative d-flex align-items-center gap-3"
+    >
+      <div class="d-flex align-items-center gap-2 flex-grow-1">
+        <h3
+          class="brand mb-0 d-flex align-items-center"
+          (click)="navigateToHome()"
+        >
+          <i class="bi bi-globe-americas me-2 text-primary"></i> WanderWorld
+        </h3>
 
-    <div class="mobile-menu" (click)="toggleMenu()">
-      <i class="fas fa-bars"></i>
-    </div>
+        <div class="search-box d-none d-md-flex align-items-center">
+          <i class="bi bi-search search-icon"></i>
+          <input
+            type="text"
+            class="form-control border-0 shadow-none"
+            formControlName="username"
+            placeholder="Search destination, people..."
+          />
 
-    <div class="menu-content" [ngClass]="{ 'active': isMenuOpen }">
-      <div class="search-box">
-        <input type="text" placeholder="Search" />
-        <i class="fas fa-search"></i>
+          <!-- Dropdown แสดงผล -->
+          <ul
+            *ngIf="searchform.value.username && searchResults?.length > 0"
+            class="list-group dropdown-search bg-white shadow-sm"
+          >
+            <li
+              class="list-group-item list-group-item-action d-flex align-items-center justify-content-between"
+              *ngFor="let item of searchResults"
+              (click)="selectUser(item)"
+            >
+              <div class="d-flex align-items-center gap-2">
+                <img
+                  *ngIf="item.type === 'user'"
+                  [src]="getImageUrl(item.profile_image_url)"
+                  class="avatar-sm"
+                />
+                <img
+                  *ngIf="item.type === 'group'"
+                  [src]="getImageUrl(item.image_url)"
+                  class="avatar-sm"
+                />
+
+                <div>{{ item.username || item.name }}</div>
+              </div>
+              <small class="text-muted">{{ item.label }}</small>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div  class="right-box">
+    </form>
+
+    <!-- Right: Icons + Avatar -->
+    <div class="d-flex align-items-center gap-4">
+      <i class="bi bi-geo-alt travel-icon" (click)="openGoogleMaps()"></i>
+      <i
+        class="bi bi-airplane-fill travel-icon"
+        (click)="Navigateairline()"
+      ></i>
+
+      <button class="btn btn-outline-danger logout-btn" (click)="Logout_btn()">
+        <i class="bi bi-box-arrow-right"></i> Log out
+      </button>
+
+      <div class="position-relative">
         <img
-          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face"
-          alt="User Avatar"
-          (click)="navigateProfile()"
+          class="avatar-md user-avatar"
+          [src]="userImage"
+          (click)="toggleUserMenu()"
         />
+
+        <!-- User menu -->
+        <ul class="user-menu list-unstyled p-0" [class.d-none]="!userMenuOpen">
+          <li class="menu-item" (click)="navigateToProfile(); closeUserMenu()">
+            <i class="bi bi-person"></i> Profile
+          </li>
+          @if (is_admin) {
+          <li
+            class="menu-item"
+            (click)="navigateToDashboard(); closeUserMenu()"
+          >
+            <i class="bi bi-speedometer2"></i> Dashboard
+          </li>
+          }
+        </ul>
       </div>
     </div>
   </div>

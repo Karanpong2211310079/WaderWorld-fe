@@ -4,14 +4,18 @@ import { AccountComponent } from './account.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
-
 export const accountRoutes: Routes = [
-    {
-        path: '',
-        component: LoginComponent,
-    },
-    {
-        path:'register',
-        component: RegisterComponent,
-    }
+  {
+    path: 'register',
+    component: RegisterComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: '', // เส้นทางว่าง (root path)
+    redirectTo: 'login', // เปลี่ยนเส้นทางไปที่ 'auth'
+    pathMatch: 'full', // ต้องตรงกับเส้นทางทั้งหมด
+  },
 ];
