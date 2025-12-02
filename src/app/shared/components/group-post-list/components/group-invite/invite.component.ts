@@ -47,13 +47,14 @@ export class InviteComponent implements OnDestroy, OnInit {
   }
   public inviteFriend(friend: any) {
     // อัพเดต UI ก่อน
+    console.log('Inviting friend:', friend);
     friend.invited = true;
 
     // สร้าง payload ใช้ value ที่ส่งมาจาก modal (group_id)
     const payload = {
       group_id: this.value.value, // group_id จาก modal
       inviter_id: this.authen.getUserId(), // id ของคนเชิญ
-      new_member: friend.friend_info.id, // id ของเพื่อนที่จะ invite
+      new_member: friend.id, // id ของเพื่อนที่จะ invite
     };
 
     this.restapi

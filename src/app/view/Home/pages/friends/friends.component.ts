@@ -96,7 +96,7 @@ export class FriendsComponent implements OnInit, OnDestroy {
 
   public onDelete(friendId: number) {
     const payload = this.setPayload(friendId);
-
+    console.log(payload);
     Swal.fire({
       title: 'Confirm Deletion',
       text: 'Are you sure you want to delete this friend?',
@@ -111,8 +111,10 @@ export class FriendsComponent implements OnInit, OnDestroy {
           .post('friends/decline/', payload)
           .pipe(takeUntil(this.unsubscribe$))
           .subscribe((response) => {
+            console.log(response);
             if (response.status === 'success') {
               Swal.fire('Deleted!', 'Deleted friend successfully', 'success');
+              this.getFriendRequests();
               this.getFriends();
             } else {
               Swal.fire('Error!', 'Failed to delete friend', 'error');
