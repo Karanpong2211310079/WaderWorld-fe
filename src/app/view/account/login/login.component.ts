@@ -46,7 +46,10 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: formData.password,
     };
   }
-
+  // Password visibility toggle function
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
   public onSubmit() {
     const payload = this.getUserData();
     if (!payload) {

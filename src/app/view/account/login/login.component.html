@@ -90,6 +90,7 @@
             type="button"
             class="password-toggle"
             aria-label="Toggle password visibility"
+            (click)="togglePasswordVisibility()"
           >
             <svg
               *ngIf="!showPassword"

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -10,7 +10,10 @@ import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { RestApiService } from '../../../core/service/rest-api-service/rest-api.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs';
+import { ToastService } from '../../../core/service/toast-service/toast.service';
 @Component({
   selector: 'app-forgot-password',
   imports: [ReactiveFormsModule, CommonModule, FormsModule],
@@ -20,7 +23,10 @@ import { FormsModule } from '@angular/forms';
 export class ForgotPasswordComponent implements OnInit, OnDestroy {
   currentStep: number = 1;
   isLoading: boolean = false;
+  private unsubscribe$ = new Subject<void>();
 
+  private restApi = inject(RestApiService);
+  private toast = inject(ToastService);
   // Step 1: Email Form
   emailForm: FormGroup;
 
@@ -96,18 +102,36 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       return;
     }
 
+    const payload = {
+      email: this.emailForm.get('email')?.value,
+    };
+
     this.isLoading = true;
 
-    // Simulate API call
-    setTimeout(() => {
-      console.log(
-        'Sending verification code to:',
-        this.emailForm.get('email')?.value
-      );
-      this.isLoading = false;
-      this.currentStep = 2;
-      this.startResendTimer();
-    }, 1500);
+    this.restApi
+      .post('auth/check-email/', payload)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (response: any) => {
+          if (response.code === 200 && response.message === true) {
+            this.toast.success('Email Verified');
+            console.log('Email is available:', response);
+
+            this.isLoading = false;
+            this.currentStep = 2;
+            this.startResendTimer();
+          } else {
+            this.isLoading = false;
+            this.toast.error('Email is already taken');
+            console.error('Email check failed:', response);
+          }
+        },
+        error: (err) => {
+          this.isLoading = false;
+          console.error('API Error:', err);
+          this.toast.error(err.error?.message || 'เกิดข้อผิดพลาด');
+        },
+      });
   }
 
   // Step 2: Verification Code Input Handling
@@ -267,17 +291,36 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       return;
     }
 
+    const payload = {
+      email: this.emailForm.get('email')?.value, // อีเมลจาก Step แรก
+      new_password: this.passwordForm.get('newPassword')?.value,
+    };
+
     this.isLoading = true;
+    console.log('Resetting password with payload:', payload);
+    this.restApi
+      .post('auth/reset-password/', payload)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (response: any) => {
+          this.isLoading = false;
 
-    // Simulate API call
-    setTimeout(() => {
-      console.log('Resetting password...');
-      this.isLoading = false;
+          if (response.code === 200) {
+            this.toast.success('Reset Password Successful');
 
-      // Show success message and redirect
-      alert('Password reset successful! Please login with your new password.');
-      this.router.navigate(['/login']);
-    }, 1500);
+            // 👉 ไปหน้า Login
+            this.router.navigate(['auth/login']);
+          } else {
+            this.toast.error(response.message || 'Reset Password Failed');
+          }
+        },
+        error: (err) => {
+          this.isLoading = false;
+          console.error('API Error:', err);
+
+          this.toast.error(err.error?.message || 'เกิดข้อผิดพลาด');
+        },
+      });
   }
 
   // Password Requirements Check
@@ -307,6 +350,6 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
 
   // Navigation
   navigateToLogin(): void {
-    this.router.navigate(['/login']);
+    this.router.navigate(['auth/login']);
   }
 }
