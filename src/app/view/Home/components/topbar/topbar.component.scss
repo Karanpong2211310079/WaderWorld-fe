@@ -3,6 +3,11 @@
   font-weight: 600;
   color: #333;
   cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.brand:hover {
+  color: #007bff; /* เปลี่ยนสีเมื่อ hover */
 }
 
 /* Search box */
@@ -13,6 +18,11 @@
   border: 1px solid #e4e4e4;
   position: relative; /* สำคัญ */
   width: 300px;
+  transition: border-color 0.3s ease; /* Transition สำหรับ border */
+}
+
+.search-box:hover {
+  border-color: #007bff; /* เปลี่ยนสีเมื่อ hover */
 }
 
 .search-icon {
@@ -43,12 +53,12 @@
 
 .dropdown-search li {
   cursor: pointer;
-  transition: 0.2s;
+  transition: background-color 0.2s; /* Transition สำหรับ background */
   padding: 6px 12px;
 }
 
 .dropdown-search li:hover {
-  background-color: #f2f2f2;
+  background-color: #f2f2f2; /* พื้นหลังเมื่อ hover */
 }
 
 /* Travel icons */
@@ -56,21 +66,26 @@
   font-size: 1.4rem;
   color: #4a4a4a;
   cursor: pointer;
-  transition: 0.2s;
+  transition: color 0.2s; /* Transition สำหรับสี */
 }
 
 .travel-icon:hover {
-  color: #007bff;
+  color: #007bff; /* เปลี่ยนสีเมื่อ hover */
 }
 
 /* Logout */
 .logout-btn {
   border-radius: 20px;
   padding: 5px 14px;
+  transition: background-color 0.3s; /* Transition สำหรับ background */
+}
+
+.logout-btn:hover {
+  background-color: #dc3545; /* เปลี่ยนสีเมื่อ hover */
+  color: white; /* เปลี่ยนสีตัวอักษรเมื่อ hover */
 }
 
 /* Avatar */
-/* Avatar ขนาดต่าง ๆ */
 .avatar-sm {
   width: 30px;
   height: 30px;
@@ -107,12 +122,12 @@
 .menu-item {
   cursor: pointer;
   border-radius: 6px;
-  transition: 0.2s;
+  transition: background 0.2s; /* Transition สำหรับ background */
   padding: 6px 12px;
 }
 
 .menu-item:hover {
-  background: #f7f7f7;
+  background: #f7f7f7; /* พื้นหลังเมื่อ hover */
 }
 
 /* Responsive */

@@ -1,6 +1,7 @@
-<div class="d-flex flex-column rounded shadow-sm p-3 bg-white mt-3">
+<div
+  class="d-flex flex-column rounded shadow-sm p-3 bg-white mt-3 post-container"
+>
   <!-- Row: avatar + name left, icon right -->
-
   <div class="d-flex align-items-center justify-content-between mb-3">
     <div class="d-flex align-items-center gap-2">
       <img
@@ -11,13 +12,20 @@
         alt="profile-img"
       />
       <div>
+<<<<<<< HEAD
+        <h3 class="mb-0 username">{{ group_post.username }}</h3>
+        <small class="text-muted"
+          >วันที่ : {{ calculation_time(group_post.created_at) }}</small
+        >
+=======
         <h3 class="mb-0">{{ group_post.username }}</h3>
         <small>Date : {{ calculation_time(group_post.created_at) }}</small>
+>>>>>>> be73b4ff959ff22bd74cfb94755418d91c7c51bd
       </div>
     </div>
     <div class="post-menu-wrapper" *ngIf="ownerStatus[group_post.id]">
       <i
-        class="bi bi-three-dots-vertical fs-4"
+        class="bi bi-three-dots-vertical fs-4 post-menu-button"
         style="cursor: pointer"
         id="postMenuButton"
         (click)="toggleMenu()"
@@ -30,8 +38,8 @@
     </div>
   </div>
 
-  <div class="mb-3">
-    <p>
+  <div class="mb-3 post-content">
+    <p class="post-text">
       {{ group_post.content }}
     </p>
     <img
@@ -41,12 +49,12 @@
       alt=""
     />
   </div>
+
   <div
-    class="d-flex align-items-center justify-content-between mt-3 pt-2 border-top"
+    class="d-flex align-items-center justify-content-between mt-3 pt-2 border-top post-actions"
   >
     <!-- Left side: Like + Comment -->
     <div class="d-flex align-items-center gap-3">
-      <!-- Like -->
       <!-- Like -->
       <div
         class="d-flex align-items-center gap-1"
@@ -67,11 +75,10 @@
         (click)="comment_modal()"
       >
         <i class="bi bi-chat"></i>
-        <span>{{ group_post.comment_count }} comment</span>
+        <span>{{ group_post.comment_count }} comments</span>
       </div>
     </div>
 
-    <!-- Right side: Bookmark -->
     <!-- Right side: Bookmark -->
     <div style="cursor: pointer" (click)="toggleBookmark()">
       <i

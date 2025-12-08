@@ -1,30 +1,61 @@
-/* ซ่อน scroll bar ของ Main Content */
-.order-1::-webkit-scrollbar {
-  display: none;
-}
-
-/* เคลื่อนไหวสติกเกอร์เล็ก ๆ */
-@keyframes floatSticker {
-  0%,
-  100% {
+/* Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
     transform: translateY(0);
   }
-  50% {
-    transform: translateY(-10px);
+}
+
+/* Apply the fade-in effect to the main content */
+.main-content {
+  animation: fadeIn 0.5s ease-in-out forwards; /* Animation duration and easing */
+}
+
+/* Optional: Fade-in effect for sidebar */
+.sidebar-card {
+  animation: fadeIn 0.5s ease-in-out forwards; /* Animation duration and easing */
+  animation-delay: 0.2s; /* Delay for sidebar to fade in after main content */
+}
+
+.loading-overlay {
+  position: fixed; /* Cover the entire viewport */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px; /* Adjust font size */
+  animation: fadeIn 0.5s ease-in-out; /* Fade in effect */
+}
+/* Loader Styles */
+.loader {
+  border: 8px solid #f3f3f3; /* Light grey background */
+  border-top: 8px solid #3498db; /* Blue color for the top */
+  border-radius: 50%; /* Circle shape */
+  width: 50px; /* Size of the loader */
+  height: 50px; /* Size of the loader */
+  animation: spin 1s linear infinite; /* Spin animation */
+}
+
+/* Spin Animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); /* Start at 0 degrees */
+  }
+  100% {
+    transform: rotate(360deg); /* Rotate to 360 degrees */
   }
 }
 
-.main-content img {
-  animation: floatSticker 4s ease-in-out infinite;
-}
-
-/* Mobile adjustments */
-@media (max-width: 767px) {
-  .main-content {
-    padding: 8px;
-  }
-  .main-content > * {
-    max-width: 100%;
-    box-sizing: border-box;
-  }
+/* Optional: Fade-in effect for sidebar */
+.sidebar-card {
+  animation: fadeIn 0.5s ease-in-out forwards; /* Animation duration and easing */
+  animation-delay: 0.2s; /* Delay for sidebar to fade in after main content */
 }

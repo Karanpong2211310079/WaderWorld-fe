@@ -3,7 +3,7 @@
   border-radius: 14px;
   padding: 10px 0;
   background: #ffffff;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* เพิ่มเงาให้ดูนุ่มนวล */
   border: 1px solid #eef2f5;
 }
 
@@ -11,23 +11,28 @@
 .travel-card .title {
   font-weight: 600;
   color: #1a3c6e;
+  margin-bottom: 12px; /* เพิ่มระยะห่างด้านล่าง */
 }
 
 /* รูป Avatar ของ Traveler */
 .traveler-img {
   border: 2px solid #d7ecff;
+  width: 40px;
+  height: 40px;
+  object-fit: cover; /* ทำให้รูปเต็มกรอบไม่เบี้ยว */
+  flex-shrink: 0; /* ไม่ให้ย่อขนาด */
 }
 
 /* รายการผู้ใช้ */
 .traveler-item {
-  padding: 8px;
+  padding: 12px; /* เพิ่ม padding เพื่อให้มีพื้นที่มากขึ้น */
   border-radius: 10px;
-  transition: 0.2s;
+  transition: background 0.3s ease, transform 0.2s ease; /* เพิ่มการเปลี่ยนแปลง */
 }
 
 .traveler-item:hover {
-  background: #f7fbff;
-  transform: translateY(-2px);
+  background: #f7fbff; /* พื้นหลังเมื่อ hover */
+  transform: translateY(-2px); /* เอฟเฟกต์เลื่อนขึ้น */
 }
 
 /* ปุ่ม Follow แบบสไตล์ท่องเที่ยว */
@@ -35,25 +40,31 @@
   background: linear-gradient(135deg, #48a8ff, #2d89ff);
   border: none;
   color: white;
-  padding: 4px 14px;
+  padding: 6px 16px; /* ปรับ padding ให้เหมาะสม */
   border-radius: 20px;
   font-size: 0.8rem;
   box-shadow: 0 3px 8px rgba(45, 137, 255, 0.3);
-  transition: 0.2s;
+  transition: background 0.3s ease, transform 0.2s ease; /* เพิ่มการเปลี่ยนแปลง */
 }
 
 .btn-travel-follow:hover {
   background: linear-gradient(135deg, #2d89ff, #1f6fe0);
-  transform: scale(1.05);
+  transform: scale(1.05); /* ขยายเมื่อ hover */
 }
 
 /* ข้อความแท็ก */
 .travel-card small {
   font-size: 0.75rem;
+  color: #6c757d; /* สีที่อ่อนกว่าเพื่อให้ดูน่าสนใจ */
 }
-.traveler-img {
-  width: 40px;
-  height: 40px;
-  object-fit: cover; // ทำให้รูปเต็มกรอบไม่เบี้ยว
-  flex-shrink: 0;
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .travel-card {
+    padding: 15px; /* เพิ่ม padding สำหรับหน้าจอเล็ก */
+  }
+
+  .traveler-item {
+    padding: 10px; /* ลด padding สำหรับหน้าจอเล็ก */
+  }
 }

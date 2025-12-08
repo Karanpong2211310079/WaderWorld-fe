@@ -1,0 +1,55 @@
+/* Profile Card Styles */
+.profile-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.profile-card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Avatar Styles */
+.profile-avatar {
+  object-fit: cover;
+  border: 4px solid #007bff; /* Optional border around the avatar */
+}
+
+/* Username Styles */
+.username {
+  font-size: 1.8rem; /* Larger font size for username */
+  color: #343a40; /* Dark color for contrast */
+}
+
+/* Bio Styles */
+.bio {
+  font-size: 1.1rem; /* Slightly larger font size for bio */
+  color: #6c757d; /* Muted color for bio */
+}
+
+/* Button Styles */
+.btn-outline-primary {
+  border-color: #007bff; /* Primary color for button */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+.btn-outline-primary:hover {
+  background-color: #007bff; /* Change background on hover */
+  color: white; /* Change text color on hover */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .profile-avatar {
+    width: 200px; /* Smaller avatar on mobile */
+    height: 200px;
+  }
+
+  .username {
+    font-size: 1.5rem; /* Smaller font size on mobile */
+  }
+
+  .bio {
+    font-size: 1rem; /* Smaller bio font size on mobile */
+  }
+}
