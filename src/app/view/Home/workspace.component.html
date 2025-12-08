@@ -1,11 +1,19 @@
 <app-topbar class="flex-grow-1"></app-topbar>
+
+<div *ngIf="loading" class="loading-overlay">
+  <div class="loader"></div>
+  Loading...
+</div>
+
 <div
+  *ngIf="!loading"
   class="d-flex flex-column flex-lg-row"
   style="min-height: 100vh; background-color: #f0f2f5; overflow: hidden"
 >
+  <!-- Your existing layout -->
   <!-- Left Sidebar -->
   <div
-    class="order-0 order-lg-0 col-12 col-lg-3 col-md-12"
+    class="col-12 col-lg-3 col-md-12 order-0"
     style="position: sticky; top: 0; height: 100vh"
   >
     <app-sidebar-left></app-sidebar-left>
@@ -13,12 +21,11 @@
 
   <!-- Main Content -->
   <div
-    class="order-1 order-lg-1 col-12 col-lg-6 col-md-12"
+    class="col-12 col-lg-6 col-md-12 order-1 main-content"
     style="
       overflow-y: auto;
       max-height: 100vh;
       -webkit-overflow-scrolling: touch;
-      scrollbar-width: none; /* Firefox */
     "
   >
     <router-outlet></router-outlet>
@@ -26,16 +33,9 @@
 
   <!-- Right Sidebar -->
   <div
-    class="order-2 order-lg-2 col-12 col-lg-3 col-md-12"
+    class="col-12 col-lg-3 col-md-12 order-2"
     style="position: sticky; top: 0; height: 100vh"
   >
     <app-sidebar-right></app-sidebar-right>
   </div>
 </div>
-
-<style>
-  /* Chrome, Edge, Safari */
-  .order-1::-webkit-scrollbar {
-    display: none;
-  }
-</style>

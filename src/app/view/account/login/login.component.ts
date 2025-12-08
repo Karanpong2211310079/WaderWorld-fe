@@ -79,4 +79,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public NavigateSignup() {
     this.router.navigate(['auth/register']);
   }
+  public NavigateForgotPass() {
+    this.router.navigate(['auth/forgot-password']);
+  }
 }

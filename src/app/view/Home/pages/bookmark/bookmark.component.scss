@@ -1,0 +1,31 @@
+.header {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.section-title {
+  font-weight: 600;
+  color: #1f2937; /* Dark text for section titles */
+}
+
+.text-muted {
+  color: #6c757d; /* Muted text color for additional information */
+}
+
+/* Adjusting margins for better spacing */
+.mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header {
+    padding: 2rem; /* Adjust padding on smaller screens */
+  }
+
+  .section-title {
+    font-size: 1.2rem; /* Slightly larger text on mobile */
+  }
+}

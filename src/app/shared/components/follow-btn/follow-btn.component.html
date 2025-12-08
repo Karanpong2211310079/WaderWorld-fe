@@ -1,18 +1,16 @@
-<div class="follow-btn-container">
+<div class="follow-btn-container d-flex justify-content-between mt-3">
   <button
-    class="btn flex-grow-1"
+    class="btn flex-grow-1 follow-btn"
     [class.active]="currentChoice === choice1"
     (click)="selectChoice(choice1)"
   >
     {{ choice1 }}
-    {{ Count }}
   </button>
   <button
-    class="btn flex-grow-1"
+    class="btn flex-grow-1 follow-btn"
     [class.active]="currentChoice === choice2"
     (click)="selectChoice(choice2)"
   >
     {{ choice2 }}
-    {{ Count }}
   </button>
 </div>

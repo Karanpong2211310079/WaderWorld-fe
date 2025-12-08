@@ -1,13 +1,12 @@
-/* นำเข้า Font Awesome สำหรับ icon หากคุณใช้ */
+/* Import Font Awesome for icons if you are using it */
 /* @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'); */
 
 .not-found-container {
-  /* ทำให้ครอบคลุมพื้นที่ทั้งหมดของ viewport */
-  min-height: 100vh;
+  min-height: 100vh; /* Cover the entire viewport height */
   display: flex;
-  justify-content: center; /* จัดให้อยู่กึ่งกลางแนวนอน */
-  align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
-  background-color: #f8f9fa; /* สีพื้นหลังอ่อน ๆ */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  background-color: #f8f9fa; /* Light background color */
   font-family: "Arial", sans-serif;
   text-align: center;
   padding: 20px;
@@ -16,16 +15,16 @@
 .not-found-content {
   background-color: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* เงาที่ดูนุ่มนวล */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
   padding: 40px 60px;
   max-width: 500px;
   width: 100%;
 }
 
 .error-code {
-  font-size: 8rem; /* ขนาดใหญ่สำหรับตัวเลข 404 */
+  font-size: 8rem; /* Large size for the 404 number */
   font-weight: 700;
-  color: #dc3545; /* สีแดงที่โดดเด่น */
+  color: #dc3545; /* Eye-catching red color */
   margin-bottom: 0;
   line-height: 1;
 }
@@ -47,30 +46,30 @@
 .home-button {
   display: inline-flex;
   align-items: center;
-  gap: 8px; /* ระยะห่างระหว่าง icon กับข้อความ */
-  text-decoration: none; /* ลบขีดเส้นใต้ลิงก์ */
-  background-color: #007bff; /* สีน้ำเงินหลัก */
+  gap: 8px; /* Space between icon and text */
+  text-decoration: none; /* Remove underline from link */
+  background-color: #007bff; /* Primary blue color */
   color: white;
   padding: 12px 25px;
   border-radius: 6px;
   font-size: 1rem;
   font-weight: 500;
-  transition: background-color 0.3s ease, transform 0.2s ease; /* เพิ่มการเปลี่ยนผ่านเมื่อ hover */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Add transition on hover */
   border: none;
   cursor: pointer;
 }
 
 .home-button:hover {
-  background-color: #0056b3; /* สีน้ำเงินเข้มขึ้นเมื่อชี้ */
-  transform: translateY(-2px); /* ยกปุ่มขึ้นเล็กน้อย */
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: translateY(-2px); /* Slight lift on hover */
 }
 
-/* หากต้องการให้มี Icon */
+/* Icon styles */
 .home-button i {
   font-size: 1.1rem;
 }
 
-/* สำหรับการตอบสนองต่อหน้าจอเล็ก (Responsive) */
+/* Responsive styles for smaller screens */
 @media (max-width: 600px) {
   .not-found-content {
     padding: 30px 20px;
