@@ -12,10 +12,15 @@
         alt="profile-img"
       />
       <div>
+<<<<<<< HEAD
         <h3 class="mb-0 username">{{ group_post.username }}</h3>
         <small class="text-muted"
           >วันที่ : {{ calculation_time(group_post.created_at) }}</small
         >
+=======
+        <h3 class="mb-0">{{ group_post.username }}</h3>
+        <small>Date : {{ calculation_time(group_post.created_at) }}</small>
+>>>>>>> be73b4ff959ff22bd74cfb94755418d91c7c51bd
       </div>
     </div>
     <div class="post-menu-wrapper" *ngIf="ownerStatus[group_post.id]">
