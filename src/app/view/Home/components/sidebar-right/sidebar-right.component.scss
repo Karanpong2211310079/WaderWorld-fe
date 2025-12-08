@@ -1,70 +1,302 @@
 /* Card หลักให้ดูเป็นกล่องท่องเที่ยว */
 .travel-card {
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 10px 0;
-  background: #ffffff;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* เพิ่มเงาให้ดูนุ่มนวล */
-  border: 1px solid #eef2f5;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e3f2fd;
+  position: relative;
+  overflow: hidden;
+}
+
+.travel-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ffd700, #ff6b6b, #4ecdc4);
 }
 
 /* Title */
 .travel-card .title {
-  font-weight: 600;
+  font-weight: 700;
   color: #1a3c6e;
-  margin-bottom: 12px; /* เพิ่มระยะห่างด้านล่าง */
+  margin-bottom: 16px;
+  font-size: 1.1rem;
+}
+
+/* Ranking Traveler Item */
+.ranking-traveler {
+  position: relative;
+  padding: 16px 12px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.ranking-traveler:hover {
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Rank Badge */
+.rank-badge-container {
+  position: relative;
+  margin-right: 8px;
+}
+
+.traveler-rank-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 11px;
+  color: white;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.traveler-rank-badge i {
+  font-size: 12px;
+  margin-right: 2px;
+}
+
+.rank-number {
+  font-size: 9px;
+  font-weight: 800;
+}
+
+/* อันดับที่ 1 - ทอง */
+.rank-1 {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  border: 2px solid #f59e0b;
+  animation: goldPulse 2s ease-in-out infinite alternate;
+}
+
+.rank-1 i {
+  color: #d97706;
+}
+
+/* อันดับที่ 2 - เงิน */
+.rank-2 {
+  background: linear-gradient(135deg, #c0c0c0 0%, #e5e7eb 100%);
+  border: 2px solid #9ca3af;
+}
+
+.rank-2 i {
+  color: #6b7280;
+}
+
+/* อันดับที่ 3 - ทองแดง */
+.rank-3 {
+  background: linear-gradient(135deg, #cd7f32 0%, #d97706 100%);
+  border: 2px solid #b45309;
+}
+
+.rank-3 i {
+  color: #92400e;
+}
+
+/* Profile Container with Rank Border */
+.profile-container {
+  position: relative;
+  padding: 3px;
+  border-radius: 50%;
+}
+
+.profile-rank-1 {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.profile-rank-2 {
+  background: linear-gradient(135deg, #c0c0c0, #e5e7eb);
+  box-shadow: 0 0 10px rgba(192, 192, 192, 0.4);
+}
+
+.profile-rank-3 {
+  background: linear-gradient(135deg, #cd7f32, #d97706);
+  box-shadow: 0 0 10px rgba(205, 127, 50, 0.4);
 }
 
 /* รูป Avatar ของ Traveler */
 .traveler-img {
-  border: 2px solid #d7ecff;
-  width: 40px;
-  height: 40px;
-  object-fit: cover; /* ทำให้รูปเต็มกรอบไม่เบี้ยว */
-  flex-shrink: 0; /* ไม่ให้ย่อขนาด */
+  border: 2px solid #ffffff;
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
-/* รายการผู้ใช้ */
-.traveler-item {
-  padding: 12px; /* เพิ่ม padding เพื่อให้มีพื้นที่มากขึ้น */
+/* Crown Icon for #1 */
+.crown-icon {
+  position: absolute;
+  top: -8px;
+  right: -5px;
+  background: #ffd700;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: #d97706;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Traveler Info */
+.traveler-info {
+  flex-grow: 1;
+}
+
+.username {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.95rem;
+}
+
+.traveler-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 2px;
+}
+
+.follower-count {
+  font-size: 0.75rem;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.follower-count i {
+  font-size: 10px;
+}
+
+/* Rank Labels */
+.rank-label {
+  font-size: 0.7rem;
+  padding: 2px 8px;
   border-radius: 10px;
-  transition: background 0.3s ease, transform 0.2s ease; /* เพิ่มการเปลี่ยนแปลง */
+  font-weight: 600;
 }
 
-.traveler-item:hover {
-  background: #f7fbff; /* พื้นหลังเมื่อ hover */
-  transform: translateY(-2px); /* เอฟเฟกต์เลื่อนขึ้น */
+.rank-label-1 {
+  background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+  color: #d68910;
+  border: 1px solid #f1c40f;
 }
 
-/* ปุ่ม Follow แบบสไตล์ท่องเที่ยว */
+.rank-label-2 {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  color: #6c757d;
+  border: 1px solid #ced4da;
+}
+
+.rank-label-3 {
+  background: linear-gradient(135deg, #fdeaa7, #fdcb6e);
+  color: #e17055;
+  border: 1px solid #f39c12;
+}
+
+/* Enhanced Follow Buttons */
 .btn-travel-follow {
-  background: linear-gradient(135deg, #48a8ff, #2d89ff);
   border: none;
   color: white;
-  padding: 6px 16px; /* ปรับ padding ให้เหมาะสม */
+  padding: 8px 16px;
   border-radius: 20px;
   font-size: 0.8rem;
-  box-shadow: 0 3px 8px rgba(45, 137, 255, 0.3);
-  transition: background 0.3s ease, transform 0.2s ease; /* เพิ่มการเปลี่ยนแปลง */
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
 }
 
-.btn-travel-follow:hover {
-  background: linear-gradient(135deg, #2d89ff, #1f6fe0);
-  transform: scale(1.05); /* ขยายเมื่อ hover */
+.btn-rank-1 {
+  background: linear-gradient(135deg, #ffd700, #f39c12);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
 }
 
-/* ข้อความแท็ก */
-.travel-card small {
-  font-size: 0.75rem;
-  color: #6c757d; /* สีที่อ่อนกว่าเพื่อให้ดูน่าสนใจ */
+.btn-rank-1:hover {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  transform: scale(1.08);
 }
 
-/* Responsive design */
+.btn-rank-2 {
+  background: linear-gradient(135deg, #74b9ff, #0984e3);
+  box-shadow: 0 4px 12px rgba(116, 185, 255, 0.4);
+}
+
+.btn-rank-2:hover {
+  background: linear-gradient(135deg, #0984e3, #0066cc);
+  transform: scale(1.08);
+}
+
+.btn-rank-3 {
+  background: linear-gradient(135deg, #fd79a8, #e84393);
+  box-shadow: 0 4px 12px rgba(253, 121, 168, 0.4);
+}
+
+.btn-rank-3:hover {
+  background: linear-gradient(135deg, #e84393, #d63031);
+  transform: scale(1.08);
+}
+
+/* Show More Button */
+.show-more-btn {
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.show-more-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+/* Animations */
+@keyframes goldPulse {
+  0% {
+    box-shadow: 0 3px 10px rgba(255, 215, 0, 0.3);
+  }
+  100% {
+    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.6);
+  }
+}
+
+/* Responsive */
 @media (max-width: 480px) {
-  .travel-card {
-    padding: 15px; /* เพิ่ม padding สำหรับหน้าจอเล็ก */
+  .ranking-traveler {
+    padding: 12px 8px;
   }
 
-  .traveler-item {
-    padding: 10px; /* ลด padding สำหรับหน้าจอเล็ก */
+  .traveler-rank-badge {
+    width: 28px;
+    height: 28px;
+    font-size: 10px;
+  }
+
+  .traveler-img {
+    width: 38px;
+    height: 38px;
+  }
+
+  .username {
+    font-size: 0.9rem;
+  }
+
+  .btn-travel-follow {
+    padding: 6px 12px;
+    font-size: 0.75rem;
   }
 }
