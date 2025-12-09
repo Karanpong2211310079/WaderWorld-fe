@@ -12,9 +12,7 @@
         <div
           *ngFor="let chatroom of filteredMessage; trackBy: trackByChatroomId"
           class="chat-item d-flex flex-row align-items-center mb-3 p-2 rounded"
-          [class.active]="
-            selectedChatroom?.chatroom_id === chatroom.chatroom_id
-          "
+          [class.active]="selectedChatroom?.chatroomId === chatroom.chatroomId"
           (click)="selectChatroom(chatroom)"
         >
           <img

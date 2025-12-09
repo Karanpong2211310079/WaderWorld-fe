@@ -109,7 +109,22 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
         error: (err) => console.error('❌ Join request error:', err),
       });
   }
+  public calculation_time(timestamp: string): string {
+    if (!timestamp) return '';
 
+    const date = new Date(timestamp);
+    if (isNaN(date.getTime())) return '';
+
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const seconds = date.getSeconds().toString().padStart(2, '0');
+
+    return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+  }
   public LoadGroupData() {
     const group_id = {
       group_id: this.route.snapshot.paramMap.get('id'),

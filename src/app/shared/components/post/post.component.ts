@@ -43,6 +43,7 @@ export class PostComponent implements OnDestroy, OnInit {
   @Output() postUpdated = new EventEmitter<any>(); // ส่งกลับไป parent
 
   ngOnInit(): void {
+    console.log('Post data:', this.group_post);
     this.like_count = this.group_post.like_count || 0;
 
     this.check_like(this.group_post.id).then((liked) => {

@@ -1,50 +1,109 @@
 <div class="edit-post-container">
-  <h2>Edit Group Post</h2>
-  <button
-    type="button"
-    (click)="closeModal()"
-    class="btn btn-danger btn-sm position-absolute"
-    style="
-      top: 8px;
-      right: 8px;
-      border-radius: 50%;
-      width: 28px;
-      height: 28px;
-      padding: 0;
-    "
-  >
-    ×
-  </button>
+  <!-- Header -->
+  <div class="post-header">
+    <h2 class="post-title">
+      <i class="bi bi-pencil-square"></i>
+      Edit Group Post
+    </h2>
+    <button
+      type="button"
+      (click)="closeModal()"
+      class="close-btn"
+      aria-label="Close"
+    >
+      ×
+    </button>
+  </div>
+
+  <!-- Form -->
   <form
     [formGroup]="editPostForm"
     (ngSubmit)="submit()"
     enctype="multipart/form-data"
+    class="edit-form"
   >
+    <!-- Content -->
     <div class="form-group">
-      <label for="content">Content</label>
-      <textarea
-        id="content"
-        formControlName="content"
-        rows="4"
-        placeholder="Edit your post..."
-      ></textarea>
+      <label for="content" class="form-label">
+        <i class="bi bi-chat-text"></i>
+        Content
+      </label>
+      <div class="textarea-wrapper">
+        <textarea
+          id="content"
+          formControlName="content"
+          rows="4"
+          placeholder="Edit your group post..."
+          class="form-control"
+          [class.is-invalid]="editPostForm.get('content')?.errors?.['required'] && editPostForm.get('content')?.touched"
+        ></textarea>
+        <div class="character-count">{{ contentLength }}/500</div>
+      </div>
+      <div
+        class="form-error"
+        *ngIf="editPostForm.get('content')?.errors?.['required'] && editPostForm.get('content')?.touched"
+      >
+        Content is required
+      </div>
     </div>
 
+    <!-- Media Upload -->
     <div class="form-group">
-      <label for="media">Media (optional)</label>
-      <input
-        type="file"
-        id="media"
-        (change)="onFileChange($event)"
-        accept="image/*"
-      />
+      <label for="media" class="form-label">
+        <i class="bi bi-image"></i>
+        Media
+        <span class="optional-badge">Optional</span>
+      </label>
+
+      <div class="file-upload-area" [class.has-file]="selectedFile">
+        <input
+          type="file"
+          id="media"
+          (change)="onFileChange($event)"
+          accept="image/*"
+          class="file-input"
+        />
+        <div class="upload-content">
+          <i class="bi bi-cloud-upload upload-icon"></i>
+          <p class="upload-text">
+            {{ selectedFile ? "Change Image" : "Click to upload image" }}
+          </p>
+          <p class="upload-subtext">PNG, JPG, GIF up to 10MB</p>
+        </div>
+      </div>
     </div>
 
+    <!-- Full Size Media Preview -->
     <div class="form-group" *ngIf="mediaPreview">
-      <label>Current Media:</label>
-      <img [src]="mediaPreview" alt="Media Preview" class="media-preview" />
+      <label class="form-label">
+        <i class="bi bi-image-fill"></i>
+        Media Preview
+      </label>
+      <div class="media-preview-wrapper-full">
+        <img
+          [src]="mediaPreview"
+          alt="Media Preview"
+          class="media-preview-full"
+        />
+      </div>
     </div>
 
-    <button type="submit">Update Post</button>
+    <!-- Submit Button -->
+    <div class="form-actions">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="editPostForm.invalid || isSubmitting"
+      >
+        <span *ngIf="!isSubmitting">
+          <i class="bi bi-check-circle"></i>
+          Update Group Post
+        </span>
+        <span *ngIf="isSubmitting" class="loading-content">
+          <div class="spinner"></div>
+          Updating...
+        </span>
+      </button>
+    </div>
   </form>
 </div>
