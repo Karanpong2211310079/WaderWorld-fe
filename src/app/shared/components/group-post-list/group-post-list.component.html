@@ -35,7 +35,7 @@
         </p>
         <p class="mb-2">
           <strong>Created At:</strong>
-          {{ group_data.created_at | date : "mediumDate" }}
+          {{ calculation_time(group_data.created_at) }}
         </p>
 
         <div class="d-flex flex-wrap gap-2 mt-2">

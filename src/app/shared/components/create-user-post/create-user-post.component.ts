@@ -46,7 +46,7 @@ export class CreateUserPostComponent implements OnDestroy, OnInit {
     visibility: new FormControl<VisibilityType>(VisibilityType.PUBLIC, [
       Validators.required,
     ]),
-    category: new FormControl<string>('OTHER', Validators.required), // fix default OTHER
+    category: new FormControl<string>('TOURIST_SPOT', Validators.required), // fix default OTHER
   });
   selectedImage: string | ArrayBuffer | null = null;
   isUploading: boolean = false;

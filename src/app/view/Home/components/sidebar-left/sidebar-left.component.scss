@@ -1,26 +1,41 @@
 .sidebar-item {
-  padding: 8px 10px;
-  border-radius: 10px;
-  transition: 0.2s ease-in-out;
+  padding: 12px 15px; /* เพิ่ม padding เพื่อให้มีพื้นที่มากขึ้น */
+  border-radius: 12px; /* มุมมนที่นุ่มนวลขึ้น */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* เพิ่มการเปลี่ยนแปลง */
   cursor: pointer;
+  position: relative; /* ใช้สำหรับการจัดการพื้นหลัง */
 
+  /* กำหนดสไตล์สำหรับลิงก์ */
   a.nav-link {
     text-decoration: none;
-    color: #333;
+    color: #333; /* สีพื้นฐาน */
+    font-weight: 500; /* น้ำหนักฟอนต์ */
+    transition: color 0.3s ease; /* การเปลี่ยนแปลงสี */
   }
 }
 
 .sidebar-item:hover {
-  background-color: #f0f0f0;
+  background-color: #f0f0f0; /* พื้นหลังเมื่อ hover */
+  transform: translateY(-1px); /* เพิ่มเอฟเฟกต์เลื่อนขึ้นเล็กน้อย */
 }
 
 .sidebar-item.active {
-  background-color: #e7f1ff;
-  border-left: 4px solid #0d6efd;
-  box-shadow: 0 0 6px rgba(0, 123, 255, 0.25);
+  background-color: #e7f1ff; /* พื้นหลังสำหรับรายการที่ถูกเลือก */
+  border-left: 4px solid #0d6efd; /* เส้นข้างสำหรับแสดงรายการที่เลือก */
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3); /* เงาที่นุ่มนวล */
 }
 
 .sidebar-item.active a {
-  color: #0d6efd !important;
-  font-weight: 500;
+  color: #0d6efd !important; /* เปลี่ยนสีของลิงก์เมื่อถูกเลือก */
+  font-weight: 600; /* น้ำหนักฟอนต์ที่หนาขึ้น */
+}
+
+/* สไตล์สำหรับไอคอน */
+.sidebar-item i {
+  color: #6c757d; /* สีไอคอนเบาๆ */
+  transition: color 0.3s ease; /* การเปลี่ยนแปลงสี */
+}
+
+.sidebar-item:hover i {
+  color: #0d6efd; /* สีไอคอนเมื่อ hover */
 }

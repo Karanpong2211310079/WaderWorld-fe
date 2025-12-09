@@ -46,7 +46,10 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: formData.password,
     };
   }
-
+  // Password visibility toggle function
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
   public onSubmit() {
     const payload = this.getUserData();
     if (!payload) {
@@ -78,5 +81,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   public NavigateSignup() {
     this.router.navigate(['auth/register']);
+  }
+  public NavigateForgotPass() {
+    this.router.navigate(['auth/forgot-password']);
   }
 }

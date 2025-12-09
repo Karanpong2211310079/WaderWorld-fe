@@ -30,7 +30,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
     password: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
   });
-
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();

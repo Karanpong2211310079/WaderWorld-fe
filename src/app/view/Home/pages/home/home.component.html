@@ -1,21 +1,21 @@
-<div class="d-flex flex-column p-3">
-  <!-- ส่วนสร้างโพสต์ -->
+<div class="d-flex flex-column p-4">
+  <!-- Post Creation Section -->
   <app-create-user-post></app-create-user-post>
 
-  <!-- ปุ่มเลือก For You / Following -->
+  <!-- Selection Button for For You / Following -->
   <app-follow-btn
     [choice1]="'For You'"
     [choice2]="'Following'"
     (choiceChange)="onChoiceChanged($event)"
   ></app-follow-btn>
-  <!-- แนะนำกลุ่มใหม่ -->
+
+  <!-- Recommended New Groups -->
   <div class="mt-4">
-    <h5>New Group</h5>
+    <h5 class="section-title">Recommended New Groups</h5>
     <div class="d-flex gap-3 mt-2">
       <div
         *ngFor="let group of new_groups"
-        class="card p-2"
-        style="width: 150px; cursor: pointer"
+        class="group-card"
         (click)="goToGroup(group.id)"
       >
         <img
@@ -24,22 +24,20 @@
           class="card-img-top rounded"
           alt="{{ group.name }}"
         />
-        <div class="card-body p-1">
+        <div class="card-body">
           <p class="card-title small mb-0 text-truncate">{{ group.name }}</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ตัวกรอง category เฉพาะ For You -->
-  <!-- home.component.html -->
-  <div class="d-flex gap-2 mt-3">
+  <!-- Category Filter for For You -->
+  <div class="d-flex gap-2 mt-3 category-container">
     <button
       *ngFor="let cat of categories"
-      class="btn d-flex align-items-center gap-2"
+      class="category-btn d-flex align-items-center gap-2"
       [ngStyle]="{
-        'background-color':
-          selectedCategory === cat.name ? cat.color : 'transparent',
+        'background-color': selectedCategory === cat.name ? cat.color : 'white',
         color: selectedCategory === cat.name ? 'white' : cat.color,
         'border-color': cat.color
       }"
@@ -50,7 +48,7 @@
     </button>
   </div>
 
-  <!-- แสดงโพสต์ -->
+  <!-- Display Posts -->
   <div class="content mt-3">
     <ng-container *ngFor="let post of filtered_posts">
       <app-user-post

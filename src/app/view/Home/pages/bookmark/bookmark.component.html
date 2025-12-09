@@ -1,16 +1,16 @@
-<div class="d-flex flex-column p-3 gap-3">
+<div class="d-flex flex-column p-3 gap-4">
   <!-- Header -->
   <div
-    class="d-flex flex-column align-items-center bg-white rounded shadow-sm p-3 mb-3"
+    class="header d-flex flex-column align-items-center bg-white rounded shadow-sm p-4 mb-4"
   >
     <h3 class="mb-0">Bookmarks</h3>
     <small class="text-muted">Posts you have saved</small>
   </div>
 
-  <!-- Posts ปกติ -->
+  <!-- Posts Section -->
   <div *ngIf="postBookmarks.length > 0">
-    <h5 class="mb-2">Posts</h5>
-    <div class="d-flex flex-column gap-3 mb-4">
+    <h5 class="section-title mb-2">Posts</h5>
+    <div class="d-flex flex-column gap-4">
       <ng-container *ngFor="let post of postBookmarks">
         <app-user-post
           [group_post]="post"
@@ -24,10 +24,10 @@
     No saved posts
   </div>
 
-  <!-- Group Posts -->
+  <!-- Group Posts Section -->
   <div *ngIf="groupPostBookmarks.length > 0">
-    <h5 class="mb-2">Group Posts</h5>
-    <div class="d-flex flex-column gap-3">
+    <h5 class="section-title mb-2">Group Posts</h5>
+    <div class="d-flex flex-column gap-4">
       <ng-container *ngFor="let post of groupPostBookmarks">
         <app-post
           [group_post]="post"

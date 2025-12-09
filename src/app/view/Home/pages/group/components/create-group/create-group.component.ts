@@ -36,7 +36,7 @@ export class CreateGroupComponent {
       description: [''],
       image: [null],
       type: ['PUBLIC', Validators.required],
-      category: ['OTHER', Validators.required],
+      category: ['BEACH', Validators.required],
     });
   }
 

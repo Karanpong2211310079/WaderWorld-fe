@@ -1,26 +1,66 @@
 <div class="d-flex flex-column shadow-sm rounded m-3 bg-white travel-card">
   <ol class="list-unstyled p-3 gap-3 d-flex flex-column">
-    <h4 class="d-flex align-items-center gap-2 title">Recommended Travelers</h4>
+    <h4 class="d-flex align-items-center gap-2 title">
+      <i class="bi bi-star-fill text-warning"></i>
+      Top Recommended Travelers
+    </h4>
 
-    <ng-container *ngFor="let user of recommendedUsers | slice : 0 : 3">
+    <ng-container
+      *ngFor="
+        let user of recommendedUsers | slice : 0 : itemsToShow;
+        let i = index
+      "
+    >
       <div
-        class="d-flex justify-content-between align-items-center gap-2 traveler-item"
+        class="d-flex justify-content-between align-items-center gap-2 traveler-item ranking-traveler"
+        [attr.data-rank]="i + 1"
       >
-        <div class="d-flex align-items-center gap-2">
-          <img
-            class="rounded-circle traveler-img"
-            [src]="user.image_url || 'https://via.placeholder.com/40'"
-            alt="{{ user.username }}"
-          />
-          <div class="d-flex flex-column">
-            {{ user.username }}
+        <!-- Rank Badge -->
+        <div class="rank-badge-container">
+          <div class="traveler-rank-badge" [ngClass]="'rank-' + (i + 1)">
+            <i [class]="getRankIcon(i + 1)"></i>
+            <span class="rank-number">{{ i + 1 }}</span>
           </div>
         </div>
 
-        <button class="btn btn-sm btn-travel-follow" (click)="followUser(user)">
+        <div class="d-flex align-items-center gap-3 flex-grow-1">
+          <div class="profile-container" [ngClass]="'profile-rank-' + (i + 1)">
+            <img
+              class="rounded-circle traveler-img"
+              [src]="user.image_url"
+              alt="{{ user.username }}"
+            />
+            <div *ngIf="i === 0" class="crown-icon">
+              <i class="bi bi-gem"></i>
+            </div>
+          </div>
+
+          <div class="d-flex flex-column traveler-info">
+            <span class="username">{{ user.username }}</span>
+            <span class="rank-label">{{ user.rank_label }}</span>
+          </div>
+        </div>
+
+        <button
+          class="btn btn-sm btn-travel-follow"
+          [ngClass]="'btn-rank-' + (i + 1)"
+          (click)="followUser(user)"
+        >
+          <i class="bi bi-plus-circle me-1"></i>
           {{ user.isRequested ? "Requested" : "Follow" }}
         </button>
       </div>
     </ng-container>
+
+    <!-- Show More Button -->
+    <div class="text-center mt-2" *ngIf="itemsToShow < recommendedUsers.length">
+      <button
+        class="btn btn-outline-primary btn-sm show-more-btn"
+        (click)="showMore()"
+      >
+        <i class="bi bi-chevron-down me-1"></i>
+        Show More Travelers
+      </button>
+    </div>
   </ol>
 </div>

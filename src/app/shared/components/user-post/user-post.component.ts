@@ -19,6 +19,7 @@ import { map, catchError } from 'rxjs/operators';
 import { firstValueFrom } from 'rxjs';
 import { CommentsComponent } from './component/comments/comments.component';
 import { EditPostComponent } from './component/edit-post/edit-post.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-post',
@@ -113,22 +114,41 @@ export class UserPostComponent {
       });
   }
   deletePost(post_id: any) {
-    if (!confirm('Are you sure you want to delete this post?')) return;
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (!result.isConfirmed) return;
 
-    const postId = post_id; // id ของโพสต์
-    const userId = this.authen.getUserId(); // id ของผู้ใช้
-    console.log(post_id);
-    this.restapi
-      .post('post/delete_post/', { post_id: postId, user_id: userId })
-      .subscribe({
-        next: (res: any) => {
-          alert(res.detail || 'Post deleted successfully');
-        },
-        error: (err) => {
-          console.error(err);
-          alert(err.error.detail || 'Error deleting post');
-        },
-      });
+      const postId = post_id;
+      const userId = this.authen.getUserId();
+
+      this.restapi
+        .post('post/delete_post/', { post_id: postId, user_id: userId })
+        .subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Deleted!',
+              text: res.detail || 'Post deleted successfully',
+              timer: 1500,
+              showConfirmButton: false,
+            });
+          },
+          error: (err) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: err.error.detail || 'Error deleting post',
+            });
+          },
+        });
+    });
   }
 
   public async check_like(post_id: any): Promise<boolean> {

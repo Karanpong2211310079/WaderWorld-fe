@@ -3,41 +3,55 @@
   display: inline-block;
 }
 
-/* เมนู dropdown */
+/* Dropdown menu styling */
 .post-menu {
   position: absolute;
   top: 30px;
   right: 0;
   background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-  list-style: none;
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* Shadow effect */
+  list-style: none; /* Remove default list style */
   padding: 0;
   margin: 0;
-  width: 140px;
-  display: none; /* ซ่อนเริ่มต้น */
-  z-index: 100;
-  transition: all 0.2s ease;
+  width: 140px; /* Fixed width for the menu */
+  display: none; /* Initially hidden */
+  z-index: 100; /* Ensure it appears above other elements */
+  transition: all 0.2s ease; /* Smooth transition */
 }
 
-/* แสดงเมนู */
+/* Show menu when active */
 .post-menu.show {
-  display: block;
+  display: block; /* Show the menu */
 }
 
-/* ไอเท็มเมนู */
+/* Menu item styling */
 .post-menu li {
-  padding: 10px 15px;
-  cursor: pointer;
-  font-size: 14px;
-  color: #333;
-  transition: background 0.2s, color 0.2s;
+  padding: 10px 15px; /* Padding for menu items */
+  cursor: pointer; /* Pointer cursor */
+  font-size: 14px; /* Font size */
+  color: #333; /* Text color */
+  transition: background 0.2s, color 0.2s; /* Transition effects */
 }
 
-/* hover */
+/* Menu item hover effect */
 .post-menu li:hover {
-  background-color: #f2f2f2;
-  color: #000;
-  border-radius: 6px;
+  background-color: #f2f2f2; /* Light grey on hover */
+  color: #000; /* Darker text color on hover */
+  border-radius: 6px; /* Rounded corners on hover */
+}
+
+/* Additional styles for the post */
+.border-top {
+  border-top: 1px solid #ddd; /* Light border on top */
+}
+
+.img-fluid {
+  max-width: 100%; /* Responsive image */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.text-muted {
+  color: #6c757d; /* Muted text color */
 }
