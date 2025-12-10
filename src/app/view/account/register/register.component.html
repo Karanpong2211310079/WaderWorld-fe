@@ -200,9 +200,16 @@
       <!-- Terms & Conditions -->
       <div class="terms-group">
         <label class="checkbox-label">
-          <input type="checkbox" class="checkbox-input" />
+          <input
+            type="checkbox"
+            class="checkbox-input"
+            formControlName="terms"
+          />
           <span class="checkbox-text">
-            I agree to the <a href="#" class="terms-link">Terms & Conditions</a>
+            I agree to the
+            <a (click)="navigateToTerms()" class="terms-link"
+              >Terms & Conditions</a
+            >
           </span>
         </label>
       </div>

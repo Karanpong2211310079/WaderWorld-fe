@@ -12,6 +12,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from '../../../core/service/toast-service/toast.service';
 import { Router } from '@angular/router';
 import { PeopleComponent } from './components/group-people/people.component';
+
 @Component({
   selector: 'app-group-post-list',
   imports: [
@@ -31,13 +32,71 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
   private modalService = inject(NgModalServiceService);
   private toast = inject(ToastService);
   private router = inject(Router);
+
   public is_admin_group: boolean = false;
   public is_member: boolean = false;
   public type: string = 'group';
+  public group_data: any = [];
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  ngOnInit(): void {
+    this.LoadGroupData();
+    this.check_role_group();
+    this.check_user_in_group();
+  }
+
+  // Method สำหรับกำหนด CSS class ของ badge
+  getCategoryBadgeClass(category: string): string {
+    const categoryClasses: { [key: string]: string } = {
+      BEACH: 'bg-info text-white',
+      MOUNTAIN: 'bg-success text-white',
+      FOREST: 'bg-dark text-white',
+      TOURIST_SPOT: 'bg-warning text-dark',
+      CAMPING: 'bg-secondary text-white',
+      TEMPLE_MERIT: 'bg-primary text-white',
+      FOOD_CAFE: 'bg-danger text-white',
+      THEME_WATER_PARK: 'bg-info text-white',
+      ADVENTURE: 'bg-success text-white',
+      NIGHTLIFE: 'bg-dark text-white',
+      VOLUNTEERING: 'bg-primary text-white',
+      PHOTOGRAPHY: 'bg-secondary text-white',
+      CONCERT: 'bg-danger text-white',
+      WATERFALL: 'bg-info text-white',
+      CITY_TRIP: 'bg-warning text-dark',
+      DIVING: 'bg-primary text-white',
+      OTHER: 'bg-secondary text-white',
+    };
+
+    return categoryClasses[category] || 'bg-secondary text-white';
+  }
+
+  // Method สำหรับแสดงชื่อหมวดหมู่
+  getCategoryDisplayName(category: string): string {
+    const categoryNames: { [key: string]: string } = {
+      BEACH: '🏖️ Sea & Islands',
+      MOUNTAIN: '⛰️ Mountains & Hills',
+      FOREST: '🌳 Forest',
+      TOURIST_SPOT: '📍 Tourist Spots',
+      CAMPING: '🏕️ Camping',
+      TEMPLE_MERIT: '🛕 Temples & Merit Making',
+      FOOD_CAFE: '☕ Food & Cafes',
+      THEME_WATER_PARK: '🎢 Theme & Water Parks',
+      ADVENTURE: '🧗 Hiking & Adventure',
+      NIGHTLIFE: '🍻 Nightlife & Party',
+      VOLUNTEERING: '🤝 Volunteering',
+      PHOTOGRAPHY: '📸 Photography',
+      CONCERT: '🎤 Concerts',
+      WATERFALL: '🏞️ Waterfalls & Nature',
+      CITY_TRIP: '🏙️ City Sightseeing',
+      DIVING: '🤿 Diving',
+      OTHER: '❓ Other',
+    };
+
+    return categoryNames[category] || category;
   }
 
   checkType(event: any): string {
@@ -48,37 +107,22 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
     }
   }
 
-  public group_data: any = [];
-
-  ngOnInit(): void {
-    this.LoadGroupData();
-    this.check_role_group();
-    this.check_user_in_group();
-  }
   public check_user_in_group() {
-    // ดึง param จาก URL (string)
     const group_id_str = this.route.snapshot.paramMap.get('id');
-
-    // แปลงเป็น number
     const group_id = group_id_str ? parseInt(group_id_str, 10) : null;
-
-    // user_id จาก service ของคุณ (number | null)
     const user_id = this.authen.getUserId();
 
-    // ตรวจสอบค่าที่ไม่ถูกต้อง
     if (group_id === null || user_id === null) {
       console.error('Invalid group_id or user_id:', group_id, user_id);
       return;
     }
 
-    // payload ทั้งคู่เป็น number
     const Payload = {
       group_id: group_id,
       user_id: user_id,
     };
 
     console.log('Payload for checking user in group:', Payload);
-    // { group_id: 3, user_id: 3 } ✅
 
     this.restapi
       .post('group/check_user_in_group/', Payload)
@@ -103,12 +147,12 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
       .subscribe({
         next: (response: any) => {
           console.log('✅ Join request sent:', response);
-          // รีโหลดหน้าใหม่
           window.location.reload();
         },
         error: (err) => console.error('❌ Join request error:', err),
       });
   }
+
   public calculation_time(timestamp: string): string {
     if (!timestamp) return '';
 
@@ -125,6 +169,7 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
 
     return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
   }
+
   public LoadGroupData() {
     const group_id = {
       group_id: this.route.snapshot.paramMap.get('id'),
@@ -139,6 +184,7 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
         error: (err) => console.error('❌ Load group posts error:', err),
       });
   }
+
   public Leave_group() {
     const payload = {
       group_id: this.route.snapshot.paramMap.get('id'),
@@ -155,6 +201,7 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
         error: (err) => this.toast.error('failed to leave group'),
       });
   }
+
   public invite_people() {
     const group_id = this.route.snapshot.paramMap.get('id');
 
@@ -230,6 +277,7 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
       }
     );
   }
+
   public onPostUpdated(updatedPost: any) {
     this.LoadGroupData();
   }

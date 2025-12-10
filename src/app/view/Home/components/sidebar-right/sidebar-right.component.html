@@ -17,35 +17,28 @@
       >
         <!-- Rank Badge -->
         <div class="rank-badge-container">
-          <div class="traveler-rank-badge" [ngClass]="'rank-' + (i + 1)">
-            <i [class]="getRankIcon(i + 1)"></i>
+          <div class="traveler-rank-badge">
+            <i class="bi bi-person-fill"></i>
             <span class="rank-number">{{ i + 1 }}</span>
           </div>
         </div>
 
         <div class="d-flex align-items-center gap-3 flex-grow-1">
-          <div class="profile-container" [ngClass]="'profile-rank-' + (i + 1)">
+          <div class="profile-container">
             <img
               class="rounded-circle traveler-img"
               [src]="user.image_url"
               alt="{{ user.username }}"
             />
-            <div *ngIf="i === 0" class="crown-icon">
-              <i class="bi bi-gem"></i>
-            </div>
           </div>
 
           <div class="d-flex flex-column traveler-info">
             <span class="username">{{ user.username }}</span>
-            <span class="rank-label">{{ user.rank_label }}</span>
+            <span class="rank-label">{{ getRankLabel(i + 1) }}</span>
           </div>
         </div>
 
-        <button
-          class="btn btn-sm btn-travel-follow"
-          [ngClass]="'btn-rank-' + (i + 1)"
-          (click)="followUser(user)"
-        >
+        <button class="btn btn-sm btn-travel-follow" (click)="followUser(user)">
           <i class="bi bi-plus-circle me-1"></i>
           {{ user.isRequested ? "Requested" : "Follow" }}
         </button>

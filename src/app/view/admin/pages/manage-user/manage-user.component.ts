@@ -6,6 +6,7 @@ import { NgModalServiceService } from '../../../../core/service/ng-modal-service
 import { AuthenticationServiceService } from '../../../../core/service/authentication-service/authentication-service.service';
 import { RestApiService } from '../../../../core/service/rest-api-service/rest-api.service';
 import { UserDataModalComponent } from '../components/user-data-modal/user-data-modal.component';
+import Swal from 'sweetalert2'; // ตรวจสอบว่าได้ import Swal แล้ว
 @Component({
   selector: 'app-manage-user',
   imports: [],
@@ -56,21 +57,42 @@ export class ManageUserComponent implements OnDestroy, OnInit {
       });
   }
   public delete_user(user_id: number) {
-    const payload = {
-      user_id: user_id,
-      is_active: false,
-    };
-    this.modalService.openConfirm;
+    // 1. แสดง SweetAlert เพื่อขอการยืนยันการ Deactivate
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This action will deactivate the user. They will not be able to log in.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33', // ใช้สีแดงสำหรับ Deactivation/Deletion
+      cancelButtonColor: '#6c757d', // สีเทาสำหรับ Cancel
+      confirmButtonText: 'Yes, deactivate it!',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      // 2. ตรวจสอบว่าผู้ใช้กดปุ่ม 'Yes' (Confirm)
+      if (result.isConfirmed) {
+        const payload = {
+          user_id: user_id,
+          is_active: false, // ตั้งค่าให้ผู้ใช้ไม่ Active
+        };
 
-    this.restApi
-      .post('admin/edit_user/', payload)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe({
-        next: (response) => {
-          this.toast.success('User deleted successfully');
-          this.getAllUsers(); // Refresh list
-        },
-      });
+        // 3. ถ้าผู้ใช้ยืนยัน ให้เรียก API เพื่อ Deactivate
+        this.restApi
+          .post('admin/edit_user/', payload)
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe({
+            next: (response) => {
+              // 4. เมื่อ Deactivate สำเร็จ แสดง Toast และโหลดรายการใหม่
+              this.toast.success('User deactivated successfully!');
+              this.getAllUsers(); // Refresh list
+            },
+            error: (error) => {
+              // (ทางเลือก) จัดการข้อผิดพลาด
+              this.toast.error('Failed to deactivate user.');
+              console.error(error);
+            },
+          });
+      }
+    });
   }
 
   openEditUserModal(item: any) {

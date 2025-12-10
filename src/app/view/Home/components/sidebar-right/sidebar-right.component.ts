@@ -17,7 +17,7 @@ export class SidebarRightComponent implements OnInit, OnDestroy {
   public itemsToShow = 3;
 
   showMore() {
-    this.itemsToShow += 3; // หรือทั้งหมดตามต้องการ
+    this.itemsToShow += 3;
   }
 
   public recommendedUsers: any[] = [];
@@ -54,29 +54,20 @@ export class SidebarRightComponent implements OnInit, OnDestroy {
       });
   }
 
-  getRankIcon(rank: number): string {
-    switch (rank) {
-      case 1:
-        return 'bi-trophy-fill';
-      case 2:
-        return 'bi-award-fill';
-      case 3:
-        return 'bi-gem';
-      default:
-        return '';
-    }
-  }
-
   getRankLabel(rank: number): string {
     switch (rank) {
       case 1:
-        return 'TOP TRAVELER';
+        return 'RANK #1';
       case 2:
-        return 'RISING STAR';
+        return 'RANK #2';
       case 3:
-        return 'POPULAR';
+        return 'RANK #3';
+      case 4:
+        return 'RANK #4';
+      case 5:
+        return 'RANK #5';
       default:
-        return '';
+        return `RANK #${rank}`;
     }
   }
 
@@ -107,7 +98,7 @@ export class SidebarRightComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           console.error('❌ Follow user error:', err);
-          user.isRequested = false; // reset ปุ่มเมื่อ error
+          user.isRequested = false;
         },
       });
   }

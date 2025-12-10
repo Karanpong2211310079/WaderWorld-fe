@@ -7,7 +7,7 @@ import { RestApiService } from '../../../../core/service/rest-api-service/rest-a
 import { Subject, takeUntil } from 'rxjs';
 import { PostDataModalComponent } from '../components/post-data-modal/post-data-modal.component';
 import { CommonModule } from '@angular/common';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-manage-post',
   imports: [FollowBtnComponent, CommonModule],
@@ -48,30 +48,83 @@ export class ManagePostComponent implements OnDestroy, OnInit {
   }
 
   public deleteUserPost(post_id: number) {
-    const payload = {
-      post_id: post_id,
-    };
-
-    this.restApi
-      .post('admin/delete_user_post/', payload)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((response) => {
-        this.toast.success(response.message.message);
-        this.getUserAllPost();
-      });
+    // 1. แสดง SweetAlert เพื่อขอการยืนยัน
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      // 2. ตรวจสอบว่าผู้ใช้กดปุ่ม 'Yes' (Confirm)
+      if (result.isConfirmed) {
+        const payload = {
+          post_id: post_id,
+        };
+        console.log(payload);
+        // 3. ถ้าผู้ใช้ยืนยัน ให้เรียก API ลบโพสต์
+        this.restApi
+          .post('admin/delete_user_post/', payload)
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe(
+            (response) => {
+              // 4. เมื่อลบสำเร็จ แสดง Toast และโหลดรายการใหม่
+              this.toast.success(response.data.message); // ใช้ response.message.message ตามโค้ดเดิม
+              console.log(response);
+              this.getUserAllPost(); // Refresh list
+            },
+            (error) => {
+              // (ทางเลือก) จัดการข้อผิดพลาด
+              this.toast.error('Failed to delete user post.');
+              console.error(error);
+            }
+          );
+      }
+    });
   }
   public deleteGroupPost(post_id: number) {
-    const payload = {
-      group_post_id: post_id,
-    };
+    // 1. แสดง SweetAlert เพื่อขอการยืนยัน
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      // 2. ตรวจสอบว่าผู้ใช้กดปุ่ม 'Yes' (Confirm)
+      if (result.isConfirmed) {
+        const payload = {
+          group_post_id: post_id,
+        };
 
-    this.restApi
-      .post('admin/delete_group_post/', payload)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((response) => {
-        this.toast.success(response.message);
-        this.getGroupAllPost();
-      });
+        // 3. ถ้าผู้ใช้ยืนยัน ให้เรียก API ลบโพสต์
+        this.restApi
+          .post('admin/delete_group_post/', payload)
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe(
+            (response) => {
+              // 4. เมื่อลบสำเร็จ แสดง Toast และโหลดรายการใหม่
+              this.toast.success(response.message);
+              this.getGroupAllPost();
+
+              // (ทางเลือก) แสดง Success Alert อีกครั้ง
+              // Swal.fire(
+              //   'Deleted!',
+              //   'The post has been deleted.',
+              //   'success'
+              // )
+            },
+            (error) => {
+              // (ทางเลือก) จัดการข้อผิดพลาด
+              this.toast.error('Failed to delete post.');
+            }
+          );
+      }
+    });
   }
 
   public calculation_time(timestamp: string): string {

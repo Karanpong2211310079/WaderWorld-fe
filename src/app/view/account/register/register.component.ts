@@ -79,4 +79,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   public NavigateLogin() {
     this.router.navigate(['auth/login']);
   }
+  public navigateToTerms() {
+    this.router.navigate(['auth/terms-and-conditions']);
+  }
 }

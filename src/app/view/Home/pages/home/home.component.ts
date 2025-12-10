@@ -33,14 +33,73 @@ export class HomeComponent implements OnDestroy, OnInit {
   public Allgroups: any[] = [];
   public new_groups: any[] = []; // สำหรับแนะนำกลุ่มใหม่
   // home.component.ts
-  public categories = [
-    { name: 'BEACH', color: '#0dcaf0', icon: 'bi-sun' },
-    { name: 'MOUNTAIN', color: '#198754', icon: 'bi-geo-alt' },
-    { name: 'FOREST', color: '#20c997', icon: 'bi-tree' },
-    { name: 'TOURIST_SPOT', color: '#ffc107', icon: 'bi-camera' },
-    { name: 'OTHER', color: '#6c757d', icon: 'bi-list' },
-  ];
+  // ในไฟล์ component.ts ของคุณ
 
+  public categories = [
+    { name: 'BEACH', label: 'Sea & Islands', color: '#0dcaf0', icon: '🏖️' }, // bg-info
+    {
+      name: 'MOUNTAIN',
+      label: 'Mountains & Hills',
+      color: '#198754',
+      icon: '⛰️',
+    }, // bg-success
+    { name: 'FOREST', label: 'Forest', color: '#212529', icon: '🌳' }, // bg-dark
+    {
+      name: 'TOURIST_SPOT',
+      label: 'Tourist Spots',
+      color: '#ffc107',
+      icon: '📍',
+    }, // bg-warning
+
+    { name: 'CAMPING', label: 'Camping', color: '#6c757d', icon: '🏕️' }, // bg-secondary
+    {
+      name: 'TEMPLE_MERIT',
+      label: 'Temples & Merit Making',
+      color: '#0d6efd',
+      icon: '🛕',
+    }, // bg-primary
+    { name: 'FOOD_CAFE', label: 'Food & Cafes', color: '#dc3545', icon: '☕' }, // bg-danger
+    {
+      name: 'THEME_WATER_PARK',
+      label: 'Theme & Water Parks',
+      color: '#0dcaf0',
+      icon: '🎢',
+    }, // bg-info
+    {
+      name: 'ADVENTURE',
+      label: 'Hiking & Adventure',
+      color: '#198754',
+      icon: '🧗',
+    }, // bg-success
+    {
+      name: 'NIGHTLIFE',
+      label: 'Nightlife & Party',
+      color: '#212529',
+      icon: '🍻',
+    }, // bg-dark
+    {
+      name: 'VOLUNTEERING',
+      label: 'Volunteering',
+      color: '#0d6efd',
+      icon: '🤝',
+    }, // bg-primary
+    { name: 'PHOTOGRAPHY', label: 'Photography', color: '#6c757d', icon: '📸' }, // bg-secondary
+    { name: 'CONCERT', label: 'Concerts', color: '#dc3545', icon: '🎤' }, // bg-danger
+    {
+      name: 'WATERFALL',
+      label: 'Waterfalls & Nature',
+      color: '#0dcaf0',
+      icon: '🏞️',
+    }, // bg-info
+    {
+      name: 'CITY_TRIP',
+      label: 'City Sightseeing',
+      color: '#ffc107',
+      icon: '🏙️',
+    }, // bg-warning
+    { name: 'DIVING', label: 'Diving', color: '#0d6efd', icon: '🤿' }, // bg-primary
+    { name: 'OTHER', label: 'Other', color: '#6c757d', icon: '❓' }, // bg-secondary
+  ];
   public selectedCategory: string = '';
 
   public selected_category: string | null = null;

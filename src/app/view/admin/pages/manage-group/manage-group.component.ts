@@ -52,19 +52,11 @@ export class ManageGroupComponent implements OnDestroy, OnInit {
           .pipe(takeUntil(this.unsubscribe$))
           .subscribe({
             next: (res: any) => {
-              Swal.fire(
-                'Deleted!',
-                res.message || 'Group deleted successfully.',
-                'success'
-              );
+              this.toast.success('Post deleted successfully'); // ใช้ response.message.message ตามโค้ดเดิม
               this.getAllGroup(); // รีเฟรชตาราง
             },
             error: (err) => {
-              Swal.fire(
-                'Error!',
-                err.error?.error || 'Failed to delete group.',
-                'error'
-              );
+              this.toast.error('Something went wrong'); // ใช้ response.message.message ตามโค้ดเดิม
             },
           });
       }

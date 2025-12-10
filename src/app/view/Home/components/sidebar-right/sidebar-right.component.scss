@@ -16,7 +16,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #ffd700, #ff6b6b, #4ecdc4);
+  background: linear-gradient(90deg, #007bff, #0056b3, #004085);
 }
 
 /* Title */
@@ -43,7 +43,7 @@
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* Rank Badge */
+/* Rank Badge - สีเดียวกันทั้งหมด */
 .rank-badge-container {
   position: relative;
   margin-right: 8px;
@@ -61,11 +61,14 @@
   color: white;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
   position: relative;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  border: 2px solid #004085;
 }
 
 .traveler-rank-badge i {
   font-size: 12px;
   margin-right: 2px;
+  color: white;
 }
 
 .rank-number {
@@ -73,57 +76,13 @@
   font-weight: 800;
 }
 
-/* อันดับที่ 1 - ทอง */
-.rank-1 {
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-  border: 2px solid #f59e0b;
-  animation: goldPulse 2s ease-in-out infinite alternate;
-}
-
-.rank-1 i {
-  color: #d97706;
-}
-
-/* อันดับที่ 2 - เงิน */
-.rank-2 {
-  background: linear-gradient(135deg, #c0c0c0 0%, #e5e7eb 100%);
-  border: 2px solid #9ca3af;
-}
-
-.rank-2 i {
-  color: #6b7280;
-}
-
-/* อันดับที่ 3 - ทองแดง */
-.rank-3 {
-  background: linear-gradient(135deg, #cd7f32 0%, #d97706 100%);
-  border: 2px solid #b45309;
-}
-
-.rank-3 i {
-  color: #92400e;
-}
-
-/* Profile Container with Rank Border */
+/* Profile Container - สีเดียวกัน */
 .profile-container {
   position: relative;
   padding: 3px;
   border-radius: 50%;
-}
-
-.profile-rank-1 {
-  background: linear-gradient(135deg, #ffd700, #ffed4e);
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-}
-
-.profile-rank-2 {
-  background: linear-gradient(135deg, #c0c0c0, #e5e7eb);
-  box-shadow: 0 0 10px rgba(192, 192, 192, 0.4);
-}
-
-.profile-rank-3 {
-  background: linear-gradient(135deg, #cd7f32, #d97706);
-  box-shadow: 0 0 10px rgba(205, 127, 50, 0.4);
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
 }
 
 /* รูป Avatar ของ Traveler */
@@ -133,23 +92,6 @@
   height: 44px;
   object-fit: cover;
   flex-shrink: 0;
-}
-
-/* Crown Icon for #1 */
-.crown-icon {
-  position: absolute;
-  top: -8px;
-  right: -5px;
-  background: #ffd700;
-  border-radius: 50%;
-  width: 18px;
-  height: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  color: #d97706;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Traveler Info */
@@ -163,52 +105,18 @@
   font-size: 0.95rem;
 }
 
-.traveler-stats {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 2px;
-}
-
-.follower-count {
-  font-size: 0.75rem;
-  color: #6c757d;
-  display: flex;
-  align-items: center;
-  gap: 3px;
-}
-
-.follower-count i {
-  font-size: 10px;
-}
-
-/* Rank Labels */
+/* Rank Labels - สีเดียวกัน */
 .rank-label {
   font-size: 0.7rem;
   padding: 2px 8px;
   border-radius: 10px;
   font-weight: 600;
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  color: #1976d2;
+  border: 1px solid #2196f3;
 }
 
-.rank-label-1 {
-  background: linear-gradient(135deg, #fff3cd, #ffeaa7);
-  color: #d68910;
-  border: 1px solid #f1c40f;
-}
-
-.rank-label-2 {
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-  color: #6c757d;
-  border: 1px solid #ced4da;
-}
-
-.rank-label-3 {
-  background: linear-gradient(135deg, #fdeaa7, #fdcb6e);
-  color: #e17055;
-  border: 1px solid #f39c12;
-}
-
-/* Enhanced Follow Buttons */
+/* Enhanced Follow Buttons - สีเดียวกัน */
 .btn-travel-follow {
   border: none;
   color: white;
@@ -219,35 +127,12 @@
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
 }
 
-.btn-rank-1 {
-  background: linear-gradient(135deg, #ffd700, #f39c12);
-  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
-}
-
-.btn-rank-1:hover {
-  background: linear-gradient(135deg, #f39c12, #e67e22);
-  transform: scale(1.08);
-}
-
-.btn-rank-2 {
-  background: linear-gradient(135deg, #74b9ff, #0984e3);
-  box-shadow: 0 4px 12px rgba(116, 185, 255, 0.4);
-}
-
-.btn-rank-2:hover {
-  background: linear-gradient(135deg, #0984e3, #0066cc);
-  transform: scale(1.08);
-}
-
-.btn-rank-3 {
-  background: linear-gradient(135deg, #fd79a8, #e84393);
-  box-shadow: 0 4px 12px rgba(253, 121, 168, 0.4);
-}
-
-.btn-rank-3:hover {
-  background: linear-gradient(135deg, #e84393, #d63031);
+.btn-travel-follow:hover {
+  background: linear-gradient(135deg, #0056b3, #004085);
   transform: scale(1.08);
 }
 
@@ -262,16 +147,6 @@
 .show-more-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
-}
-
-/* Animations */
-@keyframes goldPulse {
-  0% {
-    box-shadow: 0 3px 10px rgba(255, 215, 0, 0.3);
-  }
-  100% {
-    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.6);
-  }
 }
 
 /* Responsive */

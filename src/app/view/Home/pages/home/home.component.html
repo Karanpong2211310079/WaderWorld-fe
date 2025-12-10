@@ -32,7 +32,7 @@
   </div>
 
   <!-- Category Filter for For You -->
-  <div class="d-flex gap-2 mt-3 category-container">
+  <div class="d-flex gap-2 mt-3 category-container flex-wrap">
     <button
       *ngFor="let cat of categories"
       class="category-btn d-flex align-items-center gap-2"
@@ -43,8 +43,8 @@
       }"
       (click)="filterByCategory(cat.name)"
     >
-      <i [class]="'bi ' + cat.icon"></i>
-      {{ cat.name }}
+      <span>{{ cat.icon }}</span>
+      {{ cat.label }}
     </button>
   </div>
 
