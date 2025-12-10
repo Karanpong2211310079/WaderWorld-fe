@@ -134,4 +134,53 @@ export class GroupComponent implements OnDestroy, OnInit {
     this.choice = choice;
     console.log('🔄 Choice changed to:', this.choice);
   }
+  // Method สำหรับกำหนด CSS class ของ badge
+  getCategoryBadgeClass(category: string): string {
+    const categoryClasses: { [key: string]: string } = {
+      BEACH: 'bg-info text-white',
+      MOUNTAIN: 'bg-success text-white',
+      FOREST: 'bg-dark text-white',
+      TOURIST_SPOT: 'bg-warning text-dark',
+      CAMPING: 'bg-secondary text-white',
+      TEMPLE_MERIT: 'bg-primary text-white',
+      FOOD_CAFE: 'bg-danger text-white',
+      THEME_WATER_PARK: 'bg-info text-white',
+      ADVENTURE: 'bg-success text-white',
+      NIGHTLIFE: 'bg-dark text-white',
+      VOLUNTEERING: 'bg-primary text-white',
+      PHOTOGRAPHY: 'bg-secondary text-white',
+      CONCERT: 'bg-danger text-white',
+      WATERFALL: 'bg-info text-white',
+      CITY_TRIP: 'bg-warning text-dark',
+      DIVING: 'bg-primary text-white',
+      OTHER: 'bg-secondary text-white',
+    };
+
+    return categoryClasses[category] || 'bg-secondary text-white';
+  }
+
+  // Method สำหรับแสดงชื่อหมวดหมู่
+  getCategoryDisplayName(category: string): string {
+    const categoryNames: { [key: string]: string } = {
+      BEACH: '🏖️ Sea & Islands',
+      MOUNTAIN: '⛰️ Mountains & Hills',
+      FOREST: '🌳 Forest',
+      TOURIST_SPOT: '📍 Tourist Spots',
+      CAMPING: '🏕️ Camping',
+      TEMPLE_MERIT: '🛕 Temples & Merit Making',
+      FOOD_CAFE: '☕ Food & Cafes',
+      THEME_WATER_PARK: '🎢 Theme & Water Parks',
+      ADVENTURE: '🧗 Hiking & Adventure',
+      NIGHTLIFE: '🍻 Nightlife & Party',
+      VOLUNTEERING: '🤝 Volunteering',
+      PHOTOGRAPHY: '📸 Photography',
+      CONCERT: '🎤 Concerts',
+      WATERFALL: '🏞️ Waterfalls & Nature',
+      CITY_TRIP: '🏙️ City Sightseeing',
+      DIVING: '🤿 Diving',
+      OTHER: '❓ Other',
+    };
+
+    return categoryNames[category] || category;
+  }
 }

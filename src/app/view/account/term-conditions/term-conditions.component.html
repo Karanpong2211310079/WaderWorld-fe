@@ -1,0 +1,195 @@
+<div class="terms-container">
+  <!-- Header Section -->
+  <div class="terms-header">
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between">
+        <button class="btn btn-back" (click)="goBack()" type="button">
+          <i class="bi bi-arrow-left me-2"></i>
+          Back to Register
+        </button>
+        <h1 class="terms-title mb-0">Terms & Conditions</h1>
+        <div class="spacer"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="terms-content">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+          <div class="terms-card">
+            <!-- Introduction -->
+            <div class="terms-section">
+              <div class="section-icon">
+                <i class="bi bi-shield-check"></i>
+              </div>
+              <h2>Welcome to TravelConnect</h2>
+              <p class="lead">
+                By using our travel social platform, you agree to comply with
+                and be bound by the following terms and conditions. Please
+                review them carefully.
+              </p>
+              <div class="last-updated">
+                <i class="bi bi-calendar-event me-2"></i>
+                Last updated: December 10, 2024
+              </div>
+            </div>
+
+            <!-- Terms Sections -->
+            <div class="terms-section">
+              <div class="section-header">
+                <div class="section-number">1</div>
+                <h3>Acceptance of Terms</h3>
+              </div>
+              <p>
+                By accessing and using TravelConnect, you accept and agree to be
+                bound by the terms and provision of this agreement. If you do
+                not agree to abide by the above, please do not use this service.
+              </p>
+            </div>
+
+            <div class="terms-section">
+              <div class="section-header">
+                <div class="section-number">2</div>
+                <h3>User Account & Registration</h3>
+              </div>
+              <ul class="terms-list">
+                <li>
+                  You must provide accurate and complete information during
+                  registration
+                </li>
+                <li>
+                  You are responsible for maintaining the confidentiality of
+                  your account
+                </li>
+                <li>You must be at least 13 years old to create an account</li>
+                <li>One person may not maintain more than one account</li>
+              </ul>
+            </div>
+
+            <div class="terms-section">
+              <div class="section-header">
+                <div class="section-number">3</div>
+                <h3>Content & Community Guidelines</h3>
+              </div>
+              <ul class="terms-list">
+                <li>Share authentic travel experiences and photos</li>
+                <li>Respect other users and their content</li>
+                <li>
+                  Do not post inappropriate, offensive, or harmful content
+                </li>
+                <li>Respect intellectual property rights</li>
+                <li>No spam, harassment, or misleading information</li>
+              </ul>
+            </div>
+
+            <div class="terms-section">
+              <div class="section-header">
+                <div class="section-number">4</div>
+                <h3>Privacy & Data Protection</h3>
+              </div>
+              <p>
+                We are committed to protecting your privacy. Your personal
+                information will be handled in accordance with our Privacy
+                Policy. We collect and use your data to improve your travel
+                experience and connect you with fellow travelers.
+              </p>
+              <div class="privacy-highlight">
+                <i class="bi bi-lock-fill me-2"></i>
+                Your travel data and personal information are protected with
+                industry-standard security measures.
+              </div>
+            </div>
+
+            <div class="terms-section">
+              <div class="section-header">
+                <div class="section-number">5</div>
+                <h3>Travel Safety & Liability</h3>
+              </div>
+              <ul class="terms-list">
+                <li>
+                  TravelConnect is a social platform and not a travel booking
+                  service
+                </li>
+                <li>
+                  Users are responsible for their own travel decisions and
+                  safety
+                </li>
+                <li>
+                  We do not guarantee the accuracy of user-generated travel
+                  information
+                </li>
+                <li>Always verify travel information from official sources</li>
+              </ul>
+            </div>
+
+            <div class="terms-section">
+              <div class="section-header">
+                <div class="section-number">6</div>
+                <h3>Prohibited Activities</h3>
+              </div>
+              <div class="prohibited-grid">
+                <div class="prohibited-item">
+                  <i class="bi bi-x-circle text-danger"></i>
+                  <span>Fake travel information</span>
+                </div>
+                <div class="prohibited-item">
+                  <i class="bi bi-x-circle text-danger"></i>
+                  <span>Commercial spam</span>
+                </div>
+                <div class="prohibited-item">
+                  <i class="bi bi-x-circle text-danger"></i>
+                  <span>Harassment or bullying</span>
+                </div>
+                <div class="prohibited-item">
+                  <i class="bi bi-x-circle text-danger"></i>
+                  <span>Copyright infringement</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="terms-section">
+              <div class="section-header">
+                <div class="section-number">7</div>
+                <h3>Termination</h3>
+              </div>
+              <p>
+                We reserve the right to terminate or suspend your account at any
+                time for violations of these terms. You may also delete your
+                account at any time through your account settings.
+              </p>
+            </div>
+
+            <!-- Agreement Section -->
+            <div class="agreement-section">
+              <div class="agreement-box">
+                <i class="bi bi-check-circle-fill text-success me-3"></i>
+                <div>
+                  <h4>Agreement Confirmation</h4>
+                  <p class="mb-0">
+                    By continuing to use TravelConnect, you acknowledge that you
+                    have read, understood, and agree to be bound by these Terms
+                    & Conditions.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="terms-actions">
+              <button class="btn btn-outline-secondary me-3" (click)="goBack()">
+                <i class="bi bi-arrow-left me-2"></i>
+                Back to Register
+              </button>
+              <button class="btn btn-success" (click)="acceptAndContinue()">
+                <i class="bi bi-check-lg me-2"></i>
+                I Accept & Continue
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

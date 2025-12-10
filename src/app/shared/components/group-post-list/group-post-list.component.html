@@ -43,25 +43,9 @@
           <span
             *ngFor="let cat of group_data.category.split(',')"
             class="badge"
-            [ngClass]="{
-              'bg-info text-white': cat === 'BEACH',
-              'bg-success text-white': cat === 'MOUNTAIN',
-              'bg-dark text-white': cat === 'FOREST',
-              'bg-warning text-dark': cat === 'TOURIST_SPOT',
-              'bg-secondary text-white': cat === 'OTHER'
-            }"
+            [ngClass]="getCategoryBadgeClass(cat)"
           >
-            {{
-              cat === "BEACH"
-                ? "BEACH"
-                : cat === "MOUNTAIN"
-                ? "MOUNTAIN"
-                : cat === "FOREST"
-                ? "FOREST"
-                : cat === "TOURIST_SPOT"
-                ? "TOURIST_SPOT"
-                : "OTHER"
-            }}
+            {{ getCategoryDisplayName(cat) }}
           </span>
         </div>
       </div>

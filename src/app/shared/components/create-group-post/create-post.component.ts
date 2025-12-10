@@ -11,7 +11,7 @@ import { ToastService } from '../../../core/service/toast-service/toast.service'
 import { AuthenticationServiceService } from '../../../core/service/authentication-service/authentication-service.service';
 import { takeUntil } from 'rxjs';
 import { Subject } from 'rxjs';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-create-post',
   standalone: true,
@@ -107,9 +107,18 @@ export class CreatePostComponent {
       .subscribe({
         next: () => {
           this.toast.success('Post successful!');
-          this.resetForm();
+
+          Swal.fire({
+            icon: 'success',
+            title: '🎉 Post created!',
+            text: 'Your post has been successfully published.',
+            confirmButtonText: 'OK',
+          }).then(() => {
+            this.resetForm();
+            location.reload(); // 🔥 รีหน้าเว็บหลังโพสต์สำเร็จ
+          });
         },
-        error: (err) => {
+        error: () => {
           this.toast.error('An error occurred while posting');
         },
       });

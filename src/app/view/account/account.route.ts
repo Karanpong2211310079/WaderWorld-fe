@@ -4,7 +4,7 @@ import { AccountComponent } from './account.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-
+import { TermConditionsComponent } from './term-conditions/term-conditions.component';
 export const accountRoutes: Routes = [
   {
     path: 'register',
@@ -17,6 +17,10 @@ export const accountRoutes: Routes = [
   {
     path: 'forgot-password',
     component: ForgotPasswordComponent,
+  },
+  {
+    path: 'terms-and-conditions',
+    component: TermConditionsComponent,
   },
   {
     path: '', // เส้นทางว่าง (root path)

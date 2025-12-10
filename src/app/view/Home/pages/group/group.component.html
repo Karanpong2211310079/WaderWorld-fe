@@ -43,32 +43,16 @@
       <p class="text-muted mb-2 d-flex align-items-center gap-1">
         <i class="bi bi-globe"></i>
         <span
-          >{{ checkType(item.type) }} · {{ item.members_count }} members</span
+          >{{ checkType(item.type) }} · {{ item.members_count }} Members</span
         >
       </p>
       <div class="d-flex flex-wrap gap-2 mb-2">
         <span
           *ngFor="let cat of item.category.split(',')"
           class="badge"
-          [ngClass]="{
-            'bg-info text-white': cat === 'BEACH',
-            'bg-success text-white': cat === 'MOUNTAIN',
-            'bg-dark text-white': cat === 'FOREST',
-            'bg-warning text-dark': cat === 'TOURIST_SPOT',
-            'bg-secondary text-white': cat === 'OTHER'
-          }"
+          [ngClass]="getCategoryBadgeClass(cat)"
         >
-          {{
-            cat === "BEACH"
-              ? "BEACH"
-              : cat === "MOUNTAIN"
-              ? "MOUNTAIN"
-              : cat === "FOREST"
-              ? "FOREST"
-              : cat === "TOURIST_SPOT"
-              ? "TOURIST_SPOT"
-              : "OTHER"
-          }}
+          {{ getCategoryDisplayName(cat) }}
         </span>
       </div>
 
@@ -139,9 +123,20 @@
           }"
         ></i>
         <span
-          >{{ checkType(item.type) }} · {{ item.members_count }} members</span
+          >{{ checkType(item.type) }} · {{ item.members_count }} Members</span
         >
       </p>
+
+      <!-- Category Badges -->
+      <div class="d-flex flex-wrap gap-2 mb-2">
+        <span
+          *ngFor="let cat of item.category.split(',')"
+          class="badge"
+          [ngClass]="getCategoryBadgeClass(cat)"
+        >
+          {{ getCategoryDisplayName(cat) }}
+        </span>
+      </div>
 
       <!-- ปุ่ม Join / Pending / Rejected / View -->
       <button
