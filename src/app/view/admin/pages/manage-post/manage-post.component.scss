@@ -1,35 +1,186 @@
-.table-card {
-  border-radius: 14px;
-  background: #ffffff;
-  padding: 15px;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
-  border: 1px solid #eef2f5;
+/* ใช้ CSS เดิมจากเมื่อกี้ทั้งหมด แล้วเพิ่มส่วนนี้ */
+
+/* Tab Switcher */
+.tab-switcher {
+  display: flex;
+  justify-content: center;
 }
 
-.table-card table {
-  width: 100%;
-  border-collapse: collapse;
+/* Poster/Group Cells */
+.poster-cell,
+.group-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.table-card th,
-.table-card td {
-  padding: 12px 16px;
-  text-align: center;
+.poster-avatar,
+.group-avatar {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
 }
 
-.table-card thead {
-  background-color: #f0f4f8;
+.poster-name,
+.group-name {
   font-weight: 600;
+  color: #334155;
 }
 
-.table-card tbody tr:hover td {
-  background-color: #f7fbff;
-  transition: 0.2s;
+/* Content Cell */
+.content-cell {
+  max-width: 250px;
 }
 
-.table-card button {
-  margin-right: 5px;
-  padding: 4px 8px;
+.post-content {
+  margin: 0;
+  color: #64748b;
   font-size: 0.9rem;
-  transition: 0.2s;
+  line-height: 1.4;
+}
+
+/* Stat Badges */
+.stat-badge-small {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+}
+
+.stat-badge-small.likes {
+  background: linear-gradient(135deg, #ec4899, #be185d);
+  color: white;
+}
+
+.stat-badge-small.comments {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+}
+
+/* Visibility Badge */
+.visibility-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+}
+
+.visibility-badge.public {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+}
+
+.visibility-badge.private {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+}
+
+.visibility-badge.friends {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  color: white;
+}
+
+/* View Button */
+.btn-view {
+  background: linear-gradient(135deg, #06b6d4, #0891b2);
+  color: white;
+}
+
+.btn-view:hover {
+  background: linear-gradient(135deg, #0891b2, #0e7490);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(6, 182, 212, 0.4);
+}
+
+/* Mobile Specific */
+.poster-avatar-mobile,
+.group-avatar-mobile {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.4rem;
+}
+
+.poster-name-mobile,
+.group-name-mobile {
+  margin: 0 0 4px 0;
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 1.1rem;
+}
+
+.poster-name-sub {
+  margin: 0 0 4px 0;
+  font-size: 0.9rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.post-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.visibility-mobile {
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.post-content-mobile {
+  margin: 0 0 12px 0;
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.post-stats {
+  display: flex;
+  gap: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.stat-item {
+  font-size: 0.85rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+}
+
+.likes-mobile i {
+  color: #ec4899;
+}
+
+.comments-mobile i {
+  color: #3b82f6;
+}
+
+.btn-view-mobile {
+  background: linear-gradient(135deg, #06b6d4, #0891b2);
+  color: white;
+}
+
+.btn-delete-mobile {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
 }

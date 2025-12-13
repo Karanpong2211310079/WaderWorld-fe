@@ -81,3 +81,75 @@ body {
 .col-12::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
 }
+/* CSS เดิมของคุณ + เพิ่มส่วนนี้ */
+
+/* Mobile Responsive */
+@media (max-width: 991px) {
+  /* Stack layout บนมือถือ */
+  .d-flex.flex-lg-row {
+    flex-direction: column !important;
+    height: calc(100vh - 70px) !important;
+  }
+
+  /* Left sidebar บนมือถือ */
+  .col-12.col-lg-3.order-0 {
+    height: auto !important;
+    max-height: 200px !important;
+    order: 0 !important;
+    overflow-y: auto !important;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  /* Main content บนมือถือ */
+  .col-12.col-lg-6.order-1 {
+    flex: 1 !important;
+    height: auto !important;
+    order: 1 !important;
+    overflow-y: auto !important;
+  }
+
+  /* Right sidebar บนมือถือ */
+  .col-12.col-lg-3.order-2 {
+    height: auto !important;
+    max-height: 200px !important;
+    order: 2 !important;
+    overflow-y: auto !important;
+    border-top: 1px solid #dee2e6;
+  }
+
+  /* Touch scrolling optimization */
+  .col-12 {
+    -webkit-overflow-scrolling: touch !important;
+  }
+}
+
+/* Tablet Responsive */
+@media (min-width: 768px) and (max-width: 991px) {
+  .col-12.col-lg-3 {
+    max-height: 250px !important;
+  }
+}
+
+/* Mobile scrollbar (smaller) */
+@media (max-width: 768px) {
+  .col-12::-webkit-scrollbar {
+    width: 4px !important;
+  }
+
+  /* Hide scrollbar บนมือถือ iOS */
+  .col-12 {
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 transparent;
+  }
+}
+
+/* Prevent body scroll on mobile */
+@media (max-width: 991px) {
+  html,
+  body {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+    height: 100vh !important;
+  }
+}

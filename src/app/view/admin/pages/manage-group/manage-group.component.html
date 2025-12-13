@@ -31,7 +31,9 @@
           <td>{{ item.member_count }}</td>
           <td>{{ calculation_time(item.created_at) }}</td>
           <td>
-            <div class="d-flex gap-1">
+            <div
+              class="d-flex gap-1 justify-content-center align-items-center mx-auto"
+            >
               <button
                 class="btn btn-outline-danger btn-sm"
                 (click)="deleteGroup(item.id)"

@@ -20,7 +20,11 @@ import { RestApiService } from '../../../../../core/service/rest-api-service/res
 import { AuthenticationServiceService } from '../../../../../core/service/authentication-service/authentication-service.service';
 import { ToastService } from '../../../../../core/service/toast-service/toast.service';
 import { NgModalServiceService } from '../../../../../core/service/ng-modal-service/ng-modal-service.service';
-
+interface Category {
+  value: string; // รหัสที่ส่งไป Backend (เช่น 'BEACH')
+  label: string; // ข้อความที่แสดงให้ผู้ใช้เห็น (เช่น 'ทะเล')
+  emoji: string; // (ทางเลือก: สำหรับเพิ่มสีสัน)
+}
 @Component({
   selector: 'app-edit-post',
   standalone: true,
@@ -42,12 +46,27 @@ export class EditPostComponent implements OnInit, OnDestroy {
   mediaPreview: string | null = null;
   public isSubmitting: boolean = false;
 
-  categories = [
-    { value: 'BEACH', label: 'Beach' },
-    { value: 'MOUNTAIN', label: 'Mountain' },
-    { value: 'FOREST', label: 'Forest' },
-    { value: 'TOURIST_SPOT', label: 'Tourist Spot' },
-    { value: 'OTHER', label: 'Other' },
+  public categories: Category[] = [
+    // รายการเดิม
+    { value: 'OTHER', label: 'Other', emoji: '❓' },
+    { value: 'BEACH', label: 'Sea & Islands', emoji: '🏖️' },
+    { value: 'MOUNTAIN', label: 'Mountains & Hills', emoji: '⛰️' },
+    { value: 'FOREST', label: 'Forest', emoji: '🌳' },
+    { value: 'TOURIST_SPOT', label: 'Tourist Spots', emoji: '📍' },
+
+    // รายการที่เพิ่มใหม่
+    { value: 'CAMPING', label: 'Camping', emoji: '🏕️' },
+    { value: 'TEMPLE_MERIT', label: 'Temples & Merit Making', emoji: '🛕' },
+    { value: 'FOOD_CAFE', label: 'Food & Cafes', emoji: '☕' },
+    { value: 'THEME_WATER_PARK', label: 'Theme & Water Parks', emoji: '🎢' },
+    { value: 'ADVENTURE', label: 'Hiking & Adventure', emoji: '🧗' },
+    { value: 'NIGHTLIFE', label: 'Nightlife & Party', emoji: '🍻' },
+    { value: 'VOLUNTEERING', label: 'Volunteering', emoji: '🤝' },
+    { value: 'PHOTOGRAPHY', label: 'Photography', emoji: '📸' },
+    { value: 'CONCERT', label: 'Concerts', emoji: '🎤' },
+    { value: 'WATERFALL', label: 'Waterfalls & Nature', emoji: '🏞️' },
+    { value: 'CITY_TRIP', label: 'City Sightseeing', emoji: '🏙️' },
+    { value: 'DIVING', label: 'Diving', emoji: '🤿' },
   ];
 
   visibilities = [

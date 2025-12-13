@@ -10,8 +10,9 @@
   ></app-follow-btn>
 
   <!-- Recommended New Groups -->
-  <div class="mt-4">
+  <div class="mt-4" *ngIf="new_groups && new_groups.length > 0">
     <h5 class="section-title">Recommended New Groups</h5>
+
     <div class="d-flex gap-3 mt-2">
       <div
         *ngFor="let group of new_groups"
@@ -25,7 +26,9 @@
           alt="{{ group.name }}"
         />
         <div class="card-body">
-          <p class="card-title small mb-0 text-truncate">{{ group.name }}</p>
+          <p class="card-title small mb-0 text-truncate">
+            {{ group.name }}
+          </p>
         </div>
       </div>
     </div>

@@ -1,23 +1,85 @@
-<div class="container mt-3">
-  <div class="row g-3">
-    <div class="col-md-4" *ngFor="let airline of airlines">
-      <div class="d-flex flex-column bg-white rounded shadow-sm p-3 h-100">
-        <img
-          src="https://assets.domesticflightsthailand.com/domestic-flights-thailand/assets/lfv9wlcy4s0okko8?key=700x467"
-          alt="{{ airline.name }}"
-          class="rounded mb-3"
-          style="height: 150px; object-fit: cover"
-        />
-        <h5>{{ airline.name }}</h5>
-        <p class="text-muted flex-grow-1">{{ airline.description }}</p>
-        <a
-          [href]="airline.link"
-          target="_blank"
-          class="btn btn-primary mt-auto"
-        >
-          Visit Airline
-        </a>
+<div class="container mt-4">
+  <!-- Header Section -->
+  <div class="text-center mb-5">
+    <h1 class="display-5 fw-bold text-primary mb-3">
+      <i class="bi bi-airplane-engines me-2"></i>
+      Airlines Directory
+    </h1>
+    <p class="lead text-muted">
+      Discover and explore top airlines for your next journey
+    </p>
+    <div class="divider mx-auto"></div>
+  </div>
+
+  <!-- Airlines Grid -->
+  <div class="row g-4">
+    <div
+      class="col-lg-4 col-md-6"
+      *ngFor="let airline of airlines; trackBy: trackByAirline"
+    >
+      <div class="airline-card h-100">
+        <!-- Image Container -->
+        <div class="image-container">
+          <img
+            [src]="
+              airline.image ||
+              'https://assets.domesticflightsthailand.com/domestic-flights-thailand/assets/lfv9wlcy4s0okko8?key=700x467'
+            "
+            [alt]="airline.name"
+            class="airline-image"
+            loading="lazy"
+          />
+          <div class="image-overlay">
+            <i class="bi bi-airplane overlay-icon"></i>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="card-content">
+          <div class="airline-header">
+            <h5 class="airline-name">{{ airline.name }}</h5>
+            <div class="rating" *ngIf="airline.rating">
+              <span class="rating-score">{{ airline.rating }}</span>
+              <div class="stars">
+                <i
+                  class="bi bi-star-fill"
+                  *ngFor="let star of getStars(airline.rating)"
+                ></i>
+              </div>
+            </div>
+          </div>
+
+          <p class="airline-description">{{ airline.description }}</p>
+
+          <!-- Features/Tags -->
+          <div class="features mb-3" *ngIf="airline.features">
+            <span class="feature-tag" *ngFor="let feature of airline.features">
+              {{ feature }}
+            </span>
+          </div>
+
+          <!-- Action Button -->
+          <a
+            [href]="airline.link"
+            target="_blank"
+            class="btn-airline"
+            rel="noopener noreferrer"
+          >
+            <span>Visit Airline</span>
+            <i class="bi bi-arrow-up-right ms-2"></i>
+          </a>
+        </div>
+
+        <!-- Hover Effect -->
+        <div class="card-glow"></div>
       </div>
     </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="text-center py-5" *ngIf="!airlines || airlines.length === 0">
+    <i class="bi bi-airplane text-muted display-1 mb-3"></i>
+    <h3 class="text-muted">No Airlines Found</h3>
+    <p class="text-muted">Please check back later for airline listings.</p>
   </div>
 </div>

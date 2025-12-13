@@ -1,9 +1,32 @@
-<div class="d-flex flex-column shadow-sm rounded m-3 bg-white sticky-sidebar">
+<!-- Mobile Hamburger Button -->
+<div class="d-lg-none mobile-hamburger" *ngIf="!isSidebarOpen">
+  <button
+    class="btn btn-outline-secondary hamburger-btn"
+    type="button"
+    (click)="toggleSidebar()"
+  >
+    <i class="bi bi-list fs-4"></i>
+  </button>
+</div>
+
+<!-- Sidebar -->
+<div
+  class="d-flex flex-column shadow-sm rounded m-3 bg-white sticky-sidebar"
+  [class.mobile-sidebar-open]="isSidebarOpen"
+>
+  <!-- Close button for mobile -->
+  <div class="d-lg-none mobile-close-btn">
+    <button class="btn btn-sm btn-outline-secondary" (click)="toggleSidebar()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
   <ol class="list-unstyled p-3 gap-2 d-flex flex-column">
     <li
       class="d-flex align-items-center gap-2 sidebar-item"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
+      (click)="closeSidebarOnMobile()"
     >
       <i class="bi bi-house-door fs-5"></i>
       <a [routerLink]="['/workspace/home']" class="nav-link">Home</a>
@@ -12,6 +35,7 @@
     <li
       class="d-flex align-items-center gap-2 sidebar-item"
       routerLinkActive="active"
+      (click)="closeSidebarOnMobile()"
     >
       <i class="bi bi-people fs-5"></i>
       <a [routerLink]="['/workspace/group']" class="nav-link">Groups</a>
@@ -20,6 +44,7 @@
     <li
       class="d-flex align-items-center gap-2 sidebar-item"
       routerLinkActive="active"
+      (click)="closeSidebarOnMobile()"
     >
       <i class="bi bi-chat-dots fs-5"></i>
       <a [routerLink]="['/workspace/message']" class="nav-link">Message</a>
@@ -28,6 +53,7 @@
     <li
       class="d-flex align-items-center gap-2 sidebar-item"
       routerLinkActive="active"
+      (click)="closeSidebarOnMobile()"
     >
       <i class="bi bi-bookmark-check fs-5"></i>
       <a [routerLink]="['/workspace/Bookmark']" class="nav-link">Bookmarks</a>
@@ -36,9 +62,22 @@
     <li
       class="d-flex align-items-center gap-2 sidebar-item"
       routerLinkActive="active"
+      (click)="closeSidebarOnMobile()"
     >
       <i class="bi bi-person-plus fs-5"></i>
       <a [routerLink]="['/workspace/Friends']" class="nav-link">Friends</a>
     </li>
   </ol>
+</div>
+
+<!-- Mobile Overlay -->
+<!-- Mobile Hamburger Button -->
+<div class="d-lg-none mobile-hamburger">
+  <button
+    class="btn btn-outline-secondary hamburger-btn"
+    type="button"
+    (click)="toggleSidebar()"
+  >
+    <i class="bi bi-list fs-4"></i>
+  </button>
 </div>
