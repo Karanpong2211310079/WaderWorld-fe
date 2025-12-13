@@ -10,6 +10,7 @@ import { takeUntil } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { UserPostComponent } from '../../../../shared/components/user-post/user-post.component';
 import { Router } from '@angular/router';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 @Component({
   selector: 'app-home',
   imports: [

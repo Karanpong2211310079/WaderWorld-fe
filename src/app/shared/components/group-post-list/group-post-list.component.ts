@@ -12,6 +12,11 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from '../../../core/service/toast-service/toast.service';
 import { Router } from '@angular/router';
 import { PeopleComponent } from './components/group-people/people.component';
+import {
+  CdkVirtualScrollViewport,
+  CdkFixedSizeVirtualScroll,
+} from '@angular/cdk/scrolling';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-group-post-list',
@@ -20,6 +25,8 @@ import { PeopleComponent } from './components/group-people/people.component';
     CreatePostComponent,
     CommonModule,
     NgbDropdownModule,
+    CdkFixedSizeVirtualScroll,
+    ScrollingModule,
   ],
   templateUrl: './group-post-list.component.html',
   styleUrl: './group-post-list.component.scss',
@@ -37,6 +44,8 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
   public is_member: boolean = false;
   public type: string = 'group';
   public group_data: any = [];
+  public posts: any[] = [];
+  public loading: boolean = false;
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
@@ -47,6 +56,43 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
     this.LoadGroupData();
     this.check_role_group();
     this.check_user_in_group();
+    this.LoadGroupPosts();
+  }
+
+  public LoadGroupPosts() {
+    this.loading = true;
+    const group_id = this.route.snapshot.paramMap.get('id');
+
+    const payload = {
+      group_id: group_id,
+    };
+
+    this.restapi
+      .post('group/get_group_posts/', payload)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (response: any) => {
+          this.posts = response?.posts || response?.message || [];
+          this.loading = false;
+          console.log('Posts loaded:', this.posts);
+        },
+        error: (err) => {
+          console.error('❌ Load group posts error:', err);
+          this.loading = false;
+          this.posts = [];
+        },
+      });
+  }
+
+  public trackByPostId(index: number, post: any): any {
+    return post.id || index;
+  }
+
+  public scrollToCreatePost() {
+    const createPostElement = document.querySelector('app-create-post');
+    if (createPostElement) {
+      createPostElement.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 
   // Method สำหรับกำหนด CSS class ของ badge
@@ -280,5 +326,6 @@ export class GroupPostListComponent implements OnDestroy, OnInit {
 
   public onPostUpdated(updatedPost: any) {
     this.LoadGroupData();
+    this.LoadGroupPosts();
   }
 }

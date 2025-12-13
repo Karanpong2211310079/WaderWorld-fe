@@ -7,4 +7,8 @@
 html,
 body {
   font-family: "Inter", "Poppins", sans-serif;
+  overflow: hidden !important;
+  height: 100vh !important;
+  position: fixed !important;
+  width: 100% !important;
 }

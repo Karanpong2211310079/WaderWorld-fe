@@ -1,3 +1,11 @@
+/* Container - ทำให้เป็น static */
+.container-fluid {
+  position: sticky;
+  top: 0;
+  z-index: 1050;
+  width: 100%;
+}
+
 /* Brand */
 .brand {
   font-weight: 600;
@@ -7,7 +15,7 @@
 }
 
 .brand:hover {
-  color: #007bff; /* เปลี่ยนสีเมื่อ hover */
+  color: #007bff;
 }
 
 /* Search box */
@@ -16,13 +24,13 @@
   border-radius: 30px;
   padding: 6px 12px;
   border: 1px solid #e4e4e4;
-  position: relative; /* สำคัญ */
+  position: relative;
   width: 300px;
-  transition: border-color 0.3s ease; /* Transition สำหรับ border */
+  transition: border-color 0.3s ease;
 }
 
 .search-box:hover {
-  border-color: #007bff; /* เปลี่ยนสีเมื่อ hover */
+  border-color: #007bff;
 }
 
 .search-icon {
@@ -39,7 +47,7 @@
 /* Dropdown */
 .dropdown-search {
   position: absolute;
-  top: 100%; /* อยู่ใต้ input */
+  top: 100%;
   left: 0;
   right: 0;
   z-index: 1050;
@@ -53,12 +61,12 @@
 
 .dropdown-search li {
   cursor: pointer;
-  transition: background-color 0.2s; /* Transition สำหรับ background */
+  transition: background-color 0.2s;
   padding: 6px 12px;
 }
 
 .dropdown-search li:hover {
-  background-color: #f2f2f2; /* พื้นหลังเมื่อ hover */
+  background-color: #f2f2f2;
 }
 
 /* Travel icons */
@@ -66,23 +74,23 @@
   font-size: 1.4rem;
   color: #4a4a4a;
   cursor: pointer;
-  transition: color 0.2s; /* Transition สำหรับสี */
+  transition: color 0.2s;
 }
 
 .travel-icon:hover {
-  color: #007bff; /* เปลี่ยนสีเมื่อ hover */
+  color: #007bff;
 }
 
 /* Logout */
 .logout-btn {
   border-radius: 20px;
   padding: 5px 14px;
-  transition: background-color 0.3s; /* Transition สำหรับ background */
+  transition: background-color 0.3s;
 }
 
 .logout-btn:hover {
-  background-color: #dc3545; /* เปลี่ยนสีเมื่อ hover */
-  color: white; /* เปลี่ยนสีตัวอักษรเมื่อ hover */
+  background-color: #dc3545;
+  color: white;
 }
 
 /* Avatar */
@@ -122,12 +130,12 @@
 .menu-item {
   cursor: pointer;
   border-radius: 6px;
-  transition: background 0.2s; /* Transition สำหรับ background */
+  transition: background 0.2s;
   padding: 6px 12px;
 }
 
 .menu-item:hover {
-  background: #f7f7f7; /* พื้นหลังเมื่อ hover */
+  background: #f7f7f7;
 }
 
 /* Responsive */
