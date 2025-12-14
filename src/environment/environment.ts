@@ -4,13 +4,13 @@ export const environment = {
   production: env.production ?? false,
   apiUrl: 'https://warwold-be-7.onrender.com/api/', // URL จริงของ backend
   firebase: {
-    apiKey: env.firebaseApiKey ?? 'AIzaSyBeT7WnlRwQUxlcO-h7QLIusu8kjwSkTlU',
-    authDomain: env.firebaseAuthDomain ?? 'waderworld-project.firebaseapp.com',
-    projectId: env.firebaseProjectId ?? 'waderworld-project',
+    apiKey: env.firebaseApiKey ?? 'AIzaSyAm7Krlxn1ylDH_KbKDrAwmEXfWefhkoTk',
+    authDomain: env.firebaseAuthDomain ?? 'wanderworld-project.firebaseapp.com',
+    projectId: env.firebaseProjectId ?? 'wanderworld-project',
     storageBucket:
-      env.firebaseStorageBucket ?? 'waderworld-project.firebasestorage.app',
-    messagingSenderId: env.firebaseMessagingSenderId ?? '579694320386',
-    appId: env.firebaseAppId ?? '1:579694320386:web:161091c931fdebd586401b',
-    measurementId: env.firebaseMeasurementId ?? 'G-9FLYP90RCB',
+      env.firebaseStorageBucket ?? 'wanderworld-project.firebasestorage.app',
+    messagingSenderId: env.firebaseMessagingSenderId ?? '723882338298',
+    appId: env.firebaseAppId ?? '1:723882338298:web:85f56033ff0f42068ce643',
+    measurementId: env.firebaseMeasurementId ?? 'G-1L00ZJXMPB',
   },
 };
