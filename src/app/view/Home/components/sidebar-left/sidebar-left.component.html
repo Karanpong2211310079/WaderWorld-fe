@@ -9,6 +9,14 @@
   </button>
 </div>
 
+<!-- Mobile Overlay -->
+<div
+  class="mobile-sidebar-overlay"
+  [class.show]="isSidebarOpen"
+  (click)="toggleSidebar()"
+  *ngIf="isSidebarOpen"
+></div>
+
 <!-- Sidebar -->
 <div
   class="d-flex flex-column shadow-sm rounded m-3 bg-white sticky-sidebar"
@@ -68,16 +76,4 @@
       <a [routerLink]="['/workspace/Friends']" class="nav-link">Friends</a>
     </li>
   </ol>
-</div>
-
-<!-- Mobile Overlay -->
-<!-- Mobile Hamburger Button -->
-<div class="d-lg-none mobile-hamburger">
-  <button
-    class="btn btn-outline-secondary hamburger-btn"
-    type="button"
-    (click)="toggleSidebar()"
-  >
-    <i class="bi bi-list fs-4"></i>
-  </button>
 </div>
