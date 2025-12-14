@@ -2,7 +2,7 @@ const env = (window as any)['__env'] || {};
 
 export const environment = {
   production: env.production ?? false,
-  apiUrl: 'https://warwold-be-6.onrender.com/', // URL จริงของ backend
+  apiUrl: 'https://warwold-be-7.onrender.com/api/', // URL จริงของ backend
   firebase: {
     apiKey: env.firebaseApiKey ?? 'AIzaSyBeT7WnlRwQUxlcO-h7QLIusu8kjwSkTlU',
     authDomain: env.firebaseAuthDomain ?? 'waderworld-project.firebaseapp.com',

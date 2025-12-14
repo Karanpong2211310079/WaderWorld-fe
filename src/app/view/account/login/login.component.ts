@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.toast.error('กรุณากรอก username และ password');
       return;
     }
-
+    console.log('Login payload:', payload);
     this.restApi
       .post('auth/login/', payload)
       .pipe(takeUntil(this.unsubscribe$))
