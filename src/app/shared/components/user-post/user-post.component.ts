@@ -263,4 +263,21 @@ export class UserPostComponent {
     }
   }
   ownerStatus: { [postId: number]: boolean } = {};
+  public checkPostOwnership(post_id: number) {
+    const payload = {
+      user_id: this.authen.getUserId(),
+      post_id: post_id,
+    };
+
+    this.restapi
+      .post('post/check_own_post/', payload)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (res: any) => {
+          this.ownerStatus[post_id] = res?.is_owner === true;
+          console.log('Post', post_id, 'Owner:', this.ownerStatus[post_id]);
+        },
+        error: (err) => console.error('Error checking ownership:', err),
+      });
+  }
 }
