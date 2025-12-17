@@ -102,4 +102,12 @@ export class SidebarRightComponent implements OnInit, OnDestroy {
         },
       });
   }
+  onImageError(event: any) {
+    // ซ่อนรูปภาพที่โหลดไม่ได้และแสดง default avatar แทน
+    event.target.style.display = 'none';
+    const defaultAvatar = event.target.nextElementSibling;
+    if (defaultAvatar) {
+      defaultAvatar.style.display = 'flex';
+    }
+  }
 }

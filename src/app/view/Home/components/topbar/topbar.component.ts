@@ -103,9 +103,19 @@ export class TopbarComponent implements OnDestroy, OnInit {
   }
   // ใน TopbarComponent
   public getImageUrl(url: string | null) {
-    if (!url) return 'assets/default-avatar.png'; // default avatar
-    return `https://warwold-be-6.onrender.com${url}`; // เพิ่ม domain/backend path
+    if (!url) {
+      return 'assets/default-avatar.png';
+    }
+
+    // ถ้า backend ส่ง absolute URL มาแล้ว → ใช้เลย
+    if (url.startsWith('http')) {
+      return url;
+    }
+
+    // กรณีเป็น relative path (เผื่ออนาคต)
+    return `https://warwold-be-7.onrender.com${url}`;
   }
+
   openGoogleMaps() {
     window.open('https://www.google.com/maps', '_blank'); // เปิดในแท็บใหม่
   }

@@ -1,7 +1,6 @@
 <div class="container mt-4">
   <div class="d-flex flex-column rounded shadow-sm p-3 bg-white mt-3">
     <!-- Row: avatar + name left, icon right -->
-
     <div class="d-flex align-items-center justify-content-between mb-3">
       <div class="d-flex align-items-center gap-2">
         <button
@@ -12,30 +11,59 @@
         >
           ✖
         </button>
-        <img
-          class="rounded-circle img-fluid"
-          width="50"
-          height="50"
-          [src]="group_post.user_profile_image_url"
-          alt="profile-img"
-        />
+
+        <!-- ✅ แก้ไขการแสดงรูปโปรไฟล์ -->
+        <div class="profile-image-wrapper">
+          <img
+            *ngIf="
+              group_post.user_profile_image_url &&
+              group_post.user_profile_image_url.trim() !== ''
+            "
+            class="rounded-circle img-fluid"
+            width="50"
+            height="50"
+            [src]="group_post.user_profile_image_url"
+            [alt]="group_post.username"
+            (error)="onImageError($event)"
+          />
+          <div
+            *ngIf="
+              !group_post.user_profile_image_url ||
+              group_post.user_profile_image_url.trim() === ''
+            "
+            class="rounded-circle default-avatar d-flex align-items-center justify-content-center"
+            style="
+              width: 50px;
+              height: 50px;
+              background-color: #6c757d;
+              color: white;
+            "
+          >
+            <i class="bi bi-person-fill"></i>
+          </div>
+        </div>
+
         <div>
           <h3 class="mb-0">{{ group_post.username }}</h3>
           <small>Date : {{ calculation_time(group_post.created_at) }}</small>
         </div>
       </div>
     </div>
+
     <div class="mb-3">
-      <p>
-        {{ group_post.content }}
-      </p>
+      <p>{{ group_post.content }}</p>
+
+      <!-- ✅ แก้ไขการแสดงรูปโพสต์ -->
       <img
+        *ngIf="group_post.media_url && group_post.media_url.trim() !== ''"
         style="max-height: 400px; object-fit: cover; width: 100%"
         class="img-fluid rounded"
-        [src]="group_post.media"
-        alt=""
+        [src]="group_post.media_url"
+        alt="Post image"
+        (error)="onPostImageError($event)"
       />
     </div>
+
     <div
       class="d-flex align-items-center justify-content-between mt-3 pt-2 border-top"
     >
@@ -48,7 +76,7 @@
           (click)="onLike()"
         >
           <i class="bi bi-heart"></i>
-          <span>{{ likesCount }} likes</span>
+          <span>{{ group_post.like_count || 0 }} likes</span>
         </div>
       </div>
 
@@ -58,16 +86,43 @@
       </div>
     </div>
   </div>
-  <!-- ส่วนคอมเมนต์ -->
-  @for (item of comment; track $index) {
-  <div class="d-flex align-items-start border rounded p-3 mb-3">
-    <img
-      [src]="item.user_profile_image_url"
-      class="rounded-circle me-3"
-      width="50"
-      height="50"
-      alt="user"
-    />
+
+  <!-- ✅ ส่วนคอมเมนต์ - ใช้ *ngFor แทน @for -->
+  <div
+    *ngFor="let item of comment; let i = index"
+    class="d-flex align-items-start border rounded p-3 mb-3"
+  >
+    <!-- ✅ แก้ไขการแสดงรูปโปรไฟล์ในคอมเมนต์ -->
+    <div class="profile-image-wrapper me-3">
+      <img
+        *ngIf="
+          item.user_profile_image_url &&
+          item.user_profile_image_url.trim() !== ''
+        "
+        [src]="item.user_profile_image_url"
+        class="rounded-circle"
+        width="50"
+        height="50"
+        [alt]="item.username"
+        (error)="onCommentImageError($event)"
+      />
+      <div
+        *ngIf="
+          !item.user_profile_image_url ||
+          item.user_profile_image_url.trim() === ''
+        "
+        class="rounded-circle default-avatar d-flex align-items-center justify-content-center"
+        style="
+          width: 50px;
+          height: 50px;
+          background-color: #6c757d;
+          color: white;
+        "
+      >
+        <i class="bi bi-person-fill"></i>
+      </div>
+    </div>
+
     <div>
       <h6 class="mb-1 fw-bold">
         {{ item.username }}
@@ -75,25 +130,39 @@
           >· {{ calculation_time(item.created_at) }}</small
         >
       </h6>
-      <p class="mb-0">
-        {{ item.content }}
-      </p>
+      <p class="mb-0">{{ item.content }}</p>
     </div>
   </div>
-  }
 
-  <!-- ช่องพิมพ์คอมเมนต์ -->
+  <!-- ✅ ช่องพิมพ์คอมเมนต์ -->
   <div
     [formGroup]="commentForm"
     class="d-flex align-items-center border rounded p-2"
   >
-    <img
-      [src]="userImage"
-      class="rounded-circle me-2"
-      width="40"
-      height="40"
-      alt="you"
-    />
+    <!-- ✅ แก้ไขการแสดงรูปผู้ใช้ -->
+    <div class="profile-image-wrapper me-2">
+      <img
+        *ngIf="userImage && userImage.trim() !== ''"
+        [src]="userImage"
+        class="rounded-circle"
+        width="40"
+        height="40"
+        alt="you"
+        (error)="onUserImageError($event)"
+      />
+      <div
+        *ngIf="!userImage || userImage.trim() === ''"
+        class="rounded-circle default-avatar d-flex align-items-center justify-content-center"
+        style="
+          width: 40px;
+          height: 40px;
+          background-color: #6c757d;
+          color: white;
+        "
+      >
+        <i class="bi bi-person-fill"></i>
+      </div>
+    </div>
 
     <input
       type="text"
@@ -101,10 +170,11 @@
       placeholder="Write a comment..."
       formControlName="comment"
     />
-    <!-- ✅ ปุ่ม icon จรวด -->
+
     <button
       (click)="create_comment()"
       class="btn btn-primary d-flex align-items-center justify-content-center"
+      [disabled]="commentForm.invalid"
     >
       <i class="bi bi-send"></i>
     </button>

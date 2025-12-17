@@ -8,6 +8,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { PostDataModalComponent } from '../components/post-data-modal/post-data-modal.component';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+import { EditGroupComponent } from '../components/edit-group/edit-group.component';
 @Component({
   selector: 'app-manage-group',
   imports: [CommonModule],
@@ -87,5 +88,40 @@ export class ManageGroupComponent implements OnDestroy, OnInit {
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+  public edit_group(item: any) {
+    const modalRef = this.modalService.openTemplateModal(
+      'Edit Group',
+      {
+        autoCloseRoutingChange: true,
+        backdrop: 'static',
+        keyboard: false,
+        size: 'lg',
+        scrollable: false,
+      },
+      {
+        componentRef: EditGroupComponent,
+        value: { user_data: item },
+        title: {
+          text: 'Edit Group',
+        },
+        footer: false,
+        headerClass: 'bg-primary',
+      }
+    );
+
+    modalRef.result
+      .then((result) => {
+        if (result?.action === 'save') {
+          // แสดง loading หรือ spinner (ถ้ามี)
+          // this.isLoading = true;
+
+          // รีเฟรชข้อมูล
+          this.getAllGroup();
+        }
+      })
+      .catch((dismissed) => {
+        this.getAllGroup();
+      });
   }
 }

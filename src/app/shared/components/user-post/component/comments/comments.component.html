@@ -1,4 +1,6 @@
 <div class="container mt-4">
+  <!-- ✅ Debug Section -->
+
   <div
     class="d-flex flex-column rounded shadow-sm p-3 bg-white mt-3 post-container"
   >
@@ -13,89 +15,170 @@
         >
           ✖
         </button>
-        <img
-          class="rounded-circle img-fluid"
-          width="50"
-          height="50"
-          [src]="group_post.user_profile_image_url"
-          alt="profile-img"
-        />
+
+        <!-- ✅ แก้ไขการแสดงรูปโปรไฟล์ -->
+        <div class="profile-image-wrapper">
+          <img
+            *ngIf="
+              group_post.user_profile_image_url &&
+              group_post.user_profile_image_url.trim() !== ''
+            "
+            class="rounded-circle img-fluid"
+            width="50"
+            height="50"
+            [src]="group_post.user_profile_image_url"
+            [alt]="group_post.username"
+            (error)="onImageError($event)"
+          />
+          <div
+            *ngIf="
+              !group_post.user_profile_image_url ||
+              group_post.user_profile_image_url.trim() === ''
+            "
+            class="rounded-circle default-avatar d-flex align-items-center justify-content-center"
+            style="
+              width: 50px;
+              height: 50px;
+              background-color: #6c757d;
+              color: white;
+            "
+          >
+            <i class="bi bi-person-fill"></i>
+          </div>
+        </div>
+
         <div>
-          <h3 class="mb-0">{{ group_post.username }}</h3>
+          <h3 class="mb-0">{{ group_post.username || "Unknown User" }}</h3>
           <small>Date : {{ calculation_time(group_post.created_at) }}</small>
         </div>
       </div>
     </div>
 
     <div class="mb-3 post-content">
-      <p class="post-text">
-        {{ group_post.content }}
-      </p>
+      <p class="post-text">{{ group_post.content || "No content" }}</p>
+
+      <!-- ✅ แก้ไขการแสดงรูปโพสต์ -->
       <img
+        *ngIf="group_post.media && group_post.media.trim() !== ''"
         style="max-height: 400px; object-fit: cover; width: 100%"
         class="img-fluid rounded"
         [src]="group_post.media"
+        alt="Post image"
+        (error)="onImageError($event)"
       />
     </div>
 
     <div
       class="d-flex align-items-center justify-content-between mt-3 pt-2 border-top"
     >
-      <!-- Right side: Bookmark -->
       <div style="cursor: pointer">
         <i class="bi bi-bookmark"></i>
       </div>
     </div>
   </div>
 
-  <!-- Comment Section -->
+  <!-- ✅ Comment Section -->
   <div class="comments-section mt-3">
-    <h4 class="mb-3">Comments</h4>
+    <h4 class="mb-3">Comments ({{ comment?.length || 0 }})</h4>
+
+    <!-- ✅ แสดงข้อความเมื่อไม่มีคอมเมนต์ -->
     <div
-      *ngFor="let item of comment; trackBy: index"
-      class="d-flex align-items-start border rounded p-3 mb-3 comment-item"
+      *ngIf="!comment || comment.length === 0"
+      class="alert alert-secondary text-center"
     >
-      <img
-        [src]="item.user_profile_image_url"
-        class="rounded-circle me-3"
-        width="50"
-        height="50"
-        alt="user"
-      />
-      <div>
+      <i class="bi bi-chat-dots me-2"></i>
+      No comments yet. Be the first to comment!
+    </div>
+
+    <!-- ✅ แสดงคอมเมนต์ - แก้ไข trackBy -->
+    <div
+      *ngFor="let item of comment; trackBy: trackByCommentId"
+      class="d-flex align-items-start border rounded p-3 mb-3 comment-item bg-white shadow-sm"
+    >
+      <!-- ✅ แก้ไขการแสดงรูปโปรไฟล์ -->
+      <div class="profile-image-wrapper me-3">
+        <img
+          *ngIf="
+            item.user_profile_image_url &&
+            item.user_profile_image_url.trim() !== ''
+          "
+          [src]="item.user_profile_image_url"
+          class="rounded-circle"
+          width="50"
+          height="50"
+          [alt]="item.username"
+          (error)="onImageError($event)"
+        />
+        <div
+          *ngIf="
+            !item.user_profile_image_url ||
+            item.user_profile_image_url.trim() === ''
+          "
+          class="rounded-circle default-avatar d-flex align-items-center justify-content-center"
+          style="
+            width: 50px;
+            height: 50px;
+            background-color: #6c757d;
+            color: white;
+            font-size: 1.2rem;
+          "
+        >
+          <i class="bi bi-person-fill"></i>
+        </div>
+      </div>
+
+      <div class="flex-grow-1">
         <h6 class="mb-1 fw-bold">
-          {{ item.username }}
-          <small class="text-muted"
+          {{ item.username || "Unknown User" }}
+          <small class="text-muted ms-2"
             >· {{ calculation_time(item.created_at) }}</small
           >
         </h6>
-        <p class="mb-0 comment-text">
-          {{ item.content }}
-        </p>
+        <p class="mb-0 comment-text">{{ item.content || "No content" }}</p>
       </div>
     </div>
 
-    <!-- Comment Input Section -->
+    <!-- ✅ Comment Input Section -->
     <div
       [formGroup]="commentForm"
-      class="d-flex align-items-center border rounded p-2 comment-input"
+      class="d-flex align-items-center border rounded p-2 comment-input bg-white"
     >
-      <img
-        [src]="userImage"
-        class="rounded-circle me-2"
-        width="40"
-        height="40"
-        alt="you"
-      />
+      <!-- ✅ แก้ไขการแสดงรูปผู้ใช้ -->
+      <div class="profile-image-wrapper me-2">
+        <img
+          *ngIf="userImage && userImage.trim() !== ''"
+          [src]="userImage"
+          class="rounded-circle"
+          width="40"
+          height="40"
+          alt="you"
+          (error)="onImageError($event)"
+        />
+        <div
+          *ngIf="!userImage || userImage.trim() === ''"
+          class="rounded-circle default-avatar d-flex align-items-center justify-content-center"
+          style="
+            width: 40px;
+            height: 40px;
+            background-color: #6c757d;
+            color: white;
+          "
+        >
+          <i class="bi bi-person-fill"></i>
+        </div>
+      </div>
+
       <input
         type="text"
         class="form-control me-2"
         placeholder="Write a comment..."
         formControlName="comment"
       />
+
       <button
         (click)="create_comment()"
         class="btn btn-primary d-flex align-items-center justify-content-center"
+        [disabled]="commentForm.invalid"
         title="Send Comment"
       >
         <i class="bi bi-send"></i>

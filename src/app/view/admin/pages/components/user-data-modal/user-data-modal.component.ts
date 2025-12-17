@@ -24,7 +24,9 @@ export class UserDataModalComponent implements OnInit, OnDestroy {
   private modalService = inject(NgModalServiceService);
   public userForm: any;
   private fb = inject(FormBuilder);
-
+  selectedFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
+  isSubmitting = false;
   constructor(
     @Inject('modalEl') public modalEl: NgbModalRef,
     @Inject('value') public value: any
@@ -46,40 +48,97 @@ export class UserDataModalComponent implements OnInit, OnDestroy {
     });
   }
   public submitForm() {
-    if (this.userForm.valid) {
-      const value = this.userForm.value;
-      const formData = new FormData();
-
-      formData.append('user_id', value.user_id);
-      formData.append('username', value.username);
-      formData.append('email', value.email);
-      formData.append('bio', value.bio);
-      formData.append('is_active', value.is_active);
-
-      if (value.image instanceof File) {
-        formData.append('image', value.image); // เฉพาะไฟล์ใหม่
-      }
-
-      this.restApi
-        .post('admin/edit_user/', formData)
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe({
-          next: (res) => {
-            this.toast.success('User updated successfully');
-            this.modalService.closeModal(this.modalEl, value);
-          },
-          error: (err) => {
-            console.error('Edit User Error:', err);
-            this.toast.error('Something went wrong');
-          },
-        });
+    if (this.userForm.invalid) {
+      this.toast.error('Please fill in all required fields');
+      return;
     }
+
+    this.isSubmitting = true;
+
+    const value = this.userForm.value;
+    const formData = new FormData();
+
+    // เพิ่มข้อมูลพื้นฐาน
+    formData.append('user_id', value.user_id);
+    formData.append('username', value.username || '');
+    formData.append('email', value.email || '');
+    formData.append('bio', value.bio || '');
+    formData.append('is_active', value.is_active ? 'true' : 'false'); // แปลงเป็น string
+
+    // จัดการรูปภาพ
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile); // ใช้ selectedFile จาก onFileSelected
+    }
+
+    console.log('Submitting user data:', {
+      user_id: value.user_id,
+      username: value.username,
+      email: value.email,
+      bio: value.bio,
+      is_active: value.is_active,
+      hasNewImage: !!this.selectedFile,
+    });
+
+    this.restApi
+      .post('admin/edit_user/', formData)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (res) => {
+          console.log('User updated successfully:', res);
+          this.toast.success('User updated successfully');
+
+          // ส่งข้อมูลกลับไปยัง parent component
+          this.modalService.closeModal(this.modalEl, {
+            action: 'save',
+            updatedUser: res.user || res.message,
+          });
+        },
+        error: (err) => {
+          console.error('Edit User Error:', err);
+
+          let errorMessage = 'Something went wrong';
+          if (err.error && typeof err.error === 'object') {
+            // Handle validation errors
+            const errors = Object.values(err.error).flat();
+            errorMessage = errors.join(', ');
+          } else if (err.error && typeof err.error === 'string') {
+            errorMessage = err.error;
+          }
+
+          this.toast.error(errorMessage);
+        },
+        complete: () => {
+          this.isSubmitting = false; // ย้ายมาใน complete
+        },
+      });
   }
 
-  public onFileSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.userForm.patchValue({ image: input.files[0] });
+  onFileSelected(event: any) {
+    const file = event.target.files && event.target.files[0];
+
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        // Show error toast
+        return;
+      }
+
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+  removeImage() {
+    this.imagePreview = null;
+    // Clear file input
+    const fileInput = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
     }
   }
 
